@@ -27,6 +27,7 @@ namespace LCFinalProject.Controllers
             return View();
         }
 
+        //TODO#1 Validate that the user isnt trying to sign up with a username already in db
         [HttpPost]
         public IActionResult Index(SignupViewModel signupViewModel)
         {

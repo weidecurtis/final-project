@@ -43,7 +43,7 @@ namespace LCFinalProject.Controllers
             }
             return View();
         }
-
+        //TODO#2 Refactor the Index Post controller to display an error when passwords dont match
         public IActionResult Index1()
         {
             return View();
