@@ -5,27 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LCFinalProject.Models;
+using LCFinalProject.Data;
+using LCFinalProject.ViewModels;
 
 namespace LCFinalProject.Controllers
 {
     public class HomeController : Controller
     {
+        private BeatTheShiftDbContext _context;
+
+        public HomeController(BeatTheShiftDbContext dbContext)
+        {
+            _context = dbContext;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
 
+        public IActionResult History()
+        {
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Projections()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
