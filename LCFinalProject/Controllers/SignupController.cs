@@ -33,11 +33,14 @@ namespace LCFinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                byte[] data = System.Text.Encoding.ASCII.GetBytes(signupViewModel.Password);
+                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+                String hash = System.Text.Encoding.ASCII.GetString(data);
 
                 User newUser = new User
                 {
                     Name = signupViewModel.Name,
-                    Password = signupViewModel.Password
+                    Password = hash
                 };
 
                 _context.Users.Add(newUser);

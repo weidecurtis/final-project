@@ -33,9 +33,15 @@ namespace LCFinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                byte[] data = System.Text.Encoding.ASCII.GetBytes(loginViewModel.Password);
+                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+                String hash = System.Text.Encoding.ASCII.GetString(data);
+
+
                 User passwordValidation = _context.Users.Single(x => x.Name == loginViewModel.Name);
 
-                if (passwordValidation.Password != loginViewModel.Password)
+                if (passwordValidation.Password != hash)
                 {
                     return Redirect("/Login/Index1");
                 }
