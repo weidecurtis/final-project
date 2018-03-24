@@ -1,1 +1,45 @@
-﻿
+﻿@model LCFinalProject.ViewModels.PredictorViewModel
+
+
+<h1>Add Desired Weights to these stats.</h1>
+<form asp-controller="Predictor" asp-action="Index" asp-method="post">
+
+    <div>
+        <label asp-for="BasicStats"></label>
+        <input asp-for="BasicStats" />
+        <span asp-validation-for="BasicStats"></span>
+    </div>
+    <div>
+        <label asp-for="ExitVelocity"></label>
+        <input asp-for="ExitVelocity" />
+        <span asp-validation-for="ExitVelocity"></span>
+    </div>
+    <div>
+        <label asp-for="LaunchAngle"></label>
+        <input asp-for="LaunchAngle" />
+        <span asp-validation-for="LaunchAngle"></span>
+    </div>
+    <div>
+        <label asp-for="PitcherHand"></label>
+        <input asp-for="PitcherHand" />
+        <span asp-validation-for="PitcherHand"></span>
+    </div>
+    <div>
+        <label asp-for="Weather"></label>
+        <input asp-for="Weather" />
+        <span asp-validation-for="Weather"></span>
+    </div>
+    <div>
+        <label asp-for="Stadium"></label>
+        <input asp-for="Stadium" />
+        <span asp-validation-for="Stadium"></span>
+    </div>
+
+    <input type="submit" value="Predict Results!" />
+
+
+
+
+
+
+</form>

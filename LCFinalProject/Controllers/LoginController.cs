@@ -31,6 +31,8 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(LoginViewModel loginViewModel)
         {
+            loginViewModel.ErrorMessage = "";
+
             if (ModelState.IsValid)
             {
 

@@ -14,6 +14,9 @@ namespace LCFinalProject.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        public string ErrorMessage { get; set; }
+
+
 
         public User User { get; set; }
 
