@@ -59,7 +59,7 @@ namespace LCFinalProject.Models.gd2Models
 
         private string teamField1;
 
-        private uint idField;
+        private int idField;
 
         private string posField;
 
@@ -296,7 +296,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public int id
         {
             get
             {
