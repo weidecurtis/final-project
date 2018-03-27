@@ -32,45 +32,51 @@ namespace LCFinalProject.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            /*
-            // This works
+            List<string> playerData = new List<string>();
 
-            Player player;
+            HtmlWeb hw = new HtmlWeb();
+            HtmlDocument doc = hw.Load("https://gd2.mlb.com/components/game/mlb/year_2017/month_07/day_18/gid_2017_07_18_arimlb_cinmlb_1/batters/");
 
-            string path = $"C:/Batter.xml";
-            //string path = "~https://gd2.mlb.com/components/game/mlb/year_2017/month_08/day_14/gid_2017_08_14_atlmlb_colmlb_1/batters/471865.xml";
-
-            XmlSerializer serializer = new XmlSerializer(typeof(Player));
-            StreamReader reader = new StreamReader(path);
-
-            player = (Player)serializer.Deserialize(reader);
-            reader.Close();
-
-            */
-            Player player;
-
-            string path = "https://gd2.mlb.com/components/game/mlb/year_2017/month_04/day_01/gid_2017_04_01_seamlb_colmlb_1/batters/471865.xml";
-            WebClient client = new WebClient();
-
-            string data = Encoding.Default.GetString(client.DownloadData(path));
-
-            Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
-
-            XmlSerializer serializer = new XmlSerializer(typeof(Player));
-            //StreamReader reader = new StreamReader(path);
-
-            player = (Player)serializer.Deserialize(stream);
-            //reader.Close();
-
-            PositionPlayer newPlayer = new PositionPlayer()
+            foreach(HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
             {
-                ID = player.id,
-                FirstName = player.first_name,
-                LastName = player.last_name
-            };
+                HtmlAttribute att = link.Attributes["href"];
+                playerData.Add(att.Value);
+            }
 
-            _context.PositionPlayers.Add(newPlayer);
-            _context.SaveChanges();
+            // This removes the first two links of the page (Parent Directory and '/')
+            playerData.RemoveAt(0);
+            playerData.RemoveAt(0);
+
+            foreach (string singlePlayer in playerData)
+            {
+                string waterfall = singlePlayer;
+                Player player;
+
+                string path = "https://gd2.mlb.com/components/game/mlb/year_2017/month_07/day_18/gid_2017_07_18_arimlb_cinmlb_1/batters/" + singlePlayer;
+                WebClient client = new WebClient();
+
+                string data = Encoding.Default.GetString(client.DownloadData(path));
+
+                Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
+
+                XmlSerializer serializer = new XmlSerializer(typeof(Player));
+                //StreamReader reader = new StreamReader(path);
+
+                player = (Player)serializer.Deserialize(stream);
+                //reader.Close();
+
+                PositionPlayer newPlayer = new PositionPlayer()
+                {
+                    PlayerID = player.id,
+                    FirstName = player.first_name,
+                    LastName = player.last_name
+                };
+
+                _context.PositionPlayers.Add(newPlayer);
+                _context.SaveChanges();
+            }
+
+
 
             return View();
 
@@ -81,22 +87,6 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
-            // This doesn't work
-
-            Player player;
-
-            string path = "https://gd2.mlb.com/components/game/mlb/year_2017/month_08/day_14/gid_2017_08_14_atlmlb_colmlb_1/batters/471865.xml";
-            WebClient client = new WebClient();
-
-            string data = Encoding.Default.GetString(client.DownloadData(path));
-
-            Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
-
-            XmlSerializer serializer = new XmlSerializer(typeof(Player));
-            //StreamReader reader = new StreamReader(path);
-
-            player = (Player)serializer.Deserialize(stream);
-            //reader.Close();
 
             return View();
         }
