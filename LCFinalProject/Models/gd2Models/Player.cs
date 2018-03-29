@@ -5,17 +5,6 @@ using System.Threading.Tasks;
 
 namespace LCFinalProject.Models.gd2Models
 {
-    /*
-    [Serializable()]
-    public class Player
-    {
-        [System.Xml.Serialization.XmlElement("first_name")]
-        public string first_name { get; set; }
-
-        [System.Xml.Serialization.XmlElement("last_name")]
-        public string last_name { get; set; }
-
-    }*/
 
 
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
