@@ -91,6 +91,7 @@ namespace LCFinalProject.Migrations
                     SeasonRun = table.Column<int>(nullable: false),
                     SeasonSb = table.Column<int>(nullable: false),
                     SeasonWalk = table.Column<int>(nullable: false),
+                    TeamName = table.Column<string>(nullable: true),
                     VsLhpAb = table.Column<int>(nullable: false),
                     VsLhpAvg = table.Column<decimal>(nullable: false),
                     VsLhpCs = table.Column<int>(nullable: false),

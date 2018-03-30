@@ -99,13 +99,12 @@ namespace LCFinalProject.Controllers
                     playerData.Add(att.Value);
                 }
 
-                // This removes the first two links of the page (Parent Directory and '/', and that troublesome 607219)
+            // This removes the first two links of the page (Parent Directory and '/', and that troublesome 607219)
 
                 playerData.RemoveAt(0);
                 playerData.RemoveAt(0);
                 playerData.Remove("batters/460075.xml");
-                playerData.Remove("batters//");
-                playerData.Remove("134181.xml");
+                //playerData.Remove("134181.xml");
                 playerData.Remove("425902.xml");
                 playerData.Remove("435063.xml");
                 playerData.Remove("448801.xml");
@@ -154,7 +153,7 @@ namespace LCFinalProject.Controllers
 
 
 
-                        var existingPlayer = _context.PositionPlayers.All(x => x.PlayerID == player.id);
+                        var existingPlayer = _context.PositionPlayers.Any(x => x.PlayerID == player.id);
 
                         if (!existingPlayer)
                         {
@@ -172,7 +171,8 @@ namespace LCFinalProject.Controllers
                                 MonthHr = player.month.hr,
                                 MonthOps = player.month.ops,
                                 MonthSb = player.month.sb,
-                                MonthCs = player.month.cs
+                                MonthCs = player.month.cs,
+                                TeamName = player.team.ToUpper()
                             };
                             _context.PositionPlayers.Add(newPlayer);
                             _context.SaveChanges();

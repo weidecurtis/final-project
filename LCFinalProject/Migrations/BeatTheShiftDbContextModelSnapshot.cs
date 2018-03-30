@@ -149,6 +149,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("SeasonWalk");
 
+                    b.Property<string>("TeamName");
+
                     b.Property<int>("VsLhpAb");
 
                     b.Property<decimal>("VsLhpAvg");

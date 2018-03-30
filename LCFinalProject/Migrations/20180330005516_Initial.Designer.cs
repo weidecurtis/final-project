@@ -11,7 +11,7 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    [Migration("20180329110928_Initial")]
+    [Migration("20180330005516_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -149,6 +149,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("SeasonSb");
 
                     b.Property<int>("SeasonWalk");
+
+                    b.Property<string>("TeamName");
 
                     b.Property<int>("VsLhpAb");
 

@@ -12,6 +12,7 @@ namespace LCFinalProject.Models
         public int PlayerID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string TeamName { get; set; }
 
         //TODO Find Source For Pitches faced.
         public string PitchLoves { get; set; }
