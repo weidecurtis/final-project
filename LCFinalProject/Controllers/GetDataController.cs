@@ -84,15 +84,15 @@ namespace LCFinalProject.Controllers
             List<string> playerData = new List<string>();
 
             //This genereates all data for games played **eventually** yesterday
-            //foreach (Game game in gameUrls)
-            //{
+            foreach (Game game in gameUrls)
+            {
 
 
                 // This Loads data for Players into a doc
 
                 HtmlWeb hw = new HtmlWeb();
-                HtmlDocument doc = hw.Load("https://gd2.mlb.com/components/game/mlb/year_2017/month_07/day_18/gid_2017_07_18_texmlb_balmlb_1/batters/");
-                //HtmlDocument doc = hw.Load("https://gd2.mlb.com" + game.Directory + "/batters");
+                //HtmlDocument doc = hw.Load("https://gd2.mlb.com/components/game/mlb/year_2017/month_07/day_18/gid_2017_07_18_texmlb_balmlb_1/batters/");
+                HtmlDocument doc = hw.Load("https://gd2.mlb.com" + game.Directory + "/batters");
                 foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
                 {
                     HtmlAttribute att = link.Attributes["href"];
@@ -103,24 +103,14 @@ namespace LCFinalProject.Controllers
 
                 playerData.RemoveAt(0);
                 playerData.RemoveAt(0);
-                playerData.Remove("batters/460075.xml");
-                //playerData.Remove("134181.xml");
-                playerData.Remove("425902.xml");
-                playerData.Remove("435063.xml");
-                playerData.Remove("448801.xml");
-                playerData.Remove("448855.xml");
-                playerData.Remove("462101.xml");
-                playerData.Remove("607219.xml");
-                playerData.Remove("batters/400085.xml");
-                playerData.Remove("batters/519237.xml");
-                playerData.Remove("batters/543829.xml");
-                playerData.Remove("batters/571506.xml");
-                playerData.Remove("batters/408314.xml");
-
+                playerData.Remove("batters//");
+                playerData.Remove("/batters/595465.xml");
+                playerData.Remove("batters/595465.xml");
 
 
                 foreach (string singlePlayer in playerData)
                 {
+
 
                     //if (game.Venue == "Oriole Park at Camden Yards")
                     //{
@@ -129,7 +119,7 @@ namespace LCFinalProject.Controllers
                         //Pitcher newPitcher;
 
 
-                        string path = "https://gd2.mlb.com/components/game/mlb/year_2017/month_07/day_18/gid_2017_07_18_texmlb_balmlb_1/batters/" + singlePlayer;
+                        string path = "https://gd2.mlb.com" + game.Directory + "/" + singlePlayer;
                         WebClient client = new WebClient();
                         try
                         {
@@ -182,7 +172,7 @@ namespace LCFinalProject.Controllers
 
 
 
-            //}
+            }
 
             return View();
         }

@@ -60,11 +60,11 @@ namespace LCFinalProject.Models.gd2Models
 
         private string last_nameField;
 
-        private byte jersey_numberField;
+        private int jersey_numberField;
 
         private string heightField;
 
-        private byte weightField;
+        private int weightField;
 
         private string batsField;
 
@@ -369,7 +369,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte jersey_number
+        public int jersey_number
         {
             get
             {
@@ -397,7 +397,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte weight
+        public int weight
         {
             get
             {
@@ -463,21 +463,21 @@ namespace LCFinalProject.Models.gd2Models
 
         private ushort abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -511,7 +511,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -525,7 +525,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -539,7 +539,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -553,7 +553,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -567,7 +567,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -581,7 +581,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -595,7 +595,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -609,7 +609,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -655,11 +655,11 @@ namespace LCFinalProject.Models.gd2Models
 
         private ushort rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
         private ushort rbiField;
 
@@ -751,7 +751,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -765,7 +765,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -779,7 +779,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -831,23 +831,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -881,7 +881,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -895,7 +895,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -909,7 +909,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -923,7 +923,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -937,7 +937,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -951,7 +951,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -965,7 +965,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -979,7 +979,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -993,7 +993,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -1031,23 +1031,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -1081,7 +1081,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -1095,7 +1095,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -1109,7 +1109,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -1123,7 +1123,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -1137,7 +1137,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -1151,7 +1151,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -1165,7 +1165,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -1179,7 +1179,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -1193,7 +1193,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -1229,23 +1229,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -1265,7 +1265,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -1279,7 +1279,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -1293,7 +1293,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -1307,7 +1307,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -1321,7 +1321,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -1335,7 +1335,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -1349,7 +1349,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -1363,7 +1363,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -1377,7 +1377,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -1413,23 +1413,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -1449,7 +1449,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -1463,7 +1463,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -1477,7 +1477,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -1491,7 +1491,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -1505,7 +1505,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -1519,7 +1519,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -1533,7 +1533,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -1547,7 +1547,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -1561,7 +1561,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -1597,23 +1597,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -1633,7 +1633,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -1647,7 +1647,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -1661,7 +1661,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -1675,7 +1675,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -1689,7 +1689,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -1703,7 +1703,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -1717,7 +1717,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -1731,7 +1731,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -1745,7 +1745,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -1781,23 +1781,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -1817,7 +1817,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -1831,7 +1831,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -1845,7 +1845,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -1859,7 +1859,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -1873,7 +1873,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -1887,7 +1887,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -1901,7 +1901,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -1915,7 +1915,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -1929,7 +1929,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -1965,23 +1965,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -2001,7 +2001,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -2015,7 +2015,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -2029,7 +2029,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -2043,7 +2043,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -2057,7 +2057,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -2071,7 +2071,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -2085,7 +2085,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -2099,7 +2099,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -2113,7 +2113,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -2151,21 +2151,21 @@ namespace LCFinalProject.Models.gd2Models
 
         private ushort abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -2199,7 +2199,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -2213,7 +2213,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -2227,7 +2227,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -2241,7 +2241,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -2255,7 +2255,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -2269,7 +2269,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -2283,7 +2283,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -2297,7 +2297,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -2335,23 +2335,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -2385,7 +2385,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -2399,7 +2399,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -2413,7 +2413,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -2427,7 +2427,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -2441,7 +2441,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -2455,7 +2455,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -2469,7 +2469,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -2483,7 +2483,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -2497,7 +2497,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -2535,23 +2535,23 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal avgField;
 
-        private byte abField;
+        private int abField;
 
-        private byte hField;
+        private int hField;
 
-        private byte bbField;
+        private int bbField;
 
-        private byte soField;
+        private int soField;
 
-        private byte rField;
+        private int rField;
 
-        private byte sbField;
+        private int sbField;
 
-        private byte csField;
+        private int csField;
 
-        private byte hrField;
+        private int hrField;
 
-        private byte rbiField;
+        private int rbiField;
 
         private decimal opsField;
 
@@ -2585,7 +2585,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte ab
+        public int ab
         {
             get
             {
@@ -2599,7 +2599,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte h
+        public int h
         {
             get
             {
@@ -2613,7 +2613,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte bb
+        public int bb
         {
             get
             {
@@ -2627,7 +2627,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte so
+        public int so
         {
             get
             {
@@ -2641,7 +2641,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte r
+        public int r
         {
             get
             {
@@ -2655,7 +2655,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sb
+        public int sb
         {
             get
             {
@@ -2669,7 +2669,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte cs
+        public int cs
         {
             get
             {
@@ -2683,7 +2683,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte hr
+        public int hr
         {
             get
             {
@@ -2697,7 +2697,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte rbi
+        public int rbi
         {
             get
             {
@@ -2795,7 +2795,7 @@ namespace LCFinalProject.Models.gd2Models
     public partial class PlayerAB
     {
 
-        private byte inningField;
+        private int inningField;
 
         private string eventField;
 
@@ -2803,7 +2803,7 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte inning
+        public int inning
         {
             get
             {
