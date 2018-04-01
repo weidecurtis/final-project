@@ -16,7 +16,8 @@ namespace LCFinalProject.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Directory = table.Column<string>(nullable: true),
-                    GameDate = table.Column<string>(nullable: true),
+                    GameDate = table.Column<DateTime>(nullable: false),
+                    GameID = table.Column<int>(nullable: false),
                     Venue = table.Column<string>(nullable: true),
                     VenueID = table.Column<int>(nullable: false)
                 },
@@ -26,14 +27,90 @@ namespace LCFinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IndividualGamePitchers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EarnedRuns = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    GameDate = table.Column<DateTime>(nullable: false),
+                    HitsAllowed = table.Column<int>(nullable: false),
+                    IP = table.Column<int>(nullable: false),
+                    LastName = table.Column<string>(nullable: true),
+                    Losses = table.Column<int>(nullable: false),
+                    PlayerID = table.Column<int>(nullable: false),
+                    RunsAllowed = table.Column<int>(nullable: false),
+                    StrikeOuts = table.Column<int>(nullable: false),
+                    Walks = table.Column<int>(nullable: false),
+                    Wins = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IndividualGamePitchers", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IndividualGamePosPlayers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Ab = table.Column<string>(nullable: true),
+                    CaughtStealing = table.Column<string>(nullable: true),
+                    Double = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    GameDate = table.Column<DateTime>(nullable: false),
+                    HomeRun = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    PlayerID = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: true),
+                    RBI = table.Column<string>(nullable: true),
+                    Run = table.Column<string>(nullable: true),
+                    Single = table.Column<string>(nullable: true),
+                    StolenBase = table.Column<string>(nullable: true),
+                    Triple = table.Column<string>(nullable: true),
+                    Walk = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IndividualGamePosPlayers", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pitchers",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AwayEarnedRuns = table.Column<int>(nullable: false),
+                    AwayHitByPitch = table.Column<int>(nullable: false),
+                    AwayHitsAllowed = table.Column<int>(nullable: false),
+                    AwayHomeRunAllowed = table.Column<int>(nullable: false),
+                    AwayIp = table.Column<int>(nullable: false),
+                    AwayRunsAllowed = table.Column<int>(nullable: false),
+                    AwayStrikeOuts = table.Column<int>(nullable: false),
+                    AwayWalks = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
+                    HomeEarnedRuns = table.Column<int>(nullable: false),
+                    HomeHitByPitch = table.Column<int>(nullable: false),
+                    HomeHitsAllowed = table.Column<int>(nullable: false),
+                    HomeHomeRunAllowed = table.Column<int>(nullable: false),
+                    HomeIp = table.Column<int>(nullable: false),
+                    HomeRunsAllowed = table.Column<int>(nullable: false),
+                    HomeStrikeOuts = table.Column<int>(nullable: false),
+                    HomeWalks = table.Column<int>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
-                    PlayerID = table.Column<int>(nullable: false)
+                    PlayerID = table.Column<int>(nullable: false),
+                    SeasonEarnedRuns = table.Column<int>(nullable: false),
+                    SeasonHitByPitch = table.Column<int>(nullable: false),
+                    SeasonHitsAllowed = table.Column<int>(nullable: false),
+                    SeasonHomeRunAllowed = table.Column<int>(nullable: false),
+                    SeasonIp = table.Column<int>(nullable: false),
+                    SeasonRunsAllowed = table.Column<int>(nullable: false),
+                    SeasonStrikeOuts = table.Column<int>(nullable: false),
+                    SeasonWalks = table.Column<int>(nullable: false),
+                    TeamName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,28 +145,20 @@ namespace LCFinalProject.Migrations
                     HomeSb = table.Column<int>(nullable: false),
                     HomeWalk = table.Column<int>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
-                    MonthAb = table.Column<int>(nullable: false),
-                    MonthAvg = table.Column<decimal>(nullable: false),
-                    MonthCs = table.Column<int>(nullable: false),
-                    MonthHit = table.Column<int>(nullable: false),
-                    MonthHr = table.Column<int>(nullable: false),
-                    MonthOps = table.Column<decimal>(nullable: false),
-                    MonthRbi = table.Column<int>(nullable: false),
-                    MonthRun = table.Column<int>(nullable: false),
-                    MonthSb = table.Column<int>(nullable: false),
-                    MonthWalk = table.Column<int>(nullable: false),
-                    PitchHates = table.Column<string>(nullable: true),
-                    PitchLoves = table.Column<string>(nullable: true),
                     PlayerID = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: true),
                     SeasonAb = table.Column<int>(nullable: false),
                     SeasonAvg = table.Column<decimal>(nullable: false),
                     SeasonCs = table.Column<int>(nullable: false),
+                    SeasonDouble = table.Column<int>(nullable: false),
                     SeasonHit = table.Column<int>(nullable: false),
                     SeasonHr = table.Column<int>(nullable: false),
                     SeasonOps = table.Column<decimal>(nullable: false),
                     SeasonRbi = table.Column<int>(nullable: false),
                     SeasonRun = table.Column<int>(nullable: false),
                     SeasonSb = table.Column<int>(nullable: false),
+                    SeasonSingle = table.Column<int>(nullable: false),
+                    SeasonTriple = table.Column<int>(nullable: false),
                     SeasonWalk = table.Column<int>(nullable: false),
                     TeamName = table.Column<string>(nullable: true),
                     VsLhpAb = table.Column<int>(nullable: false),
@@ -195,6 +264,12 @@ namespace LCFinalProject.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Games");
+
+            migrationBuilder.DropTable(
+                name: "IndividualGamePitchers");
+
+            migrationBuilder.DropTable(
+                name: "IndividualGamePosPlayers");
 
             migrationBuilder.DropTable(
                 name: "ProjectedTeams");

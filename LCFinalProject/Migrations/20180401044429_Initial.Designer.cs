@@ -11,7 +11,7 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    [Migration("20180330203251_Initial")]
+    [Migration("20180401044429_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,9 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("Directory");
 
-                    b.Property<string>("GameDate");
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<int>("GameID");
 
                     b.Property<string>("Venue");
 
@@ -39,16 +41,140 @@ namespace LCFinalProject.Migrations
                     b.ToTable("Games");
                 });
 
+            modelBuilder.Entity("LCFinalProject.Models.IndividualGamePitcher", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EarnedRuns");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<int>("HitsAllowed");
+
+                    b.Property<int>("IP");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("Losses");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<int>("RunsAllowed");
+
+                    b.Property<int>("StrikeOuts");
+
+                    b.Property<int>("Walks");
+
+                    b.Property<int>("Wins");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("IndividualGamePitchers");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.IndividualGamePosPlayer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Ab");
+
+                    b.Property<string>("CaughtStealing");
+
+                    b.Property<string>("Double");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<string>("HomeRun");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Position");
+
+                    b.Property<string>("RBI");
+
+                    b.Property<string>("Run");
+
+                    b.Property<string>("Single");
+
+                    b.Property<string>("StolenBase");
+
+                    b.Property<string>("Triple");
+
+                    b.Property<string>("Walk");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("IndividualGamePosPlayers");
+                });
+
             modelBuilder.Entity("LCFinalProject.Models.Pitcher", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AwayEarnedRuns");
+
+                    b.Property<int>("AwayHitByPitch");
+
+                    b.Property<int>("AwayHitsAllowed");
+
+                    b.Property<int>("AwayHomeRunAllowed");
+
+                    b.Property<int>("AwayIp");
+
+                    b.Property<int>("AwayRunsAllowed");
+
+                    b.Property<int>("AwayStrikeOuts");
+
+                    b.Property<int>("AwayWalks");
+
                     b.Property<string>("FirstName");
+
+                    b.Property<int>("HomeEarnedRuns");
+
+                    b.Property<int>("HomeHitByPitch");
+
+                    b.Property<int>("HomeHitsAllowed");
+
+                    b.Property<int>("HomeHomeRunAllowed");
+
+                    b.Property<int>("HomeIp");
+
+                    b.Property<int>("HomeRunsAllowed");
+
+                    b.Property<int>("HomeStrikeOuts");
+
+                    b.Property<int>("HomeWalks");
 
                     b.Property<string>("LastName");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<int>("SeasonEarnedRuns");
+
+                    b.Property<int>("SeasonHitByPitch");
+
+                    b.Property<int>("SeasonHitsAllowed");
+
+                    b.Property<int>("SeasonHomeRunAllowed");
+
+                    b.Property<int>("SeasonIp");
+
+                    b.Property<int>("SeasonRunsAllowed");
+
+                    b.Property<int>("SeasonStrikeOuts");
+
+                    b.Property<int>("SeasonWalks");
+
+                    b.Property<string>("TeamName");
 
                     b.HasKey("ID");
 
@@ -104,37 +230,17 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<int>("MonthAb");
-
-                    b.Property<decimal>("MonthAvg");
-
-                    b.Property<int>("MonthCs");
-
-                    b.Property<int>("MonthHit");
-
-                    b.Property<int>("MonthHr");
-
-                    b.Property<decimal>("MonthOps");
-
-                    b.Property<int>("MonthRbi");
-
-                    b.Property<int>("MonthRun");
-
-                    b.Property<int>("MonthSb");
-
-                    b.Property<int>("MonthWalk");
-
-                    b.Property<string>("PitchHates");
-
-                    b.Property<string>("PitchLoves");
-
                     b.Property<int>("PlayerID");
+
+                    b.Property<string>("Position");
 
                     b.Property<int>("SeasonAb");
 
                     b.Property<decimal>("SeasonAvg");
 
                     b.Property<int>("SeasonCs");
+
+                    b.Property<int>("SeasonDouble");
 
                     b.Property<int>("SeasonHit");
 
@@ -147,6 +253,10 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("SeasonRun");
 
                     b.Property<int>("SeasonSb");
+
+                    b.Property<int>("SeasonSingle");
+
+                    b.Property<int>("SeasonTriple");
 
                     b.Property<int>("SeasonWalk");
 

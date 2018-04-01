@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LCFinalProject.Models.gd2Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,25 +14,14 @@ namespace LCFinalProject.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TeamName { get; set; }
-
-        //TODO Find Source For Pitches faced.
-        public string PitchLoves { get; set; }
-        public string PitchHates { get; set; }
-
-        public int MonthAb { get; set; }
-        public int MonthHit { get; set; }
-        public decimal MonthAvg { get; set; }
-        public int MonthWalk { get; set; }
-        public int MonthRun { get; set; }
-        public int MonthRbi { get; set; }
-        public int MonthHr { get; set; }
-        public decimal MonthOps { get; set; }
-        public int MonthSb { get; set; }
-        public int MonthCs { get; set; }
+        public string Position { get; set; }
 
         public int SeasonAb { get; set; }
         public int SeasonHit { get; set; }
         public decimal SeasonAvg { get; set; }
+        public int SeasonSingle { get; set; }
+        public int SeasonDouble { get; set; }
+        public int SeasonTriple { get; set; }
         public int SeasonWalk { get; set; }
         public int SeasonRun { get; set; }
         public int SeasonRbi { get; set; }
@@ -96,11 +86,6 @@ namespace LCFinalProject.Models
         public decimal VsStarterOps { get; set; }
         public int VsStarterSb { get; set; }
         public int VsStarterCs { get; set; }
-
-
-
-
-
 
 
 

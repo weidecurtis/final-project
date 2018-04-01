@@ -13,7 +13,8 @@ namespace LCFinalProject.Models
         public string Venue { get; set; }
         public int VenueID { get; set; }
         public string Directory { get; set; }
-        public string GameDate { get; set; }
+        public DateTime GameDate { get; set; }
+        public int GameID { get; set; }
 
 
     }
