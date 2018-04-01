@@ -11,16 +11,16 @@ namespace LCFinalProject.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int PlayerID { get; set; }
-        public string Ab { get; set; }
-        public string Single { get; set; }
-        public string Double { get; set; }
-        public string Triple { get; set; }
-        public string HomeRun { get; set; }
-        public string Run { get; set; }
-        public string RBI { get; set; }
-        public string CaughtStealing { get; set; }
-        public string StolenBase { get; set; }
-        public string Walk { get; set; }
+        public int Ab { get; set; }
+        public int Single { get; set; }
+        public int Double { get; set; }
+        public int Triple { get; set; }
+        public int HomeRun { get; set; }
+        public int Run { get; set; }
+        public int RBI { get; set; }
+        public int CaughtStealing { get; set; }
+        public int StolenBase { get; set; }
+        public int Walk { get; set; }
         public DateTime GameDate { get; set; }
         public string Position { get; set; }
     }
