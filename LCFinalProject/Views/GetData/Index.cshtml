@@ -1,5 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model LCFinalProject.ViewModels.GetDataViewModel
+
+<form asp-controller="GetData" asp-action="Index" asp-method="post">
+    <input type="submit" value="Get Season Long Stats" />
+</form>
+<form asp-controller="GetData" asp-action="IndividualGames" asp-method="post">
+    <input type="submit" value="Get Invdividual Game Data" />
+</form>

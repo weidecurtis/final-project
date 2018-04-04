@@ -45,7 +45,7 @@ namespace LCFinalProject.Controllers
 
                 if (passwordValidation.Password != hash)
                 {
-                    return Redirect("/Login/Index1");
+                    return Redirect("/Login");
                 }
                 return Redirect("/Home");
             }

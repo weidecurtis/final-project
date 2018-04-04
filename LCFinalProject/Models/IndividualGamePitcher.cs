@@ -11,7 +11,7 @@ namespace LCFinalProject.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int PlayerID { get; set; }
-        public int IP { get; set; }
+        public decimal IP { get; set; }
         public int StrikeOuts { get; set; }
         public int Walks { get; set; }
         public int EarnedRuns { get; set; }
@@ -20,5 +20,8 @@ namespace LCFinalProject.Models
         public int Wins { get; set; }
         public int Losses { get; set; }
         public DateTime GameDate { get; set; }
+        public int HomeRunsAllowed { get; set; }
+        public int CompleteGame { get; set; }
+        public int CompleteGameShutOut { get; set; }
     }
 }

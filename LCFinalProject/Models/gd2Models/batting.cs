@@ -5,117 +5,96 @@ using System.Threading.Tasks;
 
 namespace LCFinalProject.Models.gd2Models
 {
-    public class PitcherPlayer
-    {
-
-        // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
-        /// <remarks/>
         [System.SerializableAttribute()]
         [System.ComponentModel.DesignerCategoryAttribute("code")]
         [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
         [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-        public partial class pitching
+        public partial class batting
         {
 
-            private decimal ipField;
+            private int abField;
 
-            private byte hField;
+            private int rField;
 
-            private byte erField;
+            private int hField;
 
-            private byte rField;
+            private int hrField;
 
-            private byte bbField;
+            private int rbiField;
 
-            private byte kField;
+            private int sbField;
 
-            private decimal whipField;
+            private decimal avgField;
 
-            private byte svField;
+            private int singleField;
 
-            private byte hraField;
+            private int doubleField;
 
-            private byte npField;
+            private int tripleField;
 
-            private byte sField;
+            private int bbField;
 
-            private byte hbpField;
+            private int csField;
 
-            private byte wField;
+            private int soField;
 
-            private byte lField;
+            private int errField;
 
-            private decimal eraField;
+            private int hbpField;
 
-            private decimal s_ipField;
+            private string last_at_batField;
 
-            private byte s_hField;
+            private int s_abField;
 
-            private byte s_erField;
+            private int s_hrField;
 
-            private byte s_rField;
+            private int s_rbiField;
 
-            private byte s_bbField;
+            private int s_sbField;
 
-            private byte s_kField;
+            private int s_hField;
 
-            private byte s_svField;
+            private int s_rField;
 
-            private byte s_hbpField;
+            private int s_singleField;
 
-            private byte s_hraField;
+            private int s_doubleField;
+
+            private int s_tripleField;
+
+            private int s_bbField;
+
+            private int s_csField;
+
+            private int s_soField;
+
+            private int s_errField;
+
+            private int s_hbpField;
 
             private string game_idField;
 
             private uint game_pkField;
 
-            private byte update_ABField;
+            private int update_ABField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public decimal ip
+            public int ab
             {
                 get
                 {
-                    return this.ipField;
+                    return this.abField;
                 }
                 set
                 {
-                    this.ipField = value;
+                    this.abField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte h
-            {
-                get
-                {
-                    return this.hField;
-                }
-                set
-                {
-                    this.hField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte er
-            {
-                get
-                {
-                    return this.erField;
-                }
-                set
-                {
-                    this.erField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte r
+            public int r
             {
                 get
                 {
@@ -129,7 +108,119 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte bb
+            public int h
+            {
+                get
+                {
+                    return this.hField;
+                }
+                set
+                {
+                    this.hField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int hr
+            {
+                get
+                {
+                    return this.hrField;
+                }
+                set
+                {
+                    this.hrField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int rbi
+            {
+                get
+                {
+                    return this.rbiField;
+                }
+                set
+                {
+                    this.rbiField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int sb
+            {
+                get
+                {
+                    return this.sbField;
+                }
+                set
+                {
+                    this.sbField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public decimal avg
+            {
+                get
+                {
+                    return this.avgField;
+                }
+                set
+                {
+                    this.avgField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int single
+            {
+                get
+                {
+                    return this.singleField;
+                }
+                set
+                {
+                    this.singleField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int @double
+            {
+                get
+                {
+                    return this.doubleField;
+                }
+                set
+                {
+                    this.doubleField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int triple
+            {
+                get
+                {
+                    return this.tripleField;
+                }
+                set
+                {
+                    this.tripleField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int bb
             {
                 get
                 {
@@ -143,91 +234,49 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte k
+            public int cs
             {
                 get
                 {
-                    return this.kField;
+                    return this.csField;
                 }
                 set
                 {
-                    this.kField = value;
+                    this.csField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public decimal whip
+            public int so
             {
                 get
                 {
-                    return this.whipField;
+                    return this.soField;
                 }
                 set
                 {
-                    this.whipField = value;
+                    this.soField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte sv
+            public int err
             {
                 get
                 {
-                    return this.svField;
+                    return this.errField;
                 }
                 set
                 {
-                    this.svField = value;
+                    this.errField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte hra
-            {
-                get
-                {
-                    return this.hraField;
-                }
-                set
-                {
-                    this.hraField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte np
-            {
-                get
-                {
-                    return this.npField;
-                }
-                set
-                {
-                    this.npField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s
-            {
-                get
-                {
-                    return this.sField;
-                }
-                set
-                {
-                    this.sField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte hbp
+            public int hbp
             {
                 get
                 {
@@ -241,63 +290,77 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte w
+            public string last_at_bat
             {
                 get
                 {
-                    return this.wField;
+                    return this.last_at_batField;
                 }
                 set
                 {
-                    this.wField = value;
+                    this.last_at_batField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte l
+            public int s_ab
             {
                 get
                 {
-                    return this.lField;
+                    return this.s_abField;
                 }
                 set
                 {
-                    this.lField = value;
+                    this.s_abField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public decimal era
+            public int s_hr
             {
                 get
                 {
-                    return this.eraField;
+                    return this.s_hrField;
                 }
                 set
                 {
-                    this.eraField = value;
+                    this.s_hrField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public decimal s_ip
+            public int s_rbi
             {
                 get
                 {
-                    return this.s_ipField;
+                    return this.s_rbiField;
                 }
                 set
                 {
-                    this.s_ipField = value;
+                    this.s_rbiField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_h
+            public int s_sb
+            {
+                get
+                {
+                    return this.s_sbField;
+                }
+                set
+                {
+                    this.s_sbField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int s_h
             {
                 get
                 {
@@ -311,21 +374,7 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_er
-            {
-                get
-                {
-                    return this.s_erField;
-                }
-                set
-                {
-                    this.s_erField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_r
+            public int s_r
             {
                 get
                 {
@@ -339,7 +388,49 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_bb
+            public int s_single
+            {
+                get
+                {
+                    return this.s_singleField;
+                }
+                set
+                {
+                    this.s_singleField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int s_double
+            {
+                get
+                {
+                    return this.s_doubleField;
+                }
+                set
+                {
+                    this.s_doubleField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int s_triple
+            {
+                get
+                {
+                    return this.s_tripleField;
+                }
+                set
+                {
+                    this.s_tripleField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int s_bb
             {
                 get
                 {
@@ -353,35 +444,49 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_k
+            public int s_cs
             {
                 get
                 {
-                    return this.s_kField;
+                    return this.s_csField;
                 }
                 set
                 {
-                    this.s_kField = value;
+                    this.s_csField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_sv
+            public int s_so
             {
                 get
                 {
-                    return this.s_svField;
+                    return this.s_soField;
                 }
                 set
                 {
-                    this.s_svField = value;
+                    this.s_soField = value;
                 }
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_hbp
+            public int s_err
+            {
+                get
+                {
+                    return this.s_errField;
+                }
+                set
+                {
+                    this.s_errField = value;
+                }
+            }
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlAttributeAttribute()]
+            public int s_hbp
             {
                 get
                 {
@@ -390,20 +495,6 @@ namespace LCFinalProject.Models.gd2Models
                 set
                 {
                     this.s_hbpField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte s_hra
-            {
-                get
-                {
-                    return this.s_hraField;
-                }
-                set
-                {
-                    this.s_hraField = value;
                 }
             }
 
@@ -437,7 +528,7 @@ namespace LCFinalProject.Models.gd2Models
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte update_AB
+            public int update_AB
             {
                 get
                 {
@@ -451,5 +542,4 @@ namespace LCFinalProject.Models.gd2Models
         }
 
 
-    }
 }

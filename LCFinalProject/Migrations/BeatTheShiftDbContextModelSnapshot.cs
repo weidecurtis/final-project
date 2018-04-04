@@ -45,6 +45,10 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CompleteGame");
+
+                    b.Property<int>("CompleteGameShutOut");
+
                     b.Property<int>("EarnedRuns");
 
                     b.Property<string>("FirstName");
@@ -53,7 +57,9 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("HitsAllowed");
 
-                    b.Property<int>("IP");
+                    b.Property<int>("HomeRunsAllowed");
+
+                    b.Property<decimal>("IP");
 
                     b.Property<string>("LastName");
 
@@ -79,17 +85,17 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Ab");
+                    b.Property<int>("Ab");
 
-                    b.Property<string>("CaughtStealing");
+                    b.Property<int>("CaughtStealing");
 
-                    b.Property<string>("Double");
+                    b.Property<int>("Double");
 
                     b.Property<string>("FirstName");
 
                     b.Property<DateTime>("GameDate");
 
-                    b.Property<string>("HomeRun");
+                    b.Property<int>("HomeRun");
 
                     b.Property<string>("LastName");
 
@@ -97,21 +103,111 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("Position");
 
-                    b.Property<string>("RBI");
+                    b.Property<int>("RBI");
 
-                    b.Property<string>("Run");
+                    b.Property<int>("Run");
 
-                    b.Property<string>("Single");
+                    b.Property<int>("Single");
 
-                    b.Property<string>("StolenBase");
+                    b.Property<int>("StolenBase");
 
-                    b.Property<string>("Triple");
+                    b.Property<int>("Triple");
 
-                    b.Property<string>("Walk");
+                    b.Property<int>("Walk");
 
                     b.HasKey("ID");
 
                     b.ToTable("IndividualGamePosPlayers");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.LastTenGamesPosPlayer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("AvgAtBat");
+
+                    b.Property<decimal>("AvgCaughtStealing");
+
+                    b.Property<decimal>("AvgDouble");
+
+                    b.Property<decimal>("AvgHBP");
+
+                    b.Property<decimal>("AvgHomeRun");
+
+                    b.Property<decimal>("AvgRBI");
+
+                    b.Property<decimal>("AvgResults");
+
+                    b.Property<decimal>("AvgRun");
+
+                    b.Property<decimal>("AvgSingle");
+
+                    b.Property<decimal>("AvgStolenBase");
+
+                    b.Property<decimal>("AvgTriple");
+
+                    b.Property<decimal>("AvgWalk");
+
+                    b.Property<DateTime>("DateEntered");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<int>("GamesPlayed");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Position");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LastTenGamesPosPlayers");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.LastThreeGamesPitcher", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("AvgCompleteGame");
+
+                    b.Property<decimal>("AvgCompleteGameShutOut");
+
+                    b.Property<decimal>("AvgEarnedRun");
+
+                    b.Property<decimal>("AvgHitAllowed");
+
+                    b.Property<decimal>("AvgHomeRunAllowed");
+
+                    b.Property<decimal>("AvgIP");
+
+                    b.Property<decimal>("AvgLoss");
+
+                    b.Property<decimal>("AvgResults");
+
+                    b.Property<decimal>("AvgRunAllowed");
+
+                    b.Property<decimal>("AvgStrikeOut");
+
+                    b.Property<decimal>("AvgWalkAllowed");
+
+                    b.Property<decimal>("AvgWin");
+
+                    b.Property<DateTime>("DateEntered");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<int>("GamesPlayed");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("PlayerID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LastThreeGamesPitchers");
                 });
 
             modelBuilder.Entity("LCFinalProject.Models.Pitcher", b =>
@@ -134,6 +230,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("AwayStrikeOuts");
 
                     b.Property<int>("AwayWalks");
+
+                    b.Property<int>("DkID");
 
                     b.Property<string>("FirstName");
 
@@ -204,6 +302,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("AwaySb");
 
                     b.Property<int>("AwayWalk");
+
+                    b.Property<int>("DkID");
 
                     b.Property<string>("FirstName");
 

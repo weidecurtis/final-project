@@ -13,6 +13,8 @@ namespace LCFinalProject.Data
         public DbSet<IndividualGamePitcher> IndividualGamePitchers { get; set; }
         public DbSet<IndividualGamePosPlayer> IndividualGamePosPlayers { get; set; }
         public DbSet<ProjectedTeam> ProjectedTeams { get; set; }
+        public DbSet<LastTenGamesPosPlayer> LastTenGamesPosPlayers { get; set; }
+        public DbSet<LastThreeGamesPitcher> LastThreeGamesPitchers { get; set; }
 
 
 

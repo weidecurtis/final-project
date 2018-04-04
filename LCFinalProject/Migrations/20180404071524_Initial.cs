@@ -32,11 +32,14 @@ namespace LCFinalProject.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompleteGame = table.Column<int>(nullable: false),
+                    CompleteGameShutOut = table.Column<int>(nullable: false),
                     EarnedRuns = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     GameDate = table.Column<DateTime>(nullable: false),
                     HitsAllowed = table.Column<int>(nullable: false),
-                    IP = table.Column<int>(nullable: false),
+                    HomeRunsAllowed = table.Column<int>(nullable: false),
+                    IP = table.Column<decimal>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
                     Losses = table.Column<int>(nullable: false),
                     PlayerID = table.Column<int>(nullable: false),
@@ -56,25 +59,84 @@ namespace LCFinalProject.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Ab = table.Column<string>(nullable: true),
-                    CaughtStealing = table.Column<string>(nullable: true),
-                    Double = table.Column<string>(nullable: true),
+                    Ab = table.Column<int>(nullable: false),
+                    CaughtStealing = table.Column<int>(nullable: false),
+                    Double = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     GameDate = table.Column<DateTime>(nullable: false),
-                    HomeRun = table.Column<string>(nullable: true),
+                    HomeRun = table.Column<int>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
                     PlayerID = table.Column<int>(nullable: false),
                     Position = table.Column<string>(nullable: true),
-                    RBI = table.Column<string>(nullable: true),
-                    Run = table.Column<string>(nullable: true),
-                    Single = table.Column<string>(nullable: true),
-                    StolenBase = table.Column<string>(nullable: true),
-                    Triple = table.Column<string>(nullable: true),
-                    Walk = table.Column<string>(nullable: true)
+                    RBI = table.Column<int>(nullable: false),
+                    Run = table.Column<int>(nullable: false),
+                    Single = table.Column<int>(nullable: false),
+                    StolenBase = table.Column<int>(nullable: false),
+                    Triple = table.Column<int>(nullable: false),
+                    Walk = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IndividualGamePosPlayers", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LastTenGamesPosPlayers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AvgAtBat = table.Column<decimal>(nullable: false),
+                    AvgCaughtStealing = table.Column<decimal>(nullable: false),
+                    AvgDouble = table.Column<decimal>(nullable: false),
+                    AvgHBP = table.Column<decimal>(nullable: false),
+                    AvgHomeRun = table.Column<decimal>(nullable: false),
+                    AvgRBI = table.Column<decimal>(nullable: false),
+                    AvgResults = table.Column<decimal>(nullable: false),
+                    AvgRun = table.Column<decimal>(nullable: false),
+                    AvgSingle = table.Column<decimal>(nullable: false),
+                    AvgStolenBase = table.Column<decimal>(nullable: false),
+                    AvgTriple = table.Column<decimal>(nullable: false),
+                    AvgWalk = table.Column<decimal>(nullable: false),
+                    DateEntered = table.Column<DateTime>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    GamesPlayed = table.Column<int>(nullable: false),
+                    LastName = table.Column<string>(nullable: true),
+                    PlayerID = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LastTenGamesPosPlayers", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LastThreeGamesPitchers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AvgCompleteGame = table.Column<decimal>(nullable: false),
+                    AvgCompleteGameShutOut = table.Column<decimal>(nullable: false),
+                    AvgEarnedRun = table.Column<decimal>(nullable: false),
+                    AvgHitAllowed = table.Column<decimal>(nullable: false),
+                    AvgHomeRunAllowed = table.Column<decimal>(nullable: false),
+                    AvgIP = table.Column<decimal>(nullable: false),
+                    AvgLoss = table.Column<decimal>(nullable: false),
+                    AvgResults = table.Column<decimal>(nullable: false),
+                    AvgRunAllowed = table.Column<decimal>(nullable: false),
+                    AvgStrikeOut = table.Column<decimal>(nullable: false),
+                    AvgWalkAllowed = table.Column<decimal>(nullable: false),
+                    AvgWin = table.Column<decimal>(nullable: false),
+                    DateEntered = table.Column<DateTime>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    GamesPlayed = table.Column<int>(nullable: false),
+                    LastName = table.Column<string>(nullable: true),
+                    PlayerID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LastThreeGamesPitchers", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,6 +153,7 @@ namespace LCFinalProject.Migrations
                     AwayRunsAllowed = table.Column<int>(nullable: false),
                     AwayStrikeOuts = table.Column<int>(nullable: false),
                     AwayWalks = table.Column<int>(nullable: false),
+                    DkID = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     HomeEarnedRuns = table.Column<int>(nullable: false),
                     HomeHitByPitch = table.Column<int>(nullable: false),
@@ -133,6 +196,7 @@ namespace LCFinalProject.Migrations
                     AwayRun = table.Column<int>(nullable: false),
                     AwaySb = table.Column<int>(nullable: false),
                     AwayWalk = table.Column<int>(nullable: false),
+                    DkID = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     HomeAb = table.Column<int>(nullable: false),
                     HomeAvg = table.Column<decimal>(nullable: false),
@@ -270,6 +334,12 @@ namespace LCFinalProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "IndividualGamePosPlayers");
+
+            migrationBuilder.DropTable(
+                name: "LastTenGamesPosPlayers");
+
+            migrationBuilder.DropTable(
+                name: "LastThreeGamesPitchers");
 
             migrationBuilder.DropTable(
                 name: "ProjectedTeams");
