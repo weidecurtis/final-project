@@ -11,8 +11,8 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    [Migration("20180404071524_Initial")]
-    partial class Initial
+    [Migration("20180405074620_AddedProjectedResults")]
+    partial class AddedProjectedResults
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -216,7 +216,7 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AwayEarnedRuns");
+                    b.Property<decimal>("AwayEarnedRunsAllowed");
 
                     b.Property<int>("AwayHitByPitch");
 
@@ -224,7 +224,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("AwayHomeRunAllowed");
 
-                    b.Property<int>("AwayIp");
+                    b.Property<decimal>("AwayIp");
 
                     b.Property<int>("AwayRunsAllowed");
 
@@ -236,7 +236,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int>("HomeEarnedRuns");
+                    b.Property<decimal>("HomeEarnedRunsAllowed");
 
                     b.Property<int>("HomeHitByPitch");
 
@@ -244,7 +244,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("HomeHomeRunAllowed");
 
-                    b.Property<int>("HomeIp");
+                    b.Property<decimal>("HomeIp");
 
                     b.Property<int>("HomeRunsAllowed");
 
@@ -256,15 +256,13 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
-                    b.Property<int>("SeasonEarnedRuns");
-
-                    b.Property<int>("SeasonHitByPitch");
+                    b.Property<decimal>("SeasonEarnedRunsAllowed");
 
                     b.Property<int>("SeasonHitsAllowed");
 
                     b.Property<int>("SeasonHomeRunAllowed");
 
-                    b.Property<int>("SeasonIp");
+                    b.Property<decimal>("SeasonIp");
 
                     b.Property<int>("SeasonRunsAllowed");
 
@@ -432,15 +430,75 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("PitcherID");
+                    b.Property<string>("CatcherName");
 
-                    b.Property<int>("PositionPlayerID");
+                    b.Property<int>("CatcherPrice");
+
+                    b.Property<decimal>("CatcherProjectedScore");
+
+                    b.Property<string>("FirstBaseName");
+
+                    b.Property<int>("FirstBasePrice");
+
+                    b.Property<decimal>("FirstBaseProjectScore");
+
+                    b.Property<string>("OutfieldOneName");
+
+                    b.Property<int>("OutfieldOnePrice");
+
+                    b.Property<decimal>("OutfieldOneProjectedScore");
+
+                    b.Property<string>("OutfieldThreeName");
+
+                    b.Property<int>("OutfieldThreePrice");
+
+                    b.Property<decimal>("OutfieldThreeProjectedScore");
+
+                    b.Property<string>("OutfieldTwoName");
+
+                    b.Property<int>("OutfieldTwoPrice");
+
+                    b.Property<decimal>("OutfieldTwoProjectedScore");
+
+                    b.Property<string>("PitcherOneName");
+
+                    b.Property<int>("PitcherOnePrice");
+
+                    b.Property<decimal>("PitcherOneProjectedScore");
+
+                    b.Property<string>("PitcherTwoName");
+
+                    b.Property<int>("PitcherTwoPrice");
+
+                    b.Property<decimal>("PitcherTwoProjectedScore");
+
+                    b.Property<string>("Position");
+
+                    b.Property<decimal>("ProjectedResults");
+
+                    b.Property<string>("SecondBaseName");
+
+                    b.Property<int>("SecondBasePrice");
+
+                    b.Property<decimal>("SecondBaseProjectedScore");
+
+                    b.Property<string>("ShortStopName");
+
+                    b.Property<int>("ShortStopPrice");
+
+                    b.Property<decimal>("ShortStopProjectedScore");
+
+                    b.Property<string>("ThirdBaseName");
+
+                    b.Property<int>("ThirdBasePrice");
+
+                    b.Property<decimal>("ThirdBaseProjectedScore");
+
+                    b.Property<decimal>("TotalProjectedScore");
+
+                    b.Property<int>("TotalTeamPrice");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("PitcherID");
-
-                    b.HasIndex("PositionPlayerID");
 
                     b.ToTable("ProjectedTeams");
                 });
@@ -467,19 +525,6 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("LCFinalProject.Models.ProjectedTeam", b =>
-                {
-                    b.HasOne("LCFinalProject.Models.Pitcher", "Pitcher")
-                        .WithMany()
-                        .HasForeignKey("PitcherID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("LCFinalProject.Models.PositionPlayer", "PositionPlayer")
-                        .WithMany()
-                        .HasForeignKey("PositionPlayerID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

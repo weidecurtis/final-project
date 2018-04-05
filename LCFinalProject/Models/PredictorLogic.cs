@@ -38,7 +38,6 @@ namespace LCFinalProject.Models
                 int totalRBI = 0;
                 int totalStolenBase = 0;
                 int totalCaughtStealing = 0;
-                int totalHBP = 0;
 
                 //Need to add HBP to Individual Games
                 foreach (var game in currentPlayerLastTen)
@@ -72,10 +71,15 @@ namespace LCFinalProject.Models
 
                 if (!duplicateLastTen)
                 {
+                    if (player.Position == "LF" || player.Position == "RF" || player.Position == "CF")
+                    {
+                        player.Position = "OF";
+                    }
                     LastTenGamesPosPlayer newPlayer = new LastTenGamesPosPlayer()
                     {
                         FirstName = player.FirstName,
                         LastName = player.LastName,
+                        Position = player.Position,
                         PlayerID = player.PlayerID,
                         AvgAtBat = avgAtBat,
                         AvgSingle = avgSingle,
@@ -163,9 +167,54 @@ namespace LCFinalProject.Models
                         AvgResults = (avgIP * Convert.ToDecimal(2.25)) + (avgEarnedRuns * -2) + (avgHitsAllowed * Convert.ToDecimal(-.6)) + (avgWalksAllowed * Convert.ToDecimal(-.6)) + (avgStrikeOuts * 2) + (avgWins * 4)
 
                     };
+                    _context.LastThreeGamesPitchers.Add(newPitcher);
                 }
             }
 
+        }
+
+        public void GetPrediction()
+        {
+
+            LastThreeGamesPitcher pitcherOne = _context.LastThreeGamesPitchers.OrderByDescending(p => p.AvgResults).First();
+            LastThreeGamesPitcher pitcherTwo = _context.LastThreeGamesPitchers.OrderByDescending(p => p.AvgResults).Skip(1).First();
+            LastTenGamesPosPlayer catcher = _context.LastTenGamesPosPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.AvgResults).First();
+            LastTenGamesPosPlayer firstBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.AvgResults).First();
+            LastTenGamesPosPlayer secondBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.AvgResults).First();
+            LastTenGamesPosPlayer thirdBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.AvgResults).First();
+            LastTenGamesPosPlayer shortStop = _context.LastTenGamesPosPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.AvgResults).First();
+            LastTenGamesPosPlayer outfieldOne = _context.LastTenGamesPosPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AvgResults).First(); ;
+            LastTenGamesPosPlayer outfieldTwo = _context.LastTenGamesPosPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AvgResults).Skip(1).First();
+            LastTenGamesPosPlayer outfieldThree = _context.LastTenGamesPosPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AvgResults).Skip(2).First();
+
+            ProjectedTeam projectedTeam = new ProjectedTeam()
+            {
+                PitcherOneName = pitcherOne.FirstName + pitcherOne.LastName,
+                PitcherTwoName = pitcherTwo.FirstName + pitcherTwo.LastName,
+                CatcherName = catcher.FirstName + " " + catcher.LastName + "--" + catcher.Position,
+                FirstBaseName = firstBase.FirstName + " " + firstBase.LastName + "--" + firstBase.Position,
+                SecondBaseName = secondBase.FirstName + " " + secondBase.LastName + "--" + secondBase.Position,
+                ThirdBaseName = thirdBase.FirstName + thirdBase.LastName + "--" + thirdBase.AvgResults,
+                ShortStopName = shortStop.FirstName + " " + shortStop.LastName + "--" + shortStop.Position,
+                OutfieldOneName = outfieldOne.FirstName + outfieldOne.LastName + "--" + outfieldOne.Position,
+                OutfieldTwoName = outfieldTwo.FirstName + outfieldTwo.LastName + "--" + outfieldTwo.Position,
+                OutfieldThreeName = outfieldThree.FirstName + outfieldThree.LastName + "--" + outfieldThree.Position,
+                OutfieldThreeProjectedScore = outfieldThree.AvgResults,
+                OutfieldTwoProjectedScore = outfieldTwo.AvgResults,
+                OutfieldOneProjectedScore = outfieldOne.AvgResults,
+                ShortStopProjectedScore = shortStop.AvgResults,
+                ThirdBaseProjectedScore = thirdBase.AvgResults,
+                SecondBaseProjectedScore = secondBase.AvgResults,
+                FirstBaseProjectScore = firstBase.AvgResults,
+                CatcherProjectedScore = catcher.AvgResults,
+                PitcherTwoProjectedScore = pitcherTwo.AvgResults,
+                PitcherOneProjectedScore = pitcherOne.AvgResults,
+                TotalProjectedScore = (outfieldThree.AvgResults + outfieldTwo.AvgResults + outfieldThree.AvgResults + outfieldOne.AvgResults + thirdBase.AvgResults + secondBase.AvgResults + shortStop.AvgResults
+                + firstBase.AvgResults + pitcherOne.AvgResults + pitcherTwo.AvgResults)
+            };
+
+            _context.ProjectedTeams.Add(projectedTeam);
+            _context.SaveChanges();
         }
     }
 }

@@ -37,26 +37,26 @@ namespace LCFinalProject.Controllers
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
 
-            DateTime yesterday = DateTime.Today.Date.AddDays(-1);
-
-            //This is the List of Game URLS for that day.
-            var gameLogic = new GameLogic(_context);
-            List<Game> gameUrls = gameLogic.GetGames(yesterday);
-
-            //This loops through each player in each game.
-            var playerLogic = new PlayerLogic(_context);
-            foreach (Game game in gameUrls)
+            for (int i = -6; i < -1; i++)
             {
-                playerLogic.GetData(game);
-            }
-            return Redirect("/GetData/IndividualGames");
-        }
+                DateTime yesterday = DateTime.Today.Date.AddDays(i);
 
-        public IActionResult IndividualGames()
-        {
-            var yesterday = DateTime.Today.Date.AddDays(-1);
-            var playerLogic = new PlayerLogic(_context);
-            playerLogic.LoadYesterdayGames(yesterday);
+                ////This gets the List of Game URLS for that day.
+                var gameLogic = new GameLogic(_context);
+                List<Game> gameUrls = gameLogic.GetGames(yesterday);
+
+                ////This loops through each player in each game.
+                var playerLogic = new PlayerLogic(_context);
+                foreach (Game game in gameUrls)
+                {
+                    playerLogic.GetData(game);
+                }
+                ////This loops through every players individual stats for that day
+                playerLogic.LoadYesterdayGames(yesterday);
+            }
+            
+
+
             return View();
         }
 
@@ -64,10 +64,16 @@ namespace LCFinalProject.Controllers
         {
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
-            foreach (PositionPlayer player in _context.PositionPlayers)
-            {
-                predictorLogic.LastTenGames(player);
-            }
+            //foreach (PositionPlayer player in _context.PositionPlayers)
+            //{
+            //    predictorLogic.LastTenGames(player);
+            //}
+            //foreach (Pitcher pitcher in _context.Pitchers)
+            //{
+            //    predictorLogic.LastThreeGamesPitcher(pitcher);
+            //}
+
+            predictorLogic.GetPrediction();
             _context.SaveChanges();
             return View();
         }

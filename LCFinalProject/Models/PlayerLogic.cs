@@ -78,6 +78,7 @@ namespace LCFinalProject.Models
                                     TeamName = player.team.ToUpper(),
                                     PlayerID = player.id,
                                     Position = player.pos
+                                   
                                 };
                                 _context.PositionPlayers.Add(newPlayer);
 
@@ -100,7 +101,7 @@ namespace LCFinalProject.Models
                             if (existingPlayer)
                             {
                                 updatePlayer = _context.PositionPlayers.Single(p => p.PlayerID == player.id);
-                                
+
                                 updatePlayer.SeasonAb = player.season.ab;
                                 updatePlayer.SeasonAvg = player.season.avg;
                                 updatePlayer.SeasonCs = player.season.cs;
@@ -155,147 +156,135 @@ namespace LCFinalProject.Models
                                     updatePlayer.HomeWalk = player.Team.bb;
                                 }
                                 _context.PositionPlayers.Update(updatePlayer);
-                            } 
+                            }
+                        }
+                    }
+                }
+                _context.SaveChanges();
+            }
+
+
+            HtmlWeb pitcherHw = new HtmlWeb();
+            HtmlDocument pitcherDoc = pitcherHw.Load("https://gd2.mlb.com" + game.Directory + "/pitchers");
+
+            var pitcherHtmlNodes = pitcherDoc.DocumentNode.SelectNodes("//a[@href]");
+            if (pitcherHtmlNodes != null)
+            {
+                foreach (HtmlNode link in pitcherHtmlNodes)
+                {
+                    if (link != null)
+                    {
+                        HtmlAttribute att = link.Attributes["href"];
+                        string path = ("https://gd2.mlb.com" + game.Directory + "/" + att.Value);
+
+                        Player player;
+                        Pitcher updatePitcher;
+                        Pitcher newPitcher;
+
+                        WebClient client = new WebClient();
+                        try
+                        {
+                            string data = Encoding.Default.GetString(client.DownloadData(path));
+                            Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
+                            XmlSerializer serializer = new XmlSerializer(typeof(Player));
+                            player = (Player)serializer.Deserialize(stream);
+                        }
+                        catch (WebException ex)
+                        {
+                            HttpWebResponse webResponse = (HttpWebResponse)ex.Response;
+                            if (webResponse.StatusCode == HttpStatusCode.NotFound)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+
+                        var existingPitcher = _context.Pitchers.Any(p => p.PlayerID == player.id);
+                        
+                        if(!existingPitcher)
+                        {
+
+                            newPitcher = new Pitcher()
+                            {
+                                FirstName = player.first_name,
+                                LastName = player.last_name,
+                                TeamName = player.team.ToUpper(),
+                                PlayerID = player.id
+                            };
+                            _context.Pitchers.Add(newPitcher);
+
+                        }
+                        else
+                        {
+
+                            updatePitcher = _context.Pitchers.Single(p => p.PlayerID == player.id);
+
+                            updatePitcher.SeasonIp = player.season.ip;
+                            updatePitcher.SeasonRunsAllowed = player.season.r;
+                            updatePitcher.SeasonWalks = player.season.bb;
+                            updatePitcher.SeasonHitsAllowed = player.season.h;
+                            updatePitcher.SeasonStrikeOuts = player.season.so;
+                            updatePitcher.SeasonHomeRunAllowed = player.season.hr;
+
+                            if (player.Team.era == "-" || player.Team.era == "-.--")
+                            {
+                                updatePitcher.SeasonEarnedRunsAllowed = Convert.ToDecimal(0.0);
+                            }
+                            else
+                            {
+                                updatePitcher.SeasonEarnedRunsAllowed = Convert.ToDecimal(player.season.era);
+                            }
+
+
+
+
+                            if (player.Team.des == "Away")
+                            {
+                                updatePitcher.AwayIp = player.Team.ip;
+                                updatePitcher.AwayHitsAllowed = player.Team.h;
+                                
+                                updatePitcher.AwayRunsAllowed = player.Team.r;
+                                updatePitcher.AwayWalks = player.Team.bb;
+                                updatePitcher.AwayStrikeOuts = player.Team.so;
+                                updatePitcher.AwayHomeRunAllowed = player.Team.hr;
+                                if (player.Team.era == "-" || player.Team.era == "-.--")
+                                {
+                                    updatePitcher.AwayEarnedRunsAllowed = Convert.ToDecimal(0.0);
+                                }
+                                else
+                                {
+                                    updatePitcher.AwayEarnedRunsAllowed = Convert.ToDecimal(player.Team.era);
+                                }
+
+                            }
+                            else
+                            {
+                                updatePitcher.HomeIp = player.Team.ip;
+                                updatePitcher.HomeHitsAllowed = player.Team.h;
+                                updatePitcher.HomeRunsAllowed = player.Team.r;
+                                updatePitcher.HomeWalks = player.Team.bb;
+                                updatePitcher.HomeStrikeOuts = player.Team.so;
+                                updatePitcher.HomeHomeRunAllowed = player.Team.hr;
+
+                                if (player.Team.era == "-" || player.Team.era == "-.--")
+                                {
+                                    updatePitcher.HomeEarnedRunsAllowed = Convert.ToDecimal(0.0);
+                                }
+                                else
+                                {
+                                    updatePitcher.HomeEarnedRunsAllowed = Convert.ToDecimal(player.Team.era);
+                                }
+                            }
+                            _context.Pitchers.Update(updatePitcher);
+                            
                         }
                     }
                 }
             }
-
-
-            //HtmlWeb pitcherhHw = new HtmlWeb();
-            //HtmlDocument pitcherDoc = hw.Load("https://gd2.mlb.com" + game.Directory + "/pitchers");
-
-            //var pitcherHtmlNodes = doc.DocumentNode.SelectNodes("//a[@href]");
-            //if (pitcherHtmlNodes != null)
-            //{
-            //    foreach (HtmlNode link in pitcherHtmlNodes)
-            //    {
-            //        if (link != null)
-            //        {
-            //            HtmlAttribute att = link.Attributes["href"];
-            //            string path = ("https://gd2.mlb.com" + game.Directory + "/" + att.Value);
-
-            //            PitcherPlayer pitcher;
-            //            Pitcher updatePitcher;
-
-            //            WebClient client = new WebClient();
-            //            try
-            //            {
-            //                string data = Encoding.Default.GetString(client.DownloadData(path));
-            //                Stream stream = new MemoryStream(Encoding.UTF8.GetBytes(data));
-            //                XmlSerializer serializer = new XmlSerializer(typeof(PitcherPlayer));
-            //                pitcher = (PitcherPlayer)serializer.Deserialize(stream);
-            //            }
-            //            catch (WebException ex)
-            //            {
-            //                HttpWebResponse webResponse = (HttpWebResponse)ex.Response;
-            //                if (webResponse.StatusCode == HttpStatusCode.NotFound)
-            //                {
-            //                    continue;
-            //                }
-            //                else
-            //                {
-            //                    throw;
-            //                }
-            //            }
-
-            //            var existingPitcher = _context.Pitchers.Any(p => p.PlayerID == player.id);
-            //            var existingPlayer = _context.PositionPlayers.Any(x => x.PlayerID == player.id);
-
-            //            if (!existingPlayer && !existingPitcher)
-            //            {
-            //                if (player.pos != "P")
-            //                {
-            //                    newPlayer = new PositionPlayer()
-            //                    {
-            //                        FirstName = player.first_name,
-            //                        LastName = player.last_name,
-            //                        TeamName = player.team.ToUpper(),
-            //                        PlayerID = player.id,
-            //                        Position = player.pos
-            //                    };
-            //                    _context.PositionPlayers.Add(newPlayer);
-
-            //                }
-            //                else
-            //                {
-            //                    newPitcher = new Pitcher()
-            //                    {
-            //                        FirstName = player.first_name,
-            //                        LastName = player.last_name,
-            //                        TeamName = player.team.ToUpper(),
-            //                        PlayerID = player.id
-            //                    };
-            //                    _context.Pitchers.Add(newPitcher);
-
-            //                }
-            //            }
-            //            else
-            //            {
-            //                if (existingPlayer)
-            //                {
-            //                    updatePlayer = _context.PositionPlayers.Single(p => p.PlayerID == player.id);
-
-            //                    updatePlayer.SeasonAb = player.season.ab;
-            //                    updatePlayer.SeasonAvg = player.season.avg;
-            //                    updatePlayer.SeasonCs = player.season.cs;
-            //                    updatePlayer.SeasonHr = player.season.hr;
-            //                    updatePlayer.SeasonOps = player.season.ops;
-            //                    updatePlayer.SeasonRbi = player.season.rbi;
-            //                    updatePlayer.SeasonRun = player.season.r;
-            //                    updatePlayer.SeasonSb = player.season.sb;
-            //                    updatePlayer.SeasonWalk = player.season.bb;
-            //                    updatePlayer.VsLhpAb = player.vs_LHP.ab;
-            //                    updatePlayer.VsLhpAvg = player.vs_LHP.avg;
-            //                    updatePlayer.VsLhpCs = player.vs_LHP.cs;
-            //                    updatePlayer.VsLhpHr = player.vs_LHP.hr;
-            //                    updatePlayer.VsLhpOps = player.vs_LHP.ops;
-            //                    updatePlayer.VsLhpRbi = player.vs_LHP.rbi;
-            //                    updatePlayer.VsLhpRun = player.vs_LHP.r;
-            //                    updatePlayer.VsLhpSb = player.vs_LHP.sb;
-            //                    updatePlayer.VsLhpWalk = player.vs_LHP.bb;
-            //                    updatePlayer.VsRhpAb = player.vs_RHP.ab;
-            //                    updatePlayer.VsRhpAvg = player.vs_RHP.avg;
-            //                    updatePlayer.VsRhpCs = player.vs_RHP.cs;
-            //                    updatePlayer.VsRhpHr = player.vs_RHP.hr;
-            //                    updatePlayer.VsRhpOps = player.vs_RHP.ops;
-            //                    updatePlayer.VsRhpRbi = player.vs_RHP.rbi;
-            //                    updatePlayer.VsRhpRun = player.vs_RHP.r;
-            //                    updatePlayer.VsRhpSb = player.vs_RHP.sb;
-            //                    updatePlayer.VsRhpWalk = player.vs_RHP.bb;
-
-
-            //                    if (player.Team.des == "Away")
-            //                    {
-            //                        updatePlayer.AwayAb = player.Team.ab;
-            //                        updatePlayer.AwayAvg = player.Team.avg;
-            //                        updatePlayer.AwayCs = player.Team.cs;
-            //                        updatePlayer.AwayHr = player.Team.hr;
-            //                        updatePlayer.AwayOps = player.Team.ops;
-            //                        updatePlayer.AwayRbi = player.Team.rbi;
-            //                        updatePlayer.AwayRun = player.Team.r;
-            //                        updatePlayer.AwaySb = player.Team.sb;
-            //                        updatePlayer.AwayWalk = player.Team.bb;
-            //                    }
-            //                    else
-            //                    {
-            //                        updatePlayer.HomeAb = player.Team.ab;
-            //                        updatePlayer.HomeAvg = player.Team.avg;
-            //                        updatePlayer.HomeCs = player.Team.cs;
-            //                        updatePlayer.HomeHr = player.Team.hr;
-            //                        updatePlayer.HomeOps = player.Team.ops;
-            //                        updatePlayer.HomeRbi = player.Team.rbi;
-            //                        updatePlayer.HomeRun = player.Team.r;
-            //                        updatePlayer.HomeSb = player.Team.sb;
-            //                        updatePlayer.HomeWalk = player.Team.bb;
-            //                    }
-            //                    _context.PositionPlayers.Update(updatePlayer);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-                _context.SaveChanges();
+            _context.SaveChanges();
         }
 
         // This puts entrys for individual game performances into a table.
@@ -340,6 +329,11 @@ namespace LCFinalProject.Models
                 {
                     if (player.ab != 0)
                     {
+                        if (singlePlayer.Position == "LF" || singlePlayer.Position == "RF" || singlePlayer.Position == "CF")
+                        {
+                            singlePlayer.Position = "OF";
+                        }
+
                         IndividualGamePosPlayer newPlayerEntry = new IndividualGamePosPlayer()
                         {
                             FirstName = singlePlayer.FirstName,
@@ -422,17 +416,12 @@ namespace LCFinalProject.Models
                             CompleteGame = completeGame,
                             CompleteGameShutOut = completeGameShutOut
                         };
-
                         _context.IndividualGamePitchers.Add(newPitcher);
                     }
                 }
             }
-
             _context.SaveChanges();
         }
-
-        
-
     }
 }
 

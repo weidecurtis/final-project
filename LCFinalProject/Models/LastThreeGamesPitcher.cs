@@ -26,6 +26,5 @@ namespace LCFinalProject.Models
         public decimal AvgResults { get; set; }
         public decimal AvgCompleteGame { get; set; }
         public decimal AvgCompleteGameShutOut { get; set; }
-
     }
 }

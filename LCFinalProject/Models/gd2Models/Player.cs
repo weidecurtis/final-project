@@ -11,6 +11,13 @@ namespace LCFinalProject.Models.gd2Models
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class Player
     {
+        private PlayerVs_LHB vs_LHBField;
+
+        private PlayerVs_RHB vs_RHBField;
+
+        private PlayerVs_B vs_BField;
+
+        private PlayerVs_B5 vs_B5Field;
 
         private PlayerSeason seasonField;
 
@@ -67,6 +74,58 @@ namespace LCFinalProject.Models.gd2Models
         private string throwsField;
 
         private string dobField;
+
+        /// <remarks/>
+        public PlayerVs_LHB vs_LHB
+        {
+            get
+            {
+                return this.vs_LHBField;
+            }
+            set
+            {
+                this.vs_LHBField = value;
+            }
+        }
+
+        /// <remarks/>
+        public PlayerVs_RHB vs_RHB
+        {
+            get
+            {
+                return this.vs_RHBField;
+            }
+            set
+            {
+                this.vs_RHBField = value;
+            }
+        }
+
+        /// <remarks/>
+        public PlayerVs_B vs_B
+        {
+            get
+            {
+                return this.vs_BField;
+            }
+            set
+            {
+                this.vs_BField = value;
+            }
+        }
+
+        /// <remarks/>
+        public PlayerVs_B5 vs_B5
+        {
+            get
+            {
+                return this.vs_B5Field;
+            }
+            set
+            {
+                this.vs_B5Field = value;
+            }
+        }
 
         /// <remarks/>
         public PlayerSeason season
@@ -446,6 +505,8 @@ namespace LCFinalProject.Models.gd2Models
                 this.dobField = value;
             }
         }
+
+
     }
 
     /// <remarks/>
@@ -476,6 +537,86 @@ namespace LCFinalProject.Models.gd2Models
         private int rbiField;
 
         private decimal opsField;
+
+        private int wField;
+
+        private int lField;
+
+        private int svField;
+
+        private decimal ipField;
+
+        private string eraField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int w
+        {
+            get
+            {
+                return this.wField;
+            }
+            set
+            {
+                this.wField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int l
+        {
+            get
+            {
+                return this.lField;
+            }
+            set
+            {
+                this.lField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int sv
+        {
+            get
+            {
+                return this.svField;
+            }
+            set
+            {
+                this.svField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -661,6 +802,86 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal opsField;
 
+        private int wField;
+
+        private int lField;
+
+        private int svField;
+
+        private decimal ipField;
+
+        private string eraField;
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int w
+        {
+            get
+            {
+                return this.wField;
+            }
+            set
+            {
+                this.wField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int l
+        {
+            get
+            {
+                return this.lField;
+            }
+            set
+            {
+                this.lField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int sv
+        {
+            get
+            {
+                return this.svField;
+            }
+            set
+            {
+                this.svField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public decimal avg
@@ -822,6 +1043,9 @@ namespace LCFinalProject.Models.gd2Models
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class PlayerMonth
     {
+        private decimal ipField;
+
+        private string eraField;
 
         private string desField;
 
@@ -846,6 +1070,34 @@ namespace LCFinalProject.Models.gd2Models
         private int rbiField;
 
         private decimal opsField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1016,12 +1268,18 @@ namespace LCFinalProject.Models.gd2Models
         }
     }
 
+
+
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class PlayerTeam
     {
+
+        private decimal ipField;
+
+        private string eraField;
 
         private string desField;
 
@@ -1046,6 +1304,35 @@ namespace LCFinalProject.Models.gd2Models
         private int rbiField;
 
         private decimal opsField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1222,6 +1509,10 @@ namespace LCFinalProject.Models.gd2Models
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class PlayerEmpty
     {
+        private decimal ipField;
+
+
+        private string eraField;
 
         private decimal avgField;
 
@@ -1244,6 +1535,36 @@ namespace LCFinalProject.Models.gd2Models
         private int rbiField;
 
         private decimal opsField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
+  
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1429,6 +1750,41 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal opsField;
 
+        private decimal ipField;
+
+        private string eraField;
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public decimal avg
@@ -1613,6 +1969,41 @@ namespace LCFinalProject.Models.gd2Models
 
         private decimal opsField;
 
+        private decimal ipField;
+
+        private string eraField;
+
+
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public decimal avg
@@ -1775,27 +2166,32 @@ namespace LCFinalProject.Models.gd2Models
     public partial class PlayerLoaded
     {
 
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class PlayerVs_LHB
+    {
+
         private decimal avgField;
 
         private int abField;
 
         private int hField;
 
+        private int rbiField;
+
+        private int hrField;
+
         private int bbField;
 
         private int soField;
 
-        private int rField;
+        private decimal ipField;
 
-        private int sbField;
-
-        private int csField;
-
-        private int hrField;
-
-        private int rbiField;
-
-        private decimal opsField;
+        private string eraField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1841,6 +2237,34 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int rbi
+        {
+            get
+            {
+                return this.rbiField;
+            }
+            set
+            {
+                this.rbiField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int hr
+        {
+            get
+            {
+                return this.hrField;
+            }
+            set
+            {
+                this.hrField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public int bb
         {
             get
@@ -1869,57 +2293,97 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int r
+        public decimal ip
         {
             get
             {
-                return this.rField;
+                return this.ipField;
             }
             set
             {
-                this.rField = value;
+                this.ipField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int sb
+        public string era
         {
             get
             {
-                return this.sbField;
+                return this.eraField;
             }
             set
             {
-                this.sbField = value;
+                this.eraField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class PlayerVs_RHB
+    {
+
+        private decimal avgField;
+
+        private int abField;
+
+        private int hField;
+
+        private int rbiField;
+
+        private int hrField;
+
+        private int bbField;
+
+        private int soField;
+
+        private decimal ipField;
+
+        private string eraField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal avg
+        {
+            get
+            {
+                return this.avgField;
+            }
+            set
+            {
+                this.avgField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int cs
+        public int ab
         {
             get
             {
-                return this.csField;
+                return this.abField;
             }
             set
             {
-                this.csField = value;
+                this.abField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int hr
+        public int h
         {
             get
             {
-                return this.hrField;
+                return this.hField;
             }
             set
             {
-                this.hrField = value;
+                this.hField = value;
             }
         }
 
@@ -1939,15 +2403,463 @@ namespace LCFinalProject.Models.gd2Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal ops
+        public int hr
         {
             get
             {
-                return this.opsField;
+                return this.hrField;
             }
             set
             {
-                this.opsField = value;
+                this.hrField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int bb
+        {
+            get
+            {
+                return this.bbField;
+            }
+            set
+            {
+                this.bbField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int so
+        {
+            get
+            {
+                return this.soField;
+            }
+            set
+            {
+                this.soField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class PlayerVs_B
+    {
+
+        private string desField;
+
+        private decimal avgField;
+
+        private int abField;
+
+        private int hField;
+
+        private int rbiField;
+
+        private int hrField;
+
+        private int bbField;
+
+        private int soField;
+
+        private decimal ipField;
+
+        private string eraField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string des
+        {
+            get
+            {
+                return this.desField;
+            }
+            set
+            {
+                this.desField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal avg
+        {
+            get
+            {
+                return this.avgField;
+            }
+            set
+            {
+                this.avgField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int ab
+        {
+            get
+            {
+                return this.abField;
+            }
+            set
+            {
+                this.abField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int h
+        {
+            get
+            {
+                return this.hField;
+            }
+            set
+            {
+                this.hField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int rbi
+        {
+            get
+            {
+                return this.rbiField;
+            }
+            set
+            {
+                this.rbiField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int hr
+        {
+            get
+            {
+                return this.hrField;
+            }
+            set
+            {
+                this.hrField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int bb
+        {
+            get
+            {
+                return this.bbField;
+            }
+            set
+            {
+                this.bbField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int so
+        {
+            get
+            {
+                return this.soField;
+            }
+            set
+            {
+                this.soField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class PlayerVs_B5
+    {
+
+        private string desField;
+
+        private decimal avgField;
+
+        private int abField;
+
+        private int hField;
+
+        private int rbiField;
+
+        private int hrField;
+
+        private int bbField;
+
+        private int soField;
+
+        private decimal ipField;
+
+        private string eraField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string des
+        {
+            get
+            {
+                return this.desField;
+            }
+            set
+            {
+                this.desField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal avg
+        {
+            get
+            {
+                return this.avgField;
+            }
+            set
+            {
+                this.avgField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int ab
+        {
+            get
+            {
+                return this.abField;
+            }
+            set
+            {
+                this.abField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int h
+        {
+            get
+            {
+                return this.hField;
+            }
+            set
+            {
+                this.hField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int rbi
+        {
+            get
+            {
+                return this.rbiField;
+            }
+            set
+            {
+                this.rbiField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int hr
+        {
+            get
+            {
+                return this.hrField;
+            }
+            set
+            {
+                this.hrField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int bb
+        {
+            get
+            {
+                return this.bbField;
+            }
+            set
+            {
+                this.bbField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int so
+        {
+            get
+            {
+                return this.soField;
+            }
+            set
+            {
+                this.soField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ip
+        {
+            get
+            {
+                return this.ipField;
+            }
+            set
+            {
+                this.ipField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string era
+        {
+            get
+            {
+                return this.eraField;
+            }
+            set
+            {
+                this.eraField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class PlayerPitch
+    {
+
+        private string outField;
+
+        private string lovesField;
+
+        private string hatesField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string loves
+        {
+            get
+            {
+                return this.lovesField;
+            }
+            set
+            {
+                this.lovesField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string hates
+        {
+            get
+            {
+                return this.hatesField;
+            }
+            set
+            {
+                this.hatesField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string @out
+        {
+            get
+            {
+                return this.outField;
+            }
+            set
+            {
+                this.outField = value;
             }
         }
     }
@@ -2716,46 +3628,6 @@ namespace LCFinalProject.Models.gd2Models
             set
             {
                 this.opsField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class PlayerPitch
-    {
-
-        private string lovesField;
-
-        private string hatesField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string loves
-        {
-            get
-            {
-                return this.lovesField;
-            }
-            set
-            {
-                this.lovesField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string hates
-        {
-            get
-            {
-                return this.hatesField;
-            }
-            set
-            {
-                this.hatesField = value;
             }
         }
     }
