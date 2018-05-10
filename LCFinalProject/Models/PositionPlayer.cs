@@ -11,7 +11,6 @@ namespace LCFinalProject.Models
 
         public int ID { get; set; }
         public int PlayerID { get; set; }
-        public int DkID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TeamName { get; set; }
@@ -30,6 +29,7 @@ namespace LCFinalProject.Models
         public decimal SeasonOps { get; set; }
         public int SeasonSb { get; set; }
         public int SeasonCs { get; set; }
+        public int SeasonTotalScore { get; set; }
 
         public int AwayAb { get; set; }
         public int AwayHit { get; set; }
@@ -41,6 +41,7 @@ namespace LCFinalProject.Models
         public decimal AwayOps { get; set; }
         public int AwaySb { get; set; }
         public int AwayCs { get; set; }
+        public int AwayTotalScore { get; set; }
 
         public int HomeAb { get; set; }
         public int HomeHit { get; set; }
@@ -52,6 +53,7 @@ namespace LCFinalProject.Models
         public decimal HomeOps { get; set; }
         public int HomeSb { get; set; }
         public int HomeCs { get; set; }
+        public int HomeTotalScore { get; set; }
 
         public int VsLhpAb { get; set; }
         public int VsLhpHit { get; set; }
@@ -63,6 +65,7 @@ namespace LCFinalProject.Models
         public decimal VsLhpOps { get; set; }
         public int VsLhpSb { get; set; }
         public int VsLhpCs { get; set; }
+        public int VsLhpTotalScore { get; set; }
 
         public int VsRhpAb { get; set; }
         public int VsRhpHit { get; set; }
@@ -74,19 +77,8 @@ namespace LCFinalProject.Models
         public decimal VsRhpOps { get; set; }
         public int VsRhpSb { get; set; }
         public int VsRhpCs { get; set; }
+        public int VsRhpTotalScore { get; set; }
 
-
-        //TODO Find Source For Batter Vs ExpectedStarter
-        public int VsStarterAb { get; set; }
-        public int VsStarterHit { get; set; }
-        public decimal VsStarterAvg { get; set; }
-        public int VsStarterWalk { get; set; }
-        public int VsStarterRun { get; set; }
-        public int VsStarterRbi { get; set; }
-        public int VsStarterHr { get; set; }
-        public decimal VsStarterOps { get; set; }
-        public int VsStarterSb { get; set; }
-        public int VsStarterCs { get; set; }
 
 
 

@@ -11,9 +11,10 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180509200212_AddedScoresToSpecificStats")]
+    partial class AddedScoresToSpecificStats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -549,8 +550,6 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("AwayStrikeOuts");
 
-                    b.Property<decimal>("AwayTotalScore");
-
                     b.Property<int>("AwayWalks");
 
                     b.Property<int>("DkID");
@@ -571,8 +570,6 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("HomeStrikeOuts");
 
-                    b.Property<decimal>("HomeTotalScore");
-
                     b.Property<int>("HomeWalks");
 
                     b.Property<string>("LastName");
@@ -591,11 +588,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("SeasonStrikeOuts");
 
-                    b.Property<decimal>("SeasonTotalScore");
-
                     b.Property<int>("SeasonWalks");
-
-                    b.Property<int>("SeasonWins");
 
                     b.Property<string>("TeamName");
 

@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace LCFinalProject.Models
 {
-    public class Result
+    public class RhpOutfielder
     {
         public int ID { get; set; }
+        public int PlayerID { get; set; }
+        public string Name { get; set; }
+        public decimal TotalScore { get; set; }
     }
 }

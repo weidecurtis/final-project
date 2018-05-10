@@ -78,7 +78,6 @@ namespace LCFinalProject.Models
                                     TeamName = player.team.ToUpper(),
                                     PlayerID = player.id,
                                     Position = player.pos
-                                   
                                 };
                                 _context.PositionPlayers.Add(newPlayer);
 
@@ -103,6 +102,7 @@ namespace LCFinalProject.Models
                                 updatePlayer = _context.PositionPlayers.Single(p => p.PlayerID == player.id);
 
                                 updatePlayer.SeasonAb = player.season.ab;
+                                updatePlayer.SeasonHit = player.season.h;
                                 updatePlayer.SeasonAvg = player.season.avg;
                                 updatePlayer.SeasonCs = player.season.cs;
                                 updatePlayer.SeasonHr = player.season.hr;
@@ -111,7 +111,9 @@ namespace LCFinalProject.Models
                                 updatePlayer.SeasonRun = player.season.r;
                                 updatePlayer.SeasonSb = player.season.sb;
                                 updatePlayer.SeasonWalk = player.season.bb;
+                                updatePlayer.SeasonTotalScore = (updatePlayer.SeasonHit * 4) + (updatePlayer.SeasonHr * 10) + (updatePlayer.SeasonRbi * 2) + (updatePlayer.SeasonRun * 2) + (updatePlayer.SeasonWalk * 2) + (updatePlayer.SeasonSb * 5);
                                 updatePlayer.VsLhpAb = player.vs_LHP.ab;
+                                updatePlayer.VsLhpHit = player.vs_LHP.h;
                                 updatePlayer.VsLhpAvg = player.vs_LHP.avg;
                                 updatePlayer.VsLhpCs = player.vs_LHP.cs;
                                 updatePlayer.VsLhpHr = player.vs_LHP.hr;
@@ -120,7 +122,9 @@ namespace LCFinalProject.Models
                                 updatePlayer.VsLhpRun = player.vs_LHP.r;
                                 updatePlayer.VsLhpSb = player.vs_LHP.sb;
                                 updatePlayer.VsLhpWalk = player.vs_LHP.bb;
+                                updatePlayer.VsLhpTotalScore = (updatePlayer.VsLhpHit * 4) + (updatePlayer.VsLhpHr * 10) + (updatePlayer.VsLhpRbi * 2) + (updatePlayer.VsLhpRun * 2) + (updatePlayer.VsLhpWalk * 2) + (updatePlayer.VsLhpSb * 5);
                                 updatePlayer.VsRhpAb = player.vs_RHP.ab;
+                                updatePlayer.VsRhpHit = player.vs_RHP.h;
                                 updatePlayer.VsRhpAvg = player.vs_RHP.avg;
                                 updatePlayer.VsRhpCs = player.vs_RHP.cs;
                                 updatePlayer.VsRhpHr = player.vs_RHP.hr;
@@ -129,11 +133,13 @@ namespace LCFinalProject.Models
                                 updatePlayer.VsRhpRun = player.vs_RHP.r;
                                 updatePlayer.VsRhpSb = player.vs_RHP.sb;
                                 updatePlayer.VsRhpWalk = player.vs_RHP.bb;
+                                updatePlayer.VsRhpTotalScore = (updatePlayer.VsRhpHit * 4) + (updatePlayer.VsRhpHr * 10) + (updatePlayer.VsRhpRbi * 2) + (updatePlayer.VsRhpRun * 2) + (updatePlayer.VsRhpWalk * 2) + (updatePlayer.VsRhpSb * 5);
 
 
                                 if (player.Team.des == "Away")
                                 {
                                     updatePlayer.AwayAb = player.Team.ab;
+                                    updatePlayer.AwayHit = player.Team.h;
                                     updatePlayer.AwayAvg = player.Team.avg;
                                     updatePlayer.AwayCs = player.Team.cs;
                                     updatePlayer.AwayHr = player.Team.hr;
@@ -142,10 +148,12 @@ namespace LCFinalProject.Models
                                     updatePlayer.AwayRun = player.Team.r;
                                     updatePlayer.AwaySb = player.Team.sb;
                                     updatePlayer.AwayWalk = player.Team.bb;
+                                    updatePlayer.AwayTotalScore = (updatePlayer.AwayHit * 4) + (updatePlayer.AwayHr * 10) + (updatePlayer.AwayRbi * 2) + (updatePlayer.AwayRun * 2) + (updatePlayer.AwayWalk * 2) + (updatePlayer.AwaySb * 5);
                                 }
                                 else
                                 {
                                     updatePlayer.HomeAb = player.Team.ab;
+                                    updatePlayer.HomeHit = player.Team.h;
                                     updatePlayer.HomeAvg = player.Team.avg;
                                     updatePlayer.HomeCs = player.Team.cs;
                                     updatePlayer.HomeHr = player.Team.hr;
@@ -154,6 +162,7 @@ namespace LCFinalProject.Models
                                     updatePlayer.HomeRun = player.Team.r;
                                     updatePlayer.HomeSb = player.Team.sb;
                                     updatePlayer.HomeWalk = player.Team.bb;
+                                    updatePlayer.HomeTotalScore = (updatePlayer.HomeHit * 4) + (updatePlayer.HomeHr * 10) + (updatePlayer.HomeRbi * 2) + (updatePlayer.HomeRun * 2) + (updatePlayer.HomeWalk * 2) + (updatePlayer.HomeSb * 5);
                                 }
                                 _context.PositionPlayers.Update(updatePlayer);
                             }
@@ -228,6 +237,10 @@ namespace LCFinalProject.Models
                             updatePitcher.SeasonHitsAllowed = player.season.h;
                             updatePitcher.SeasonStrikeOuts = player.season.so;
                             updatePitcher.SeasonHomeRunAllowed = player.season.hr;
+                            updatePitcher.SeasonWins = player.season.w;
+                            updatePitcher.SeasonTotalScore = (player.season.ip * Convert.ToDecimal(2.25)) + (player.season.r * Convert.ToDecimal(-2)) + 
+                                (player.season.bb * Convert.ToDecimal(-.6)) + (player.season.h * Convert.ToDecimal(-.6)) +(player.season.so * Convert.ToDecimal(2)) + 
+                                (player.season.w * Convert.ToDecimal(4));
 
                             if (player.Team.era == "-" || player.Team.era == "-.--")
                             {
@@ -237,10 +250,6 @@ namespace LCFinalProject.Models
                             {
                                 updatePitcher.SeasonEarnedRunsAllowed = Convert.ToDecimal(player.season.era);
                             }
-
-
-
-
                             if (player.Team.des == "Away")
                             {
                                 updatePitcher.AwayIp = player.Team.ip;
@@ -250,6 +259,7 @@ namespace LCFinalProject.Models
                                 updatePitcher.AwayWalks = player.Team.bb;
                                 updatePitcher.AwayStrikeOuts = player.Team.so;
                                 updatePitcher.AwayHomeRunAllowed = player.Team.hr;
+                                updatePitcher.AwayTotalScore = (player.Team.ip * Convert.ToDecimal(2.25)) + (player.Team.r * Convert.ToDecimal(-2)) + (player.Team.bb * Convert.ToDecimal(-.6)) + (player.season.h * Convert.ToDecimal(-.6)) + (player.Team.so * Convert.ToDecimal(2));
                                 if (player.Team.era == "-" || player.Team.era == "-.--")
                                 {
                                     updatePitcher.AwayEarnedRunsAllowed = Convert.ToDecimal(0.0);
@@ -258,7 +268,6 @@ namespace LCFinalProject.Models
                                 {
                                     updatePitcher.AwayEarnedRunsAllowed = Convert.ToDecimal(player.Team.era);
                                 }
-
                             }
                             else
                             {
@@ -268,6 +277,7 @@ namespace LCFinalProject.Models
                                 updatePitcher.HomeWalks = player.Team.bb;
                                 updatePitcher.HomeStrikeOuts = player.Team.so;
                                 updatePitcher.HomeHomeRunAllowed = player.Team.hr;
+                                updatePitcher.HomeTotalScore = (player.Team.ip * Convert.ToDecimal(2.25)) + (player.Team.r * Convert.ToDecimal(-2)) + (player.Team.bb * Convert.ToDecimal(-.6)) + (player.season.h * Convert.ToDecimal(-.6)) + (player.Team.so * Convert.ToDecimal(2));
 
                                 if (player.Team.era == "-" || player.Team.era == "-.--")
                                 {

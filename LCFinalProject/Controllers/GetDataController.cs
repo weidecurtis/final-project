@@ -36,10 +36,9 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
-
-            for (int i = -6; i < -1; i++)
-            {
-                DateTime yesterday = DateTime.Today.Date.AddDays(i);
+            //for (int i = -41; i < 0; i++)
+            //{
+                DateTime yesterday = DateTime.Today.Date.AddDays(-1);
 
                 ////This gets the List of Game URLS for that day.
                 var gameLogic = new GameLogic(_context);
@@ -53,9 +52,7 @@ namespace LCFinalProject.Controllers
                 }
                 ////This loops through every players individual stats for that day
                 playerLogic.LoadYesterdayGames(yesterday);
-            }
-            
-
+            //}
 
             return View();
         }
@@ -64,16 +61,20 @@ namespace LCFinalProject.Controllers
         {
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
-            //foreach (PositionPlayer player in _context.PositionPlayers)
-            //{
-            //    predictorLogic.LastTenGames(player);
-            //}
-            //foreach (Pitcher pitcher in _context.Pitchers)
-            //{
-            //    predictorLogic.LastThreeGamesPitcher(pitcher);
-            //}
+            foreach (PositionPlayer player in _context.PositionPlayers)
+            {
+                predictorLogic.LastTenGames(player);
+            }
+            foreach (Pitcher pitcher in _context.Pitchers)
+            {
+                predictorLogic.LastThreeGamesPitcher(pitcher);
+            }
 
-            predictorLogic.GetPrediction();
+            _context.SaveChanges();
+
+            predictorLogic.ClearPreviousDay();
+            predictorLogic.UpdatePlayers();
+
             _context.SaveChanges();
             return View();
         }

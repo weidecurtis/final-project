@@ -14,13 +14,15 @@ namespace LCFinalProject.Models
         public string LastName { get; set; }
         public string TeamName { get; set; }
 
-        public decimal SeasonIp { get; set; }//
-        public int SeasonHitsAllowed { get; set; }//
+        public decimal SeasonIp { get; set; }
+        public int SeasonHitsAllowed { get; set; }
         public decimal SeasonEarnedRunsAllowed { get; set; } 
-        public int SeasonRunsAllowed { get; set; }//
-        public int SeasonWalks { get; set; }//
+        public int SeasonRunsAllowed { get; set; }
+        public int SeasonWalks { get; set; }
         public int SeasonStrikeOuts { get; set; }
         public int SeasonHomeRunAllowed { get; set; }
+        public decimal SeasonTotalScore { get; set; }
+        public int SeasonWins { get; set; }
 
         public decimal HomeIp { get; set; }
         public int HomeHitsAllowed { get; set; }
@@ -30,6 +32,7 @@ namespace LCFinalProject.Models
         public int HomeStrikeOuts { get; set; }
         public int HomeHitByPitch { get; set; }
         public int HomeHomeRunAllowed { get; set; }
+        public decimal HomeTotalScore { get; set; }
 
         public decimal AwayIp { get; set; }
         public int AwayHitsAllowed { get; set; }
@@ -39,5 +42,6 @@ namespace LCFinalProject.Models
         public int AwayStrikeOuts { get; set; }
         public int AwayHitByPitch { get; set; }
         public int AwayHomeRunAllowed { get; set; }
+        public decimal AwayTotalScore { get; set; }
     }
 }

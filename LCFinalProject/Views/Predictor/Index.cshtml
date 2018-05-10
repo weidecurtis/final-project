@@ -1,45 +1,680 @@
 ﻿@model LCFinalProject.ViewModels.PredictorViewModel
 
 
-<h1>Add Desired Weights to these stats.</h1>
-<form asp-controller="Predictor" asp-action="Index" asp-method="post">
-
-    <div>
-        <label asp-for="BasicStats"></label>
-        <input asp-for="BasicStats" />
-        <span asp-validation-for="BasicStats"></span>
+<h1> Catchers </h1>
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Last 10 Games Average</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Score</th>
+                </tr>
+            </thead>
+            @foreach (var catcher in Model.Catchers)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@catcher.Name</td>
+                    <td style="text-align:center">@catcher.ProjectedScore</td>
+                </tr>
+            }
+        </table>
     </div>
-    <div>
-        <label asp-for="ExitVelocity"></label>
-        <input asp-for="ExitVelocity" />
-        <span asp-validation-for="ExitVelocity"></span>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Away Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Score</th>
+                </tr>
+            </thead>
+            @foreach (var catcher in Model.AwayCatchers)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@catcher.Name</td>
+                    <td style="text-align:center">@catcher.TotalScore</td>
+                </tr>
+
+            }
+        </table>
     </div>
-    <div>
-        <label asp-for="LaunchAngle"></label>
-        <input asp-for="LaunchAngle" />
-        <span asp-validation-for="LaunchAngle"></span>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center" width="75%">Home Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Score</th>
+                </tr>
+            </thead>
+            @foreach (var catcher in Model.HomeCatchers)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@catcher.Name</td>
+                    <td style="text-align:center">@catcher.TotalScore</td>
+                </tr>
+            }
+        </table>
     </div>
-    <div>
-        <label asp-for="PitcherHand"></label>
-        <input asp-for="PitcherHand" />
-        <span asp-validation-for="PitcherHand"></span>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Right Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Score</th>
+                </tr>
+            </thead>
+            @foreach (var catcher in Model.RhpCatchers)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@catcher.Name</td>
+                    <td style="text-align:center">@catcher.TotalScore</td>
+                </tr>
+            }
+        </table>
     </div>
-    <div>
-        <label asp-for="Weather"></label>
-        <input asp-for="Weather" />
-        <span asp-validation-for="Weather"></span>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Left Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Score</th>
+                </tr>
+            </thead>
+            @foreach (var catcher in Model.LhpCatchers)
+            {
+                <tr>
+                    <td style="text-align:center" width="70%">@catcher.Name</td>
+                    <td style="text-align:center">@catcher.TotalScore</td>
+                </tr>
+            }
+        </table>
     </div>
-    <div>
-        <label asp-for="Stadium"></label>
-        <input asp-for="Stadium" />
-        <span asp-validation-for="Stadium"></span>
+</div>
+
+
+<h1> First Basemen </h1>
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Last 10 Games Average</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var firstBaseman in Model.FirstBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@firstBaseman.Name</td>
+                    <td style="text-align:center">@firstBaseman.ProjectedScore</td>
+                </tr>
+            }
+        </table>
     </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Away Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var firstBaseman in Model.AwayFirstBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@firstBaseman.Name</td>
+                    <td style="text-align:center">@firstBaseman.TotalScore</td>
+                </tr>
 
-    <input type="submit" value="Predict Results!" />
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Home Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var firstBaseman in Model.HomeFirstBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@firstBaseman.Name</td>
+                    <td style="text-align:center">@firstBaseman.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Right Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var firstBaseman in Model.RhpFirstBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@firstBaseman.Name</td>
+                    <td style="text-align:center">@firstBaseman.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Left Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var firstBaseman in Model.LhpFirstBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@firstBaseman.Name</td>
+                    <td style="text-align:center">@firstBaseman.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</div>
+
+
+<h1> Second Basemen </h1>
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Last 10 Games Average</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var secondBaseman in Model.SecondBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@secondBaseman.Name</td>
+                    <td style="text-align:center">@secondBaseman.ProjectedScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Away Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var secondBaseman in Model.AwaySecondBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@secondBaseman.Name</td>
+                    <td style="text-align:center">@secondBaseman.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Home Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var secondBaseman in Model.HomeSecondBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@secondBaseman.Name</td>
+                    <td style="text-align:center">@secondBaseman.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Right Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var secondBaseman in Model.RhpSecondBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@secondBaseman.Name</td>
+                    <td style="text-align:center">@secondBaseman.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Left Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var secondBaseman in Model.LhpSecondBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@secondBaseman.Name</td>
+                    <td style="text-align:center">@secondBaseman.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+<h1> Third Basemen </h1>
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Last 10 Games Average</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var thirdBaseman in Model.ThirdBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@thirdBaseman.Name</td>
+                    <td style="text-align:center">@thirdBaseman.ProjectedScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Away Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" width="75%">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var thirdBaseman in Model.AwayThirdBasemen)
+            {
+                <tr>
+                    <td style="text-align:center" width="75%">@thirdBaseman.Name</td>
+                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Home Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var thirdBaseman in Model.HomeThirdBasemen)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@thirdBaseman.Name</td>
+                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Right Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var thirdBaseman in Model.RhpThirdBasemen)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@thirdBaseman.Name</td>
+                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Left Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var thirdBaseman in Model.LhpThirdBasemen)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@thirdBaseman.Name</td>
+                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+<h1> Shortstops </h1>
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Last 10 Games Average</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var shortstop in Model.ShortStops)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@shortstop.Name</td>
+                    <td style="text-align:center">@shortstop.ProjectedScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Away Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var shortstop in Model.AwayShortStops)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@shortstop.Name</td>
+                    <td style="text-align:center">@shortstop.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Home Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var shortstop in Model.HomeShortStops)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@shortstop.Name</td>
+                    <td style="text-align:center">@shortstop.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Right Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var shortstop in Model.RhpShortStops)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@shortstop.Name</td>
+                    <td style="text-align:center">@shortstop.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Left Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var shortstop in Model.LhpShortStops)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@shortstop.Name</td>
+                    <td style="text-align:center">@shortstop.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+
+<h1> Outfielders </h1>
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Last 10 Games Average</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var outfielder in Model.Outfielders)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@outfielder.Name</td>
+                    <td style="text-align:center">@outfielder.ProjectedScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Away Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var outfielder in Model.AwayOutfielders)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@outfielder.Name</td>
+                    <td style="text-align:center">@outfielder.TotalScore</td>
+                </tr>
+
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Home Stats</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var outfielder in Model.HomeOutfielders)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@outfielder.Name</td>
+                    <td style="text-align:center">@outfielder.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Right Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var outfielder in Model.RhpOutfielders)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@outfielder.Name</td>
+                    <td style="text-align:center">@outfielder.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="table-responsive col-lg-2">
+        <table class="table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align:center">Versus Left Handers</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Total Score</th>
+                </tr>
+            </thead>
+            @foreach (var outfielder in Model.LhpOutfielders)
+            {
+                <tr>
+                    <td style="text-align:center"  width="75%">@outfielder.Name</td>
+                    <td style="text-align:center">@outfielder.TotalScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 
 
 
 
 
 
-</form>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="table-responsive col-lg-2">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Last 3 Game Averages</th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Average Scores</th>
+                </tr>
+            </thead>
+            @foreach (var pitcher in Model.Pitchers)
+            {
+                <tr>
+                    <td style="text-align:center">@pitcher.Name</td>
+                    <td style="text-align:center">@pitcher.ProjectedScore</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
