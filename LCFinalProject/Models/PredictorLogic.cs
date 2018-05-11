@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using MoreLinq;
 
 namespace LCFinalProject.Models
 {
@@ -347,43 +348,43 @@ namespace LCFinalProject.Models
         //This gathers all data for players (home/away splits .. vs lhp and rhp)
         public void UpdatePlayers()
         {
-            var pitcher = _context.LastThreeGamesPitchers.OrderByDescending(p => p.AvgResults).Take(20);
-            var catcher = _context.LastTenGamesPosPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.AvgResults).Take(5);
-            var firstBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.AvgResults).Take(5);
-            var secondBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.AvgResults).Take(5);
-            var thirdBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.AvgResults).Take(5);
-            var shortstop = _context.LastTenGamesPosPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.AvgResults).Take(5);
-            var outfield = _context.LastTenGamesPosPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AvgResults).Take(10);
+            var pitcher = _context.LastThreeGamesPitchers.OrderByDescending(p => p.AvgResults).Take(20).DistinctBy(p => p.PlayerID);
+            var catcher = _context.LastTenGamesPosPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.AvgResults).Take(5).DistinctBy(p => p.PlayerID);
+            var firstBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.AvgResults).Take(5).DistinctBy(p => p.PlayerID);
+            var secondBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.AvgResults).Take(5).DistinctBy(p => p.PlayerID);
+            var thirdBase = _context.LastTenGamesPosPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.AvgResults).Take(5).DistinctBy(p => p.PlayerID);
+            var shortstop = _context.LastTenGamesPosPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.AvgResults).Take(5).DistinctBy(p => p.PlayerID);
+            var outfield = _context.LastTenGamesPosPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AvgResults).Take(15).DistinctBy(p => p.PlayerID);
 
             var awayPitchers = _context.Pitchers.OrderByDescending(p => p.AwayTotalScore).Take(20);
-            var awayCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.AwayTotalScore).Take(5);
-            var awayFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.AwayTotalScore).Take(5);
-            var awaySecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.AwayTotalScore).Take(5);
-            var awayThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.AwayTotalScore).Take(5);
-            var awayShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.AwayTotalScore).Take(5);
-            var awayOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AwayTotalScore).Take(10);
+            var awayCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.AwayTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var awayFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.AwayTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var awaySecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.AwayTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var awayThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.AwayTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var awayShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.AwayTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var awayOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AwayTotalScore).Take(10).DistinctBy(p => p.PlayerID);
 
-            var homePitchers = _context.Pitchers.OrderByDescending(p => p.HomeTotalScore).Take(20);
-            var homeCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.HomeTotalScore).Take(5);
-            var homeFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.HomeTotalScore).Take(5);
-            var homeSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.HomeTotalScore).Take(5);
-            var homeThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.HomeTotalScore).Take(5);
-            var homeShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.HomeTotalScore).Take(5);
-            var homeOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.HomeTotalScore).Take(10);
+            var homePitchers = _context.Pitchers.OrderByDescending(p => p.HomeTotalScore).Take(20).DistinctBy(p => p.PlayerID);
+            var homeCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.HomeTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var homeFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.HomeTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var homeSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.HomeTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var homeThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.HomeTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var homeShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.HomeTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var homeOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.HomeTotalScore).Take(15).DistinctBy(p => p.PlayerID);
 
-            var lhpCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.VsLhpTotalScore).Take(5);
-            var lhpFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.VsLhpTotalScore).Take(5);
-            var lhpSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.VsLhpTotalScore).Take(5);
-            var lhpThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.VsLhpTotalScore).Take(5);
-            var lhpShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.VsLhpTotalScore).Take(5);
-            var lhpOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.VsLhpTotalScore).Take(10);
+            var lhpCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.VsLhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var lhpFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.VsLhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var lhpSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.VsLhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var lhpThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.VsLhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var lhpShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.VsLhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var lhpOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.VsLhpTotalScore).Take(15).DistinctBy(p => p.PlayerID);
 
-            var rhpCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.VsRhpTotalScore).Take(5);
-            var rhpFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.VsRhpTotalScore).Take(5);
-            var rhpSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.VsRhpTotalScore).Take(5);
-            var rhpThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.VsRhpTotalScore).Take(5);
-            var rhpShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.VsRhpTotalScore).Take(5);
-            var rhpOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.VsRhpTotalScore).Take(10);
+            var rhpCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.VsRhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var rhpFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.VsRhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var rhpSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.VsRhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var rhpThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.VsRhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var rhpShortstops = _context.PositionPlayers.Where(p => p.Position == "SS").OrderByDescending(p => p.VsRhpTotalScore).Take(5).DistinctBy(p => p.PlayerID);
+            var rhpOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.VsRhpTotalScore).Take(15).DistinctBy(p => p.PlayerID);
 
 
             foreach (var newPitcher in pitcher)
