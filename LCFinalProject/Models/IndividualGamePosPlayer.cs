@@ -23,5 +23,8 @@ namespace LCFinalProject.Models
         public int Walk { get; set; }
         public DateTime GameDate { get; set; }
         public string Position { get; set; }
+        public string Team { get; set; }
+        public decimal TotalScore { get; set; }
+        public int StrikeOut { get; set; }
     }
 }

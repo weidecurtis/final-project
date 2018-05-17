@@ -29,6 +29,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -44,6 +48,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -61,6 +69,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -76,6 +88,8 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -93,6 +107,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -109,6 +127,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -124,6 +146,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -161,6 +187,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -177,6 +207,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -192,6 +226,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -225,6 +263,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -241,6 +283,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -256,6 +302,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -335,6 +385,12 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("StolenBase");
 
+                    b.Property<int>("StrikeOut");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
                     b.Property<int>("Triple");
 
                     b.Property<int>("Walk");
@@ -342,6 +398,24 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("IndividualGamePosPlayers");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.LastFiveGamesTeam", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("HomeRunTotal");
+
+                    b.Property<int>("RunTotal");
+
+                    b.Property<int>("StrikeOutTotal");
+
+                    b.Property<string>("TeamName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LastFiveGamesTeams");
                 });
 
             modelBuilder.Entity("LCFinalProject.Models.LastTenGamesPosPlayer", b =>
@@ -384,6 +458,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("PlayerID");
 
                     b.Property<string>("Position");
+
+                    b.Property<string>("Team");
 
                     b.HasKey("ID");
 
@@ -443,6 +519,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -458,6 +538,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -475,6 +559,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -490,6 +578,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -507,6 +599,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -522,6 +618,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -751,6 +851,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("ProjectedScore");
 
+                    b.Property<string>("Team");
+
                     b.HasKey("ID");
 
                     b.ToTable("ProjectedCatchers");
@@ -766,6 +868,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("PlayerID");
 
                     b.Property<decimal>("ProjectedScore");
+
+                    b.Property<string>("Team");
 
                     b.HasKey("ID");
 
@@ -783,6 +887,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("ProjectedScore");
 
+                    b.Property<string>("Team");
+
                     b.HasKey("ID");
 
                     b.ToTable("ProjectedOutfielders");
@@ -798,6 +904,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("PlayerID");
 
                     b.Property<decimal>("ProjectedScore");
+
+                    b.Property<string>("Team");
 
                     b.HasKey("ID");
 
@@ -815,6 +923,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("ProjectedScore");
 
+                    b.Property<string>("Team");
+
                     b.HasKey("ID");
 
                     b.ToTable("ProjectedSecondBasemen");
@@ -830,6 +940,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("PlayerID");
 
                     b.Property<decimal>("ProjectedScore");
+
+                    b.Property<string>("Team");
 
                     b.HasKey("ID");
 
@@ -847,6 +959,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("ProjectedScore");
 
+                    b.Property<string>("Team");
+
                     b.HasKey("ID");
 
                     b.ToTable("ProjectedThirdBasemen");
@@ -860,6 +974,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -877,6 +995,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -892,6 +1014,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -909,6 +1035,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -925,6 +1055,10 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("PlayerID");
 
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
+
                     b.Property<decimal>("TotalScore");
 
                     b.HasKey("ID");
@@ -940,6 +1074,10 @@ namespace LCFinalProject.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<decimal>("PointPerAtBat");
+
+                    b.Property<string>("Team");
 
                     b.Property<decimal>("TotalScore");
 
@@ -960,6 +1098,114 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdayCatchers", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("YesterdayCatchers");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdayFirstBase", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("YesterdayFirstBasemen");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdayOutfielder", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("YesterdayOutfielders");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdaySecondBase", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("YesterdaySecondBasemen");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdayShortstop", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("YesterdayShortstops");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdayThirdBase", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Team");
+
+                    b.Property<decimal>("TotalScore");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("YesterdayThirdBasemen");
                 });
 #pragma warning restore 612, 618
         }

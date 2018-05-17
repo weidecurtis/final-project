@@ -46,6 +46,14 @@ namespace LCFinalProject.Data
         public DbSet<RhpThirdBaseman> RhpThirdBasemen { get; set; }
         public DbSet<RhpShortstop> RhpShortstops { get; set; }
         public DbSet<RhpOutfielder> RhpOutfielders { get; set; }
+        public DbSet<YesterdayCatchers> YesterdayCatchers { get; set; }
+        public DbSet<YesterdayFirstBase> YesterdayFirstBasemen { get; set; }
+        public DbSet<YesterdaySecondBase> YesterdaySecondBasemen { get; set; }
+        public DbSet<YesterdayThirdBase> YesterdayThirdBasemen { get; set; }
+        public DbSet<YesterdayShortstop> YesterdayShortstops { get; set; }
+        public DbSet<YesterdayOutfielder> YesterdayOutfielders { get; set; }
+        public DbSet<LastFiveGamesTeam> LastFiveGamesTeams { get; set; }
+
 
         public BeatTheShiftDbContext(DbContextOptions<BeatTheShiftDbContext> options) : base(options) { }
     }

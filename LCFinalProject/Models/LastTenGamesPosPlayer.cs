@@ -14,6 +14,7 @@ namespace LCFinalProject.Models
         public string Position { get; set; }
         public DateTime DateEntered { get; set; }
         public int GamesPlayed { get; set; }
+        public string Team { get; set; }
 
         public decimal AvgAtBat { get; set; }
         public decimal AvgSingle { get; set; }

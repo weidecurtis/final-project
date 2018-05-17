@@ -11,5 +11,6 @@ namespace LCFinalProject.Models
         public int PlayerID { get; set; }
         public string Name { get; set; }
         public decimal TotalScore { get; set; }
+        public string Team { get; set; }
     }
 }

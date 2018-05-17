@@ -242,7 +242,7 @@ namespace LCFinalProject.Models
                                 (player.season.bb * Convert.ToDecimal(-.6)) + (player.season.h * Convert.ToDecimal(-.6)) +(player.season.so * Convert.ToDecimal(2)) + 
                                 (player.season.w * Convert.ToDecimal(4));
 
-                            if (player.Team.era == "-" || player.Team.era == "-.--")
+                            if (player.season.era == "-" || player.season.era == "-.--")
                             {
                                 updatePitcher.SeasonEarnedRunsAllowed = Convert.ToDecimal(0.0);
                             }
@@ -333,9 +333,9 @@ namespace LCFinalProject.Models
                         throw;
                     }
                 }
-                var duplicateEntry = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == singlePlayer.PlayerID).Select(gd => gd.GameDate == date);
+                var duplicateEntry = _context.IndividualGamePosPlayers.Any(p => p.PlayerID == singlePlayer.PlayerID && p.GameDate == date);
 
-                if (duplicateEntry != null)
+                if (!duplicateEntry)
                 {
                     if (player.ab != 0)
                     {
@@ -359,9 +359,14 @@ namespace LCFinalProject.Models
                             Run = player.r,
                             CaughtStealing = player.cs,
                             StolenBase = player.sb,
-                            Position = singlePlayer.Position
+                            Position = singlePlayer.Position,
+                            Walk = player.bb,
+                            Team = singlePlayer.TeamName,
+                            StrikeOut = player.so,
+                            TotalScore = (player.single * 3) + (player.@double * 5) + (player.triple * 7) + (player.hr * 10) + (player.rbi * 2 ) + (player.r * 2) + (player.sb * 5) + (player.bb * 2)
                         };
                         _context.IndividualGamePosPlayers.Add(newPlayerEntry);
+
                     }
                 }
             }

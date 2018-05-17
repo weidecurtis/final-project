@@ -47,6 +47,18 @@ namespace LCFinalProject.ViewModels
         public IList<RhpThirdBaseman> RhpThirdBasemen { get; set; }
         public IList<RhpOutfielder> RhpOutfielders { get; set; }
 
+        public IList<YesterdayCatchers> YesterdayCatchers { get; set; }
+        public IList<YesterdayFirstBase> YesterdayFirstBasemen { get; set; }
+        public IList<YesterdaySecondBase> YesterdaySecondBasemen { get; set; }
+        public IList<YesterdayThirdBase> YesterdayThirdBasemen { get; set; }
+        public IList<YesterdayShortstop> YesterdayShortstops { get; set; }
+        public IList<YesterdayOutfielder> YesterdayOutfielders { get; set; }
+
+        public IList<LastThreeGamesPitcher> PitcherStrikeoutTrends { get; set; }
+        public IList<LastThreeGamesPitcher> PitcherHRTrends { get; set; }
+
+        public IList<LastFiveGamesTeam> TeamStrikeOuts { get; set; }
+
 
     }
 }

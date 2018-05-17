@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using LCFinalProject.Models;
 using LCFinalProject.Data;
 using LCFinalProject.ViewModels;
+using MoreLinq;
 
 namespace LCFinalProject.Controllers
 {
@@ -59,6 +60,18 @@ namespace LCFinalProject.Controllers
             List<LhpShortstop> lhpShortstops = _context.LhpShortstops.OrderByDescending(p => p.TotalScore).ToList();
             List<LhpOutfielder> lhpOutfielders = _context.LhpOutfielders.OrderByDescending(p => p.TotalScore).ToList();
 
+            List<YesterdayCatchers> yesterdayCatchers = _context.YesterdayCatchers.OrderByDescending(p => p.TotalScore).ToList();
+            List<YesterdayFirstBase> yesterdayFirstBasemen = _context.YesterdayFirstBasemen.OrderByDescending(p => p.TotalScore).ToList();
+            List<YesterdaySecondBase> yesterdaySecondBasemen = _context.YesterdaySecondBasemen.OrderByDescending(p => p.TotalScore).ToList();
+            List<YesterdayThirdBase> yesterdayThirdBasemen = _context.YesterdayThirdBasemen.OrderByDescending(p => p.TotalScore).ToList();
+            List<YesterdayShortstop> yesterdayShortstops = _context.YesterdayShortstops.OrderByDescending(p => p.TotalScore).ToList();
+            List<YesterdayOutfielder> yesterdayOutfielders = _context.YesterdayOutfielders.OrderByDescending(p => p.TotalScore).ToList();
+
+            List<LastThreeGamesPitcher> pitcherStrikeOuts = _context.LastThreeGamesPitchers.OrderByDescending(p => p.AvgStrikeOut).Take(50).DistinctBy(p => p.PlayerID).ToList();
+            List<LastThreeGamesPitcher> pitcherHomeRuns = _context.LastThreeGamesPitchers.OrderByDescending(p => p.AvgHomeRunAllowed).Take(50).DistinctBy(p => p.PlayerID).ToList();
+
+            var teamStrikeOuts = _context.LastFiveGamesTeams.OrderByDescending(t => t.StrikeOutTotal).ToList();
+
 
             PredictorViewModel predictorViewModel = new PredictorViewModel
             {
@@ -94,7 +107,18 @@ namespace LCFinalProject.Controllers
                 RhpSecondBasemen = rhpSecondBasemen,
                 RhpThirdBasemen = rhpThirdBasemen,
                 RhpShortStops = rhpShortstops,
-                RhpOutfielders = rhpOutfielders
+                RhpOutfielders = rhpOutfielders, 
+                YesterdayCatchers = yesterdayCatchers,
+                YesterdayFirstBasemen = yesterdayFirstBasemen,
+                YesterdaySecondBasemen = yesterdaySecondBasemen,
+                YesterdayShortstops = yesterdayShortstops,
+                YesterdayOutfielders = yesterdayOutfielders,
+                YesterdayThirdBasemen = yesterdayThirdBasemen,
+                PitcherStrikeoutTrends = pitcherStrikeOuts,
+                PitcherHRTrends = pitcherHomeRuns,
+                TeamStrikeOuts = teamStrikeOuts
+                
+
             };
 
             return View(predictorViewModel);
