@@ -53,7 +53,7 @@ namespace LCFinalProject.Controllers
             playerLogic.LoadYesterdayGames(yesterday);
             
             _context.SaveChanges();
-            return View();
+            return Redirect("GetData/Test");
         }
 
         public IActionResult Test()

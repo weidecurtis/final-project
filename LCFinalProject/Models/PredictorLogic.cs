@@ -148,11 +148,136 @@ namespace LCFinalProject.Models
                 }
 
             }
+
+            foreach (var player in _context.Pitchers)
+            {
+                if (player.TeamName == "ANA")
+                {
+                    player.TeamName = "Angels";
+                }
+                if (player.TeamName == "ARI")
+                {
+                    player.TeamName = "Diamondbacks";
+                }
+                if (player.TeamName == "ATL")
+                {
+                    player.TeamName = "Braves";
+                }
+                if (player.TeamName == "BAL")
+                {
+                    player.TeamName = "Orioles";
+                }
+                if (player.TeamName == "BOS")
+                {
+                    player.TeamName = "Red Sox";
+                }
+                if (player.TeamName == "CHA")
+                {
+                    player.TeamName = "White Sox";
+                }
+                if (player.TeamName == "CHN")
+                {
+                    player.TeamName = "Cubs";
+                }
+                if (player.TeamName == "CIN")
+                {
+                    player.TeamName = "Reds";
+                }
+                if (player.TeamName == "CLE")
+                {
+                    player.TeamName = "Indians";
+                }
+                if (player.TeamName == "COL")
+                {
+                    player.TeamName = "Rockies";
+                }
+                if (player.TeamName == "DET")
+                {
+                    player.TeamName = "Tigers";
+                }
+                if (player.TeamName == "HOU")
+                {
+                    player.TeamName = "Astros";
+                }
+                if (player.TeamName == "KCA")
+                {
+                    player.TeamName = "Royals";
+                }
+                if (player.TeamName == "LAN")
+                {
+                    player.TeamName = "Dodgers";
+                }
+                if (player.TeamName == "MIA")
+                {
+                    player.TeamName = "Marlins";
+                }
+                if (player.TeamName == "MIL")
+                {
+                    player.TeamName = "Brewers";
+                }
+                if (player.TeamName == "MIN")
+                {
+                    player.TeamName = "Twins";
+                }
+                if (player.TeamName == "NYA")
+                {
+                    player.TeamName = "Yankees";
+                }
+                if (player.TeamName == "NYN")
+                {
+                    player.TeamName = "Mets";
+                }
+                if (player.TeamName == "OAK")
+                {
+                    player.TeamName = "Athetlics";
+                }
+                if (player.TeamName == "PHI")
+                {
+                    player.TeamName = "Phillies";
+                }
+                if (player.TeamName == "PIT")
+                {
+                    player.TeamName = "Pirates";
+                }
+                if (player.TeamName == "SDN")
+                {
+                    player.TeamName = "Padres";
+                }
+                if (player.TeamName == "SEA")
+                {
+                    player.TeamName = "Mariners";
+                }
+                if (player.TeamName == "SFN")
+                {
+                    player.TeamName = "Giants";
+                }
+                if (player.TeamName == "SLN")
+                {
+                    player.TeamName = "Cardinals";
+                }
+                if (player.TeamName == "TBA")
+                {
+                    player.TeamName = "Rays";
+                }
+                if (player.TeamName == "TEX")
+                {
+                    player.TeamName = "Rangers";
+                }
+                if (player.TeamName == "TOR")
+                {
+                    player.TeamName = "Blue Jays";
+                }
+                if (player.TeamName == "WAS")
+                {
+                    player.TeamName = "Nationals";
+                }
+
+            }
         }
         //This takes the last 10 games for position players and averages out their performance.
         public void LastTenGames(PositionPlayer player)
         {
-            var currentPlayerLastTen = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID).OrderByDescending(gd => gd.GameDate).Take(10);
+            var currentPlayerLastTen = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID).OrderByDescending(gd => gd.GameDate).Take(5);
 
             if (currentPlayerLastTen.Count() > 0)
             {
@@ -342,6 +467,10 @@ namespace LCFinalProject.Models
         //This clears the previous days "standings" for players
         public void ClearPreviousDay()
         {
+            foreach (var pitcher in _context.LastThreeGamesPitchers)
+            {
+                _context.LastThreeGamesPitchers.Remove(pitcher);
+            }
 
             foreach (var player in _context.LastTenGamesPosPlayers)
             {
@@ -568,7 +697,7 @@ namespace LCFinalProject.Models
             var awayOutfielders = _context.PositionPlayers.Where(p => p.Position == "OF").OrderByDescending(p => p.AwayTotalScore).Take(25).DistinctBy(p => p.PlayerID);
 
             var homePitchers = _context.Pitchers.OrderByDescending(p => p.HomeTotalScore).Take(20).DistinctBy(p => p.PlayerID);
-            var homeCatchers = _context.PositionPlayers.Where(p => p.Position == "C").OrderByDescending(p => p.HomeTotalScore).Take(15).DistinctBy(p => p.PlayerID);
+            var homeCatchers = _context.PositionPlayers.Where(p => p.Position == "C") .OrderByDescending(p => p.HomeTotalScore).Take(15).DistinctBy(p => p.PlayerID);
             var homeFirstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").OrderByDescending(p => p.HomeTotalScore).Take(15).DistinctBy(p => p.PlayerID);
             var homeSecondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").OrderByDescending(p => p.HomeTotalScore).Take(15).DistinctBy(p => p.PlayerID);
             var homeThirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").OrderByDescending(p => p.HomeTotalScore).Take(15).DistinctBy(p => p.PlayerID);
