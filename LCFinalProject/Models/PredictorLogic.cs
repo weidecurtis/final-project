@@ -676,6 +676,24 @@ namespace LCFinalProject.Models
             _context.SaveChanges();
         }
 
+
+        public void UpdateYesterdayGames()
+        {
+            foreach (var player in _context.YesterdayCatchers)
+            {
+                var posPlayer = _context.PositionPlayers.Single(p => p.PlayerID == player.PlayerID);
+
+                posPlayer.YesterdayTotalScore = player.TotalScore;
+
+            };
+
+            foreach (var player in _context.LastTenGamesPosPlayers)
+            {
+                var posPlayer = _context.PositionPlayers.Single(p => p.PlayerID == player.PlayerID);
+
+                posPlayer.LastFiveTotalScore = player.AvgResults;
+            }
+        }
         //This gathers all data for players (home/away splits .. vs lhp and rhp)
         public void UpdatePlayers()
         {
@@ -725,7 +743,18 @@ namespace LCFinalProject.Models
             var yesterdayShortstops = _context.IndividualGamePosPlayers.Where(p => p.Position == "SS" && p.GameDate == DateTime.Today.Date.AddDays(-1)).OrderByDescending(p => p.TotalScore).Take(10).DistinctBy(p => p.PlayerID).ToList();
             var yesterdayOutfielders = _context.IndividualGamePosPlayers.Where(p => p.Position == "OF" && p.GameDate == DateTime.Today.Date.AddDays(-1)).OrderByDescending(p => p.TotalScore).Take(20).DistinctBy(p => p.PlayerID).ToList();
 
+            foreach (var player in _context.PositionPlayers)
+            {
+                if (player.AwayAb != 0 && player.HomeAb != 0 && player.VsLhpTotalScore != 0 && player.VsRhpTotalScore != 0)
+                {
+                    player.AwayScorePerAB = player.AwayTotalScore / player.AwayAb;
+                    player.HomeScorePerAB = player.HomeTotalScore / player.HomeAb;
+                    player.VsLhpScorePerAB = player.VsLhpTotalScore / player.VsLhpAb;
+                    player.VsRhpScorePerAB = player.VsRhpTotalScore / player.VsRhpAb;
+                }
+                _context.PositionPlayers.Update(player);
 
+            }
 
 
 

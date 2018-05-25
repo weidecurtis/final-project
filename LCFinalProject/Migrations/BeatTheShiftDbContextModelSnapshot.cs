@@ -727,6 +727,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("AwaySb");
 
+                    b.Property<decimal>("AwayScorePerAB");
+
                     b.Property<int>("AwayTotalScore");
 
                     b.Property<int>("AwayWalk");
@@ -751,9 +753,13 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("HomeSb");
 
+                    b.Property<decimal>("HomeScorePerAB");
+
                     b.Property<int>("HomeTotalScore");
 
                     b.Property<int>("HomeWalk");
+
+                    b.Property<decimal>("LastFiveTotalScore");
 
                     b.Property<string>("LastName");
 
@@ -809,6 +815,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("VsLhpSb");
 
+                    b.Property<decimal>("VsLhpScorePerAB");
+
                     b.Property<int>("VsLhpTotalScore");
 
                     b.Property<int>("VsLhpWalk");
@@ -831,9 +839,13 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("VsRhpSb");
 
+                    b.Property<decimal>("VsRhpScorePerAB");
+
                     b.Property<int>("VsRhpTotalScore");
 
                     b.Property<int>("VsRhpWalk");
+
+                    b.Property<decimal>("YesterdayTotalScore");
 
                     b.HasKey("ID");
 

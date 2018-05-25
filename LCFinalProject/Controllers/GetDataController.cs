@@ -74,10 +74,11 @@ namespace LCFinalProject.Controllers
 
             _context.SaveChanges();
 
-
+            predictorLogic.UpdateYesterdayGames();
             predictorLogic.UpdatePlayers();
             predictorLogic.UpdateTeamNames();
             predictorLogic.TeamStats();
+            predictorLogic.UpdateYesterdayGames();
 
             _context.SaveChanges();
             return View();

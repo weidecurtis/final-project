@@ -32,7 +32,6 @@ namespace LCFinalProject.Controllers
         public IActionResult Index()
         {
             List<ProjectedPitcher> pitchers = _context.ProjectedPitchers.OrderByDescending(p => p.ProjectedScore).ToList();
-            List<ProjectedCatcher> catchers = _context.ProjectedCatchers.OrderByDescending(p => p.ProjectedScore).ToList();
             List<ProjectedFirstBaseman> firstBasemen = _context.ProjectedFirstBasemen.OrderByDescending(p => p.ProjectedScore).ToList();
             List<ProjectedSecondBaseman> secondBasemen = _context.ProjectedSecondBasemen.OrderByDescending(p => p.ProjectedScore).ToList();
             List<ProjectedShortstop> shortstops = _context.ProjectedShortstops.OrderByDescending(p => p.ProjectedScore).ToList();
@@ -72,13 +71,12 @@ namespace LCFinalProject.Controllers
 
             PredictorViewModel predictorViewModel = new PredictorViewModel
             {
-                Pitchers = pitchers,
-                Catchers = catchers,
-                FirstBasemen = firstBasemen,
-                SecondBasemen = secondBasemen,
-                ThirdBasemen = thirdBasemen,
-                ShortStops = shortstops,
-                Outfielders = outfielders,
+                //Pitchers = pitchers,
+                //FirstBasemen = firstBasemen,
+                //SecondBasemen = secondBasemen,
+                //ThirdBasemen = thirdBasemen,
+                //ShortStops = shortstops,
+                //Outfielders = outfielders,
                 AwayPitchers = awayPitchers,
                 AwayCatchers = awayCatchers,
                 AwayFirstBasemen = awayFirstBasemen,

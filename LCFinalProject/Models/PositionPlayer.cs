@@ -79,6 +79,13 @@ namespace LCFinalProject.Models
         public int VsRhpCs { get; set; }
         public int VsRhpTotalScore { get; set; }
 
+        public decimal YesterdayTotalScore { get; set; }
+        public decimal LastFiveTotalScore { get; set; }
+        public decimal AwayScorePerAB { get; set; }
+        public decimal HomeScorePerAB { get; set; }
+        public decimal VsLhpScorePerAB { get; set; }
+        public decimal VsRhpScorePerAB { get; set; }
+
 
 
 

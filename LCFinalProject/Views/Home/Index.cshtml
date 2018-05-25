@@ -1,7 +1,15 @@
 ﻿
 @model LCFinalProject.ViewModels.PredictorViewModel
 
-
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+<link href="~/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="~/styles/kendo.rtl.min.css" rel="stylesheet" />
+<link href="~/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+<link href="~/styles/kendo.default.min.css" rel="stylesheet" />
+<script src="~/js/js/kendo.all.min.js"></script>
+<script src="~/js/js/jszip.min.js"></script>
+<script src="~/js/js/jquery.min.js"></script>
 <section class="portfolio" id="pitchers">
     <div>
         <h1 class="text-uppercase mb-0" style="text-align:center">Pitchers</h1>
@@ -127,148 +135,13 @@
 
 
 <section class="bg-primary text-white" id="catchers">
-    <div style="margin:2%">
-        <h1 class="text-uppercase mb-0" style="text-align:center">Catchers</h1>
-        <hr class="star-light">
-        <div class="row">
-            <div class="table-responsive col-lg-2">
-                <table class="table-bordered table-responsive">
-                    <thead>
-                        <tr>
-                            <th colspan="2" style="text-align:center">Yesterday Top Performers</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center">Name</th>
-                            <th style="text-align:center">Score</th>
-                        </tr>
-                    </thead>
-                    @foreach (var catcher in Model.YesterdayCatchers)
-                    {
-                        <tr>
-                            <td style="text-align:center">@catcher.Name</td>
-                            <td style="text-align:center">@catcher.TotalScore</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-2">
-                <table class="table-bordered table-responsive">
-                    <thead>
-                        <tr>
-                            <th colspan="3" style="text-align:center">Last 10 Games Average</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center">Name</th>
-                            <th style="text-align:center">Score</th>
-                            <th style="text-align:center">Team</th>
-                        </tr>
-                    </thead>
-                    @foreach (var catcher in Model.Catchers)
-                    {
-                        <tr>
-                            <td style="text-align:center">@catcher.Name</td>
-                            <td style="text-align:center">@catcher.ProjectedScore</td>
-                            <td style="text-align:center">@catcher.Team</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-2">
-                <table class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th colspan="4" style="text-align:center">Away Stats</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center">Name</th>
-                            <th style="text-align:center">Score</th>
-                            <th style="text-align:center">PPA</th>
-                            <th style="text-align:center">Team</th>
-                        </tr>
-                    </thead>
-                    @foreach (var catcher in Model.AwayCatchers)
-                    {
-                        <tr>
-                            <td style="text-align:center">@catcher.Name</td>
-                            <td style="text-align:center">@catcher.TotalScore</td>
-                            <td style="text-align:center">@catcher.PointPerAtBat</td>
-                            <td style="text-align:center">@catcher.Team</td>
-                        </tr>
+    <h1 class="text-uppercase mb-0" style="text-align:center">Catchers</h1>
+    <hr class="star-light">
+    <div class="container-fluid">
 
-                    }
-                </table>
-            </div>
-            <div class="col-lg-2">
-                <table class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th colspan="4" style="text-align:center">Home Stats</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center" height="10%">Name</th>
-                            <th style="text-align:center">Score</th>
-                            <th style="text-align:center">PPA</th>
-                            <th style="text-align:center">Team</th>
-                        </tr>
-                    </thead>
-                    @foreach (var catcher in Model.HomeCatchers)
-                    {
-                        <tr>
-                            <td style="text-align:center">@catcher.Name</td>
-                            <td style="text-align:center">@catcher.TotalScore</td>
-                            <td style="text-align:center">@catcher.PointPerAtBat</td>
-                            <td style="text-align:center">@catcher.Team</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-2">
-                <table class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th colspan="4" style="text-align:center">Versus Right Handers</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center">Name</th>
-                            <th style="text-align:center">Score</th>
-                            <th style="text-align:center">PPA</th>
-                            <th style="text-align:center">Team</th>
-                        </tr>
-                    </thead>
-                    @foreach (var catcher in Model.RhpCatchers)
-                    {
-                        <tr>
-                            <td style="text-align:center">@catcher.Name</td>
-                            <td style="text-align:center">@catcher.TotalScore</td>
-                            <td style="text-align:center">@catcher.PointPerAtBat</td>
-                            <td style="text-align:center">@catcher.Team</td>
-                        </tr>
-                    }
-                </table>
-            </div>
-            <div class="col-lg-2">
-                <table class="table-bordered">
-                    <thead>
-                        <tr>
-                            <th colspan="4" style="text-align:center">Versus Left Handers</th>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center">Name</th>
-                            <th style="text-align:center">Score</th>
-                            <th style="text-align:center">PPA</th>
-                            <th style="text-align:center">Team</th>
-                        </tr>
-                    </thead>
-                    @foreach (var catcher in Model.LhpCatchers)
-                    {
-                        <tr>
-                            <td style="text-align:center" width="50%">@catcher.Name</td>
-                            <td style="text-align:center">@catcher.TotalScore</td>
-                            <td style="text-align:center">@catcher.PointPerAtBat</td>
-                            <td style="text-align:center">@catcher.Team</td>
-                        </tr>
-                    }
-                </table>
+        <div class="row">
+            <div class="col-xs-18 col-md-12">
+                <div id="catchers" style="height:550px;"></div>
             </div>
         </div>
     </div>
@@ -297,26 +170,7 @@
                 }
             </table>
         </div>
-        <div class="table-responsive col-lg-2">
-            <table class="table-bordered table-responsive">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="text-align:center">Last 10 Games Average</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center">Name</th>
-                        <th style="text-align:center">Total Score</th>
-                    </tr>
-                </thead>
-                @foreach (var firstBaseman in Model.FirstBasemen)
-                {
-                    <tr>
-                        <td style="text-align:center" width="50%">@firstBaseman.Name</td>
-                        <td style="text-align:center">@firstBaseman.ProjectedScore</td>
-                    </tr>
-                }
-            </table>
-        </div>
+
         <div class="table-responsive col-lg-2">
             <table class="table-bordered">
                 <thead>
@@ -330,12 +184,12 @@
                 </thead>
                 @foreach (var firstBaseman in Model.AwayFirstBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@firstBaseman.Name</td>
-                    <td style="text-align:center">@firstBaseman.TotalScore</td>
-                    <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@firstBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@firstBaseman.Name</td>
+                        <td style="text-align:center">@firstBaseman.TotalScore</td>
+                        <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@firstBaseman.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -353,12 +207,12 @@
                 </thead>
                 @foreach (var firstBaseman in Model.HomeFirstBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@firstBaseman.Name</td>
-                    <td style="text-align:center">@firstBaseman.TotalScore</td>
-                    <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@firstBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@firstBaseman.Name</td>
+                        <td style="text-align:center">@firstBaseman.TotalScore</td>
+                        <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@firstBaseman.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -376,12 +230,12 @@
                 </thead>
                 @foreach (var firstBaseman in Model.RhpFirstBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@firstBaseman.Name</td>
-                    <td style="text-align:center">@firstBaseman.TotalScore</td>
-                    <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@firstBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@firstBaseman.Name</td>
+                        <td style="text-align:center">@firstBaseman.TotalScore</td>
+                        <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@firstBaseman.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -399,12 +253,12 @@
                 </thead>
                 @foreach (var firstBaseman in Model.LhpFirstBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@firstBaseman.Name</td>
-                    <td style="text-align:center">@firstBaseman.TotalScore</td>
-                    <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@firstBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@firstBaseman.Name</td>
+                        <td style="text-align:center">@firstBaseman.TotalScore</td>
+                        <td style="text-align:center">@firstBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@firstBaseman.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -436,26 +290,6 @@
             </table>
         </div>
         <div class="table-responsive col-lg-2">
-            <table class="table-bordered table-responsive">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="text-align:center">Last 10 Games Average</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center" width="75%">Name</th>
-                        <th style="text-align:center">Total Score</th>
-                    </tr>
-                </thead>
-                @foreach (var secondBaseman in Model.SecondBasemen)
-                {
-                    <tr>
-                        <td style="text-align:center" width="75%">@secondBaseman.Name</td>
-                        <td style="text-align:center">@secondBaseman.ProjectedScore</td>
-                    </tr>
-                }
-            </table>
-        </div>
-        <div class="table-responsive col-lg-2">
             <table class="table-bordered">
                 <thead>
                     <tr>
@@ -468,12 +302,12 @@
                 </thead>
                 @foreach (var secondBaseman in Model.AwaySecondBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@secondBaseman.Name</td>
-                    <td style="text-align:center">@secondBaseman.TotalScore</td>
-                    <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@secondBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@secondBaseman.Name</td>
+                        <td style="text-align:center">@secondBaseman.TotalScore</td>
+                        <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@secondBaseman.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -491,12 +325,12 @@
                 </thead>
                 @foreach (var secondBaseman in Model.HomeSecondBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@secondBaseman.Name</td>
-                    <td style="text-align:center">@secondBaseman.TotalScore</td>
-                    <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@secondBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@secondBaseman.Name</td>
+                        <td style="text-align:center">@secondBaseman.TotalScore</td>
+                        <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@secondBaseman.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -513,12 +347,12 @@
                 </thead>
                 @foreach (var secondBaseman in Model.RhpSecondBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@secondBaseman.Name</td>
-                    <td style="text-align:center">@secondBaseman.TotalScore</td>
-                    <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@secondBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@secondBaseman.Name</td>
+                        <td style="text-align:center">@secondBaseman.TotalScore</td>
+                        <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@secondBaseman.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -535,12 +369,12 @@
                 </thead>
                 @foreach (var secondBaseman in Model.LhpSecondBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@secondBaseman.Name</td>
-                    <td style="text-align:center">@secondBaseman.TotalScore</td>
-                    <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@secondBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@secondBaseman.Name</td>
+                        <td style="text-align:center">@secondBaseman.TotalScore</td>
+                        <td style="text-align:center">@secondBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@secondBaseman.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -570,26 +404,7 @@
                 }
             </table>
         </div>
-        <div class="table-responsive col-lg-2">
-            <table class="table-bordered table-responsive">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="text-align:center">Last 10 Games Average</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center" width="75%">Name</th>
-                        <th style="text-align:center">Total Score</th>
-                    </tr>
-                </thead>
-                @foreach (var thirdBaseman in Model.ThirdBasemen)
-                {
-                    <tr>
-                        <td style="text-align:center" width="75%">@thirdBaseman.Name</td>
-                        <td style="text-align:center">@thirdBaseman.ProjectedScore</td>
-                    </tr>
-                }
-            </table>
-        </div>
+
         <div class="table-responsive col-lg-2">
             <table class="table-bordered">
                 <thead>
@@ -603,12 +418,12 @@
                 </thead>
                 @foreach (var thirdBaseman in Model.AwayThirdBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
-                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
-                    <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@thirdBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
+                        <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                        <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@thirdBaseman.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -626,12 +441,12 @@
                 </thead>
                 @foreach (var thirdBaseman in Model.HomeThirdBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
-                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
-                    <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@thirdBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
+                        <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                        <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@thirdBaseman.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -648,12 +463,12 @@
                 </thead>
                 @foreach (var thirdBaseman in Model.RhpThirdBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
-                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
-                    <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@thirdBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
+                        <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                        <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@thirdBaseman.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -670,12 +485,12 @@
                 </thead>
                 @foreach (var thirdBaseman in Model.LhpThirdBasemen)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
-                    <td style="text-align:center">@thirdBaseman.TotalScore</td>
-                    <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
-                    <td style="text-align:center">@thirdBaseman.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@thirdBaseman.Name</td>
+                        <td style="text-align:center">@thirdBaseman.TotalScore</td>
+                        <td style="text-align:center">@thirdBaseman.PointPerAtBat</td>
+                        <td style="text-align:center">@thirdBaseman.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -705,26 +520,7 @@
                 }
             </table>
         </div>
-        <div class="table-responsive col-lg-2">
-            <table class="table-bordered table-responsive">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="text-align:center">Last 10 Games Average</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center">Name</th>
-                        <th style="text-align:center">Total Score</th>
-                    </tr>
-                </thead>
-                @foreach (var shortstop in Model.ShortStops)
-                {
-                    <tr>
-                        <td style="text-align:center" width="75%">@shortstop.Name</td>
-                        <td style="text-align:center">@shortstop.ProjectedScore</td>
-                    </tr>
-                }
-            </table>
-        </div>
+
         <div class="table-responsive col-lg-2">
             <table class="table-bordered">
                 <thead>
@@ -738,12 +534,12 @@
                 </thead>
                 @foreach (var shortstop in Model.AwayShortStops)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@shortstop.Name</td>
-                    <td style="text-align:center">@shortstop.TotalScore</td>
-                    <td style="text-align:center">@shortstop.PointPerAtBat</td>
-                    <td style="text-align:center">@shortstop.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@shortstop.Name</td>
+                        <td style="text-align:center">@shortstop.TotalScore</td>
+                        <td style="text-align:center">@shortstop.PointPerAtBat</td>
+                        <td style="text-align:center">@shortstop.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -761,12 +557,12 @@
                 </thead>
                 @foreach (var shortstop in Model.HomeShortStops)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@shortstop.Name</td>
-                    <td style="text-align:center">@shortstop.TotalScore</td>
-                    <td style="text-align:center">@shortstop.PointPerAtBat</td>
-                    <td style="text-align:center">@shortstop.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@shortstop.Name</td>
+                        <td style="text-align:center">@shortstop.TotalScore</td>
+                        <td style="text-align:center">@shortstop.PointPerAtBat</td>
+                        <td style="text-align:center">@shortstop.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -783,12 +579,12 @@
                 </thead>
                 @foreach (var shortstop in Model.RhpShortStops)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@shortstop.Name</td>
-                    <td style="text-align:center">@shortstop.TotalScore</td>
-                    <td style="text-align:center">@shortstop.PointPerAtBat</td>
-                    <td style="text-align:center">@shortstop.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@shortstop.Name</td>
+                        <td style="text-align:center">@shortstop.TotalScore</td>
+                        <td style="text-align:center">@shortstop.PointPerAtBat</td>
+                        <td style="text-align:center">@shortstop.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -805,12 +601,12 @@
                 </thead>
                 @foreach (var shortstop in Model.LhpShortStops)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@shortstop.Name</td>
-                    <td style="text-align:center">@shortstop.TotalScore</td>
-                    <td style="text-align:center">@shortstop.PointPerAtBat</td>
-                    <td style="text-align:center">@shortstop.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@shortstop.Name</td>
+                        <td style="text-align:center">@shortstop.TotalScore</td>
+                        <td style="text-align:center">@shortstop.PointPerAtBat</td>
+                        <td style="text-align:center">@shortstop.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -840,26 +636,7 @@
                 }
             </table>
         </div>
-        <div class="table-responsive col-lg-2">
-            <table class="table-bordered table-responsive">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="text-align:center">Last 10 Games Average</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center">Name</th>
-                        <th style="text-align:center">Total Score</th>
-                    </tr>
-                </thead>
-                @foreach (var outfielder in Model.Outfielders)
-                {
-                    <tr>
-                        <td style="text-align:center" width="75%">@outfielder.Name</td>
-                        <td style="text-align:center">@outfielder.ProjectedScore</td>
-                    </tr>
-                }
-            </table>
-        </div>
+
         <div class="table-responsive col-lg-2">
             <table class="table-bordered">
                 <thead>
@@ -873,12 +650,12 @@
                 </thead>
                 @foreach (var outfielder in Model.AwayOutfielders)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@outfielder.Name</td>
-                    <td style="text-align:center">@outfielder.TotalScore</td>
-                    <td style="text-align:center">@outfielder.PointPerAtBat</td>
-                    <td style="text-align:center">@outfielder.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@outfielder.Name</td>
+                        <td style="text-align:center">@outfielder.TotalScore</td>
+                        <td style="text-align:center">@outfielder.PointPerAtBat</td>
+                        <td style="text-align:center">@outfielder.Team</td>
+                    </tr>
 
                 }
             </table>
@@ -896,12 +673,12 @@
                 </thead>
                 @foreach (var outfielder in Model.HomeOutfielders)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@outfielder.Name</td>
-                    <td style="text-align:center">@outfielder.TotalScore</td>
-                    <td style="text-align:center">@outfielder.PointPerAtBat</td>
-                    <td style="text-align:center">@outfielder.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@outfielder.Name</td>
+                        <td style="text-align:center">@outfielder.TotalScore</td>
+                        <td style="text-align:center">@outfielder.PointPerAtBat</td>
+                        <td style="text-align:center">@outfielder.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -918,12 +695,12 @@
                 </thead>
                 @foreach (var outfielder in Model.RhpOutfielders)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@outfielder.Name</td>
-                    <td style="text-align:center">@outfielder.TotalScore</td>
-                    <td style="text-align:center">@outfielder.PointPerAtBat</td>
-                    <td style="text-align:center">@outfielder.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@outfielder.Name</td>
+                        <td style="text-align:center">@outfielder.TotalScore</td>
+                        <td style="text-align:center">@outfielder.PointPerAtBat</td>
+                        <td style="text-align:center">@outfielder.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -940,12 +717,12 @@
                 </thead>
                 @foreach (var outfielder in Model.LhpOutfielders)
                 {
-                <tr>
-                    <td style="text-align:center" width="50%">@outfielder.Name</td>
-                    <td style="text-align:center">@outfielder.TotalScore</td>
-                    <td style="text-align:center">@outfielder.PointPerAtBat</td>
-                    <td style="text-align:center">@outfielder.Team</td>
-                </tr>
+                    <tr>
+                        <td style="text-align:center" width="50%">@outfielder.Name</td>
+                        <td style="text-align:center">@outfielder.TotalScore</td>
+                        <td style="text-align:center">@outfielder.PointPerAtBat</td>
+                        <td style="text-align:center">@outfielder.Team</td>
+                    </tr>
                 }
             </table>
         </div>
@@ -955,3 +732,764 @@
 </section>
 
 
+<script>
+    function catcherData() {
+        var data = new Array();
+
+
+        @foreach (var player in Model.Catchers)
+        {
+            var playerName = player.FirstName + " " + player.LastName;
+
+            @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+
+        }
+
+        return data;
+    }
+
+    $(function () {
+        $("#responsive-panel").kendoResponsivePanel({
+            breakpoint: 768,
+            autoClose: false,
+            orientation: "top"
+        });
+
+        $("#menu").kendoMenu();
+        $(".textButton").kendoButton();
+
+        $("#catchers").kendoGrid({
+            columns: [{
+                title: "Name",
+                field: "Name",
+                filterable: false,
+                encoded: true
+            }, {
+                title: "Team",
+                field: "Team",
+                encoded: true
+            }, {
+                title: "Yesterday Score",
+                field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Last Five Games",
+                field: "LastFiveGames",
+                encoded: true
+            }, {
+                title: "Away Games",
+                field: "AwayGames",
+                encoded: true
+            },  {
+                title: "Away PPA",
+                field: "AwayPPA",
+                encoded: true
+            },{
+                title: "Home Games",
+                field: "HomeGames",
+                encoded: true
+            }, {
+                title: "Home PPA",
+                field: "HomePPA",
+                encoded: true
+            }, {
+                title: "Versus LHP",
+                field: "VersusLHP",
+                encoded: true
+            }, {
+                title: "LHP PPA",
+                field: "LhpPPA",
+                encoded: true
+            }, {
+                title: "Versus RHP",
+                field: "VersusRHP"
+            },  {
+                title: "RHP PPA",
+                field: "RhpPPA",
+                encoded: true
+            }],
+            pageable: {
+                buttonCount: 10
+            },
+            sortable: true,
+            filterable: true,
+            messages: {
+                noRecords: "No records available."
+            },
+            dataSource: {
+                data: catcherData(),
+                pageSize: 20,
+                schema: {
+                    model: {
+                        fields: {
+                            Name: {
+                                type: "string"
+                            },
+                            Team: {
+                                type: "string"
+                            },
+                            YesterdayScore: {
+                                type: "number"
+                            },
+                            LastFiveGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            AwayGames: {
+                                type: "number"
+                            },
+                            AwayPPA: {
+                                type: "decimal"
+                            },
+                            HomeGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            HomePPA: {
+                                type: "decimal"
+
+                            },
+                            VersusLHP: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            LhpPPA: {
+                                type: "decimal"
+
+                            },
+                            VersusRHP: {
+                                type: "number"
+                            },
+                            RhpPPA: {
+                                type: "decimal"
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    function firstbaseData() {
+        var data = new Array();
+
+
+        @foreach (var player in Model.FirstBasemen)
+        {
+            var playerName = player.FirstName + " " + player.LastName;
+
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+        }
+
+        return data;
+    }
+
+    $(function () {
+        $("#responsive-panel").kendoResponsivePanel({
+            breakpoint: 768,
+            autoClose: false,
+            orientation: "top"
+        });
+
+        $("#menu").kendoMenu();
+        $(".textButton").kendoButton();
+
+        $("#firstbasemen").kendoGrid({
+            columns: [{
+                title: "Name",
+                field: "Name",
+                filterable: false,
+                encoded: true
+            }, {
+                title: "Team",
+                field: "Team",
+                encoded: true
+            }, {
+                title: "Yesterday Score",
+                field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Last Five Games",
+                field: "LastFiveGames",
+                encoded: true
+            }, {
+                title: "Away Games",
+                field: "AwayGames",
+                encoded: true
+            }, {
+                title: "Home Games",
+                field: "HomeGames",
+                encoded: true
+            }, {
+                title: "Versus LHP",
+                field: "VersusLHP",
+                encoded: true
+            }, {
+                title: "Versus RHP",
+                field: "VersusRHP",
+                encoded: true
+            }],
+            pageable: {
+                buttonCount: 10
+            },
+            sortable: true,
+            filterable: true,
+            messages: {
+                noRecords: "No records available."
+            },
+            dataSource: {
+                data: firstbaseData(),
+                pageSize: 20,
+                schema: {
+                    model: {
+                        fields: {
+                            Name: {
+                                type: "string"
+                            },
+                            Team: {
+                                type: "string"
+                            },
+                            YesterdayScore: {
+                                type: "number"
+                            },
+                            LastFiveGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            AwayGames: {
+                                type: "number"
+                            },
+                            AwayPPA: {
+                                type: "decimal"
+                            },
+                            HomeGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            HomePPA: {
+                                type: "decimal"
+
+                            },
+                            VersusLHP: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            LhpPPA: {
+                                type: "decimal"
+
+                            },
+                            VersusRHP: {
+                                type: "number"
+                            },
+                            RhpPPA: {
+                                type: "decimal"
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    function secondbaseData() {
+        var data = new Array();
+
+
+        @foreach (var player in Model.SecondBasemen)
+        {
+            var playerName = player.FirstName + " " + player.LastName;
+
+            @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+
+        }
+
+        return data;
+    }
+
+    $(function () {
+        $("#responsive-panel").kendoResponsivePanel({
+            breakpoint: 768,
+            autoClose: false,
+            orientation: "top"
+        });
+
+        $("#menu").kendoMenu();
+        $(".textButton").kendoButton();
+
+        $("#secondbasemen").kendoGrid({
+            columns: [{
+                title: "Name",
+                field: "Name",
+                filterable: false,
+                encoded: true
+            }, {
+                title: "Team",
+                field: "Team",
+                encoded: true
+            }, {
+                title: "Yesterday Score",
+                field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Last Five Games",
+                field: "LastFiveGames",
+                encoded: true
+            }, {
+                title: "Away Games",
+                field: "AwayGames",
+                encoded: true
+            }, {
+                title: "Home Games",
+                field: "HomeGames",
+                encoded: true
+            }, {
+                title: "Versus LHP",
+                field: "VersusLHP",
+                encoded: true
+            }, {
+                title: "Versus RHP",
+                field: "VersusRHP",
+                encoded: true
+            }],
+            pageable: {
+                buttonCount: 10
+            },
+            sortable: true,
+            filterable: true,
+            messages: {
+                noRecords: "No records available."
+            },
+            dataSource: {
+                data: secondbaseData(),
+                pageSize: 20,
+                schema: {
+                    model: {
+                        fields: {
+                            Name: {
+                                type: "string"
+                            },
+                            Team: {
+                                type: "string"
+                            },
+                            YesterdayScore: {
+                                type: "number"
+                            },
+                            LastFiveGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            AwayGames: {
+                                type: "number"
+                            },
+                            AwayPPA: {
+                                type: "decimal"
+                            },
+                            HomeGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            HomePPA: {
+                                type: "decimal"
+
+                            },
+                            VersusLHP: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            LhpPPA: {
+                                type: "decimal"
+
+                            },
+                            VersusRHP: {
+                                type: "number"
+                            },
+                            RhpPPA: {
+                                type: "decimal"
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    function thirdbaseData() {
+        var data = new Array();
+
+
+        @foreach (var player in Model.ThirdBasemen)
+        {
+            var playerName = player.FirstName + " " + player.LastName;
+
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+
+        }
+
+        return data;
+    }
+
+    $(function () {
+        $("#responsive-panel").kendoResponsivePanel({
+            breakpoint: 768,
+            autoClose: false,
+            orientation: "top"
+        });
+
+        $("#menu").kendoMenu();
+        $(".textButton").kendoButton();
+
+        $("#thirdbasemen").kendoGrid({
+            columns: [{
+                title: "Name",
+                field: "Name",
+                filterable: false,
+                encoded: true
+            }, {
+                title: "Team",
+                field: "Team",
+                encoded: true
+            }, {
+                title: "Yesterday Score",
+                field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Last Five Games",
+                field: "LastFiveGames",
+                encoded: true
+            }, {
+                title: "Away Games",
+                field: "AwayGames",
+                encoded: true
+            }, {
+                title: "Home Games",
+                field: "HomeGames",
+                encoded: true
+            }, {
+                title: "Versus LHP",
+                field: "VersusLHP",
+                encoded: true
+            }, {
+                title: "Versus RHP",
+                field: "VersusRHP",
+                encoded: true
+            }],
+            pageable: {
+                buttonCount: 10
+            },
+            sortable: true,
+            filterable: true,
+            messages: {
+                noRecords: "No records available."
+            },
+            dataSource: {
+                data: thirdbaseData(),
+                pageSize: 20,
+                schema: {
+                    model: {
+                        fields: {
+                            Name: {
+                                type: "string"
+                            },
+                            Team: {
+                                type: "string"
+                            },
+                            YesterdayScore: {
+                                type: "number"
+                            },
+                            LastFiveGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            AwayGames: {
+                                type: "number"
+                            },
+                            AwayPPA: {
+                                type: "decimal"
+                            },
+                            HomeGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            HomePPA: {
+                                type: "decimal"
+
+                            },
+                            VersusLHP: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            LhpPPA: {
+                                type: "decimal"
+
+                            },
+                            VersusRHP: {
+                                type: "number"
+                            },
+                            RhpPPA: {
+                                type: "decimal"
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script>
+    function shortstopData() {
+        var data = new Array();
+
+
+        @foreach (var player in Model.ShortStops)
+        {
+            var playerName = player.FirstName + " " + player.LastName;
+
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+
+        }
+
+        return data;
+    }
+
+    $(function () {
+        $("#responsive-panel").kendoResponsivePanel({
+            breakpoint: 768,
+            autoClose: false,
+            orientation: "top"
+        });
+
+        $("#menu").kendoMenu();
+        $(".textButton").kendoButton();
+
+        $("#shortstops").kendoGrid({
+            columns: [{
+                title: "Name",
+                field: "Name",
+                filterable: false,
+                encoded: true
+            }, {
+                title: "Team",
+                field: "Team",
+                encoded: true
+            }, {
+                title: "Yesterday Score",
+                field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Last Five Games",
+                field: "LastFiveGames",
+                encoded: true
+            }, {
+                title: "Away Games",
+                field: "AwayGames",
+                encoded: true
+            }, {
+                title: "Home Games",
+                field: "HomeGames",
+                encoded: true
+            }, {
+                title: "Versus LHP",
+                field: "VersusLHP",
+                encoded: true
+            }, {
+                title: "Versus RHP",
+                field: "VersusRHP",
+                encoded: true
+            }],
+            pageable: {
+                buttonCount: 10
+            },
+            sortable: true,
+            filterable: true,
+            messages: {
+                noRecords: "No records available."
+            },
+            dataSource: {
+                data: shortstopData(),
+                pageSize: 20,
+                schema: {
+                    model: {
+                        fields: {
+                            Name: {
+                                type: "string"
+                            },
+                            Team: {
+                                type: "string"
+                            },
+                            YesterdayScore: {
+                                type: "number"
+                            },
+                            LastFiveGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            AwayGames: {
+                                type: "number"
+                            },
+                            AwayPPA: {
+                                type: "decimal"
+                            },
+                            HomeGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            HomePPA: {
+                                type: "decimal"
+
+                            },
+                            VersusLHP: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            LhpPPA: {
+                                type: "decimal"
+
+                            },
+                            VersusRHP: {
+                                type: "number"
+                            },
+                            RhpPPA: {
+                                type: "decimal"
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script>
+    function outfielderData() {
+        var data = new Array();
+
+
+        @foreach (var player in Model.Outfielders)
+        {
+            var playerName = player.FirstName + " " + player.LastName;
+
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+
+        }
+
+        return data;
+    }
+
+    $(function () {
+        $("#responsive-panel").kendoResponsivePanel({
+            breakpoint: 768,
+            autoClose: false,
+            orientation: "top"
+        });
+
+        $("#menu").kendoMenu();
+        $(".textButton").kendoButton();
+
+        $("#outfielders").kendoGrid({
+            columns: [{
+                title: "Name",
+                field: "Name",
+                filterable: false,
+                encoded: true
+            }, {
+                title: "Team",
+                field: "Team",
+                encoded: true
+            }, {
+                title: "Yesterday Score",
+                field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Last Five Games",
+                field: "LastFiveGames",
+                encoded: true
+            }, {
+                title: "Away Games",
+                field: "AwayGames",
+                encoded: true
+            }, {
+                title: "Home Games",
+                field: "HomeGames",
+                encoded: true
+            }, {
+                title: "Versus LHP",
+                field: "VersusLHP",
+                encoded: true
+            }, {
+                title: "Versus RHP",
+                field: "VersusRHP",
+                encoded: true
+            }],
+            pageable: {
+                buttonCount: 10
+            },
+            sortable: true,
+            filterable: true,
+            messages: {
+                noRecords: "No records available."
+            },
+            dataSource: {
+                data: outfielderData(),
+                pageSize: 20,
+                schema: {
+                    model: {
+                        fields: {
+                            Name: {
+                                type: "string"
+                            },
+                            Team: {
+                                type: "string"
+                            },
+                            YesterdayScore: {
+                                type: "number"
+                            },
+                            LastFiveGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            AwayGames: {
+                                type: "number"
+                            },
+                            AwayPPA: {
+                                type: "decimal"
+                            },
+                            HomeGames: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            HomePPA: {
+                                type: "decimal"
+
+                            },
+                            VersusLHP: {
+                                type: "number",
+                                defaultValue: null
+                            },
+                            LhpPPA: {
+                                type: "decimal"
+
+                            },
+                            VersusRHP: {
+                                type: "number"
+                            },
+                            RhpPPA: {
+                                type: "decimal"
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
