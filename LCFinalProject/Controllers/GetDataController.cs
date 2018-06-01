@@ -62,15 +62,20 @@ namespace LCFinalProject.Controllers
         {
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
+
+            //predictorLogic.RefreshTeams();
+            //predictorLogic.UpdatePlayers();
+            //predictorLogic.UpdateTeamNames();
+
             //predictorLogic.TodayGameData();
+            //_context.SaveChanges();
 
-            predictorLogic.UpdatePlayers();
-            predictorLogic.UpdateTeamNames();
-            predictorLogic.RefreshTeams();
+            //predictorLogic.UpdateTeams();
 
-            _context.SaveChanges();
+            //predictorLogic.AssignSalaries();
+            //predictorLogic.GetProjections();
 
-            predictorLogic.UpdateTeams();
+            predictorLogic.GetTeamProjections();
 
             _context.SaveChanges();
             return View();

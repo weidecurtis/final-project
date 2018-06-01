@@ -29,6 +29,9 @@ namespace LCFinalProject.Models
         public decimal PointsGivenUp { get; set; }
 
         public string Opponent { get; set; }
+        public string HomeAway { get; set; }
+        public string OpponentStarter { get; set; }
+        public string Starter { get; set; }
 
 
 

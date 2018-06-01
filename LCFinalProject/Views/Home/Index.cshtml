@@ -108,7 +108,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
 
         }
 
@@ -134,6 +134,18 @@
             }, {
                 title: "Team",
                 field: "Team",
+                encoded: true
+                }, {
+                    title: "Opponent",
+                    field: "Opponent",
+                    encoded: true
+                }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Yesterday Score",
@@ -195,6 +207,15 @@
                             Team: {
                                 type: "string"
                             },
+                            Opponent: {
+                                type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            },
+                            Salary: {
+                                type: "number"
+                            },
                             YesterdayScore: {
                                 type: "number"
                             },
@@ -248,7 +269,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
         }
 
         return data;
@@ -272,6 +293,18 @@
             }, {
                 title: "Team",
                 field: "Team",
+                encoded: true
+            }, {
+                title: "Opponent",
+                field: "Opponent",
+                encoded: true
+            }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Yesterday Score",
@@ -333,6 +366,15 @@
                             Team: {
                                 type: "string"
                             },
+                            Opponent: {
+                                type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            },
+                            Salary: {
+                                type: "number"
+                            },
                             YesterdayScore: {
                                 type: "number"
                             },
@@ -386,7 +428,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
 
         }
 
@@ -411,6 +453,18 @@
             }, {
                 title: "Team",
                 field: "Team",
+                encoded: true
+            }, {
+                title: "Opponent",
+                field: "Opponent",
+                encoded: true
+            }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Yesterday Score",
@@ -472,6 +526,15 @@
                             Team: {
                                 type: "string"
                             },
+                            Opponent: {
+                                type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            },
+                            Salary: {
+                                type: "number"
+                            },
                             YesterdayScore: {
                                 type: "number"
                             },
@@ -525,7 +588,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
 
         }
 
@@ -550,6 +613,18 @@
             }, {
                 title: "Team",
                 field: "Team",
+                encoded: true
+            }, {
+                title: "Opponent",
+                field: "Opponent",
+                encoded: true
+            }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Yesterday Score",
@@ -611,6 +686,15 @@
                             Team: {
                                 type: "string"
                             },
+                            Opponent: {
+                                type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            },
+                            Salary: {
+                                type: "number"
+                            },
                             YesterdayScore: {
                                 type: "number"
                             },
@@ -663,7 +747,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
 
         }
 
@@ -688,6 +772,18 @@
             }, {
                 title: "Team",
                 field: "Team",
+                encoded: true
+            }, {
+                title: "Opponent",
+                field: "Opponent",
+                encoded: true
+            }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Yesterday Score",
@@ -749,6 +845,15 @@
                             Team: {
                                 type: "string"
                             },
+                            Opponent: {
+                                type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            },
+                            Salary: {
+                                type: "number"
+                            },
                             YesterdayScore: {
                                 type: "number"
                             },
@@ -801,7 +906,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
 
         }
 
@@ -826,6 +931,18 @@
             }, {
                 title: "Team",
                 field: "Team",
+                encoded: true
+            }, {
+                title: "Opponent",
+                field: "Opponent",
+                encoded: true
+            }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Yesterday Score",
@@ -886,6 +1003,15 @@
                             },
                             Team: {
                                 type: "string"
+                            }, 
+                            Opponent: {
+                                type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            },
+                            Salary: {
+                                type: "number"
                             },
                             YesterdayScore: {
                                 type: "number"
@@ -939,7 +1065,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", LastGame: "@player.LastStartScore", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched", AwayGames: "@player.AwayTotalScore", AwayHRA: "@player.AwayHomeRunAllowed", AwayPPIP: "@player.AwayPointsPerIP",  HomeGames: "@player.HomeTotalScore", HomeHRA: "@player.HomeHomeRunAllowed", HomePPIP: "@player.HomePointsPerIP" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", Projection: "@player.Projection", Salary: "@player.Salary", LastGame: "@player.LastStartScore", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched", AwayGames: "@player.AwayTotalScore", AwayHRA: "@player.AwayHomeRunAllowed", AwayPPIP: "@player.AwayPointsPerIP",  HomeGames: "@player.HomeTotalScore", HomeHRA: "@player.HomeHomeRunAllowed", HomePPIP: "@player.HomePointsPerIP" });
 
         }
 
@@ -968,6 +1094,14 @@
             }, {
                 title: "Matchup",
                 field: "Matchup",
+                encoded: true
+            }, {
+                title: "Projection",
+                field: "Projection",
+                encoded: true
+            }, {
+                title: "Salary",
+                field: "Salary",
                 encoded: true
             }, {
                 title: "Last Start",
@@ -1040,6 +1174,12 @@
                             },
                             Matchup: {
                                 type: "string"
+                            },
+                            Projection: {
+                                type: "number"
+                            }, 
+                            Salary: {
+                                type: "number"
                             },
                             LastGame: {
                                 type: "decimal"

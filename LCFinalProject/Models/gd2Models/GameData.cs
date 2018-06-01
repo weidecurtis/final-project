@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
+using System.ComponentModel;
+using System.Xml;
 
 namespace LCFinalProject.Models.gd2Models
 {
@@ -110,6 +113,8 @@ namespace LCFinalProject.Models.gd2Models
                 }
             }
 
+            
+         
             /// <remarks/>
             public gamesGameGame_media game_media
             {

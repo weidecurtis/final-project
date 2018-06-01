@@ -109,6 +109,11 @@ namespace LCFinalProject.Models
         public int OpponentHRALastThree { get; set; }
         public string OpponentThrowingHand { get; set; }
 
+        public int DKID { get; set; }
+        public int Salary { get; set; }
+        public int Projection { get; set; }
+        public string HomeAway { get; set; }
+
 
 
 

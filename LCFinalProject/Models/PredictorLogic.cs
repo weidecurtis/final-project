@@ -151,6 +151,11 @@ namespace LCFinalProject.Models
                     player.TeamName = "Nationals";
                 }
 
+                if (player.TeamName == "D-backs")
+                {
+                    player.TeamName = "Diamondbacks";
+                }
+
             }
 
             foreach (var player in _context.Pitchers)
@@ -274,6 +279,11 @@ namespace LCFinalProject.Models
                 if (player.TeamName == "WAS")
                 {
                     player.TeamName = "Nationals";
+                }
+
+                if (player.TeamName == "D-backs")
+                {
+                    player.TeamName = "Diamondbacks";
                 }
 
             }
@@ -500,12 +510,18 @@ namespace LCFinalProject.Models
 
         public void TodayGameData()
         {
-
-            foreach (var pitcher in _context.Pitchers)
+            foreach (var team in _context.Teams)
             {
-                pitcher.ProbableStarter = false;
-                _context.Pitchers.Update(pitcher);
+                team.OpponentStarter = "UNKNOWN";
+                _context.Teams.Update(team);
             }
+
+            //foreach (var pitcher in _context.Pitchers)
+            //{
+            //    pitcher.ProbableStarter = false;
+            //    pitcher.MatchUp = null;
+            //    _context.Pitchers.Update(pitcher);
+            //}
 
             var date = DateTime.Today.Date;
             var year = date.ToString("yyyy");
@@ -536,12 +552,23 @@ namespace LCFinalProject.Models
                     var awayPitcherLastName = awayPitcherNode.Attributes["last_name"].InnerText;
                     var awayPitcherThrowingHand = awayPitcherNode.Attributes["throwinghand"].InnerText;
                     var awayPitcherTeam = gameNode.Attributes["away_team_name"].InnerText;
-                    var opponentPitcherTeam = gameNode.Attributes["home_team_name"].InnerText;
-                   // var matchUp = gameMatchUpNode.Attributes["title"].InnerText;
 
-                    var startingPitcher = _context.Pitchers.Where(p => p.PlayerID == int.Parse(awayPitcherID)).FirstOrDefault();
+                    if (awayPitcherTeam == "D-backs")
+                    {
+                        awayPitcherTeam = "Diamondbacks";
+                    }
+                    var opponentPitcherTeam = gameNode.Attributes["home_team_name"].InnerText;
+                    if (opponentPitcherTeam == "D-backs")
+                    {
+                        opponentPitcherTeam = "Diamondbacks";
+                    }
+                    var matchUp = gameMatchUpNode.Attributes["title"].InnerText;
+
+                   
+                    var startingPitcher = _context.Pitchers.Where(p => p.PlayerID.ToString() == awayPitcherID).FirstOrDefault();
                     var pitcherTeam = _context.Teams.Where(p => p.TeamName == awayPitcherTeam).FirstOrDefault();
 
+                    pitcherTeam.HomeAway = "Away";
                     pitcherTeam.Opponent = opponentPitcherTeam;
                     _context.Teams.Update(pitcherTeam);
 
@@ -551,16 +578,15 @@ namespace LCFinalProject.Models
                         startingPitcher.ThrowingHand = awayPitcherThrowingHand;
                         startingPitcher.TeamName = awayPitcherTeam;
                         startingPitcher.Opponent = opponentPitcherTeam;
+                        startingPitcher.MatchUp = matchUp;
+                        startingPitcher.HomeAway = "Away";
 
-                        //if (matchUp != null)
-                        //{
-                        //    startingPitcher.MatchUp = matchUp;
-                        //}
+                         
 
                         _context.Pitchers.Update(startingPitcher);
                     }
 
-                    if (startingPitcher == null)
+                    if (startingPitcher == null && awayPitcherID != "")
                     {
                         Pitcher newPitcher = new Pitcher()
                         {
@@ -570,12 +596,14 @@ namespace LCFinalProject.Models
                             ThrowingHand = awayPitcherThrowingHand,
                             ProbableStarter = true,
                             TeamName = awayPitcherTeam,
-                            Opponent = opponentPitcherTeam
+                            Opponent = opponentPitcherTeam,
+                            MatchUp = matchUp,
+                            HomeAway = "Away"
                         };
 
                         _context.Pitchers.Add(newPitcher);
                     }
-
+                    
 
                 }
 
@@ -595,11 +623,28 @@ namespace LCFinalProject.Models
                     var homePitcherThrowingHand = homePitcherNode.Attributes["throwinghand"].InnerText;
                     var homePitcherTeam = gameNode.Attributes["home_team_name"].InnerText;
                     var opponentPitcherTeam = gameNode.Attributes["away_team_name"].InnerText;
-                    //var matchUp = gameMatchUpNode.Attributes["title"].InnerText;
+
+                    if (opponentPitcherTeam == "D-backs")
+                    {
+                        opponentPitcherTeam = "Diamondbacks";
+                    }
+
+
+                    var matchUp = gameMatchUpNode.Attributes["title"].InnerText;
                     var pitcherTeam = _context.Teams.Where(p => p.TeamName == homePitcherTeam).FirstOrDefault();
 
-                    pitcherTeam.Opponent = opponentPitcherTeam;
-                    _context.Teams.Update(pitcherTeam);
+                    if (homePitcherTeam == "D-backs")
+                    {
+                        homePitcherTeam = "Diamondbacks";
+                    }
+
+                    if (pitcherTeam != null)
+                    {
+                        pitcherTeam.HomeAway = "Home";
+                        pitcherTeam.Opponent = opponentPitcherTeam;
+                        _context.Teams.Update(pitcherTeam);
+                    }
+
 
 
 
@@ -609,9 +654,10 @@ namespace LCFinalProject.Models
                     {
                         startingPitcher.ProbableStarter = true;
                         startingPitcher.ThrowingHand = homePitcherThrowingHand;
-                       // startingPitcher.MatchUp = matchUp;
+                        startingPitcher.MatchUp = matchUp;
                         startingPitcher.TeamName = homePitcherTeam;
                         startingPitcher.Opponent = opponentPitcherTeam;
+                        startingPitcher.HomeAway = "Home";
 
                         _context.Pitchers.Update(startingPitcher);
                     }
@@ -626,7 +672,9 @@ namespace LCFinalProject.Models
                             ThrowingHand = homePitcherThrowingHand,
                             ProbableStarter = true,
                             TeamName = homePitcherTeam,
-                            Opponent = opponentPitcherTeam
+                            Opponent = opponentPitcherTeam,
+                            MatchUp = matchUp,
+                            HomeAway = "Home"
                         };
 
                         _context.Pitchers.Add(newPitcher);
@@ -655,34 +703,285 @@ namespace LCFinalProject.Models
             {
                 List<PositionPlayer> positionPlayers = _context.PositionPlayers.Where(p => p.TeamName == team.TeamName).ToList();
                 Pitcher opponentStarter = _context.Pitchers.Where(p => p.TeamName == team.Opponent && p.ProbableStarter == true).FirstOrDefault();
+                Pitcher starter = _context.Pitchers.Where(p => p.TeamName == team.TeamName && p.ProbableStarter == true).FirstOrDefault();
+
+                if (starter != null)
+                {
+                    team.Starter = starter.FirstName + " " + starter.LastName;
+                }
+                else
+                {
+                    team.Starter = "UNKNOWN";
+                }
+
+
+                
 
                 if (opponentStarter != null)
                 {
+                    team.OpponentStarter = opponentStarter.FirstName + " " + opponentStarter.LastName;
+
                     foreach (var player in positionPlayers)
                     {
-                        player.OpponentStarter = opponentStarter.FirstName + " " + opponentStarter.LastName;
+                        player.HomeAway = team.HomeAway;
+                        player.OpponentStarter = team.OpponentStarter;
                         player.MatchUp = opponentStarter.MatchUp;
+                        player.OpponentThrowingHand = opponentStarter.ThrowingHand;
+                        player.OpponentPointsLastThree = opponentStarter.LastThreeTotalScore;
+                        player.OpponentHRALastThree = opponentStarter.LastThreeHRA;
                         _context.Update(player);
+                    }
+                }
+                else
+                {
+                    foreach (var player in positionPlayers)
+                    {
+                        player.OpponentStarter = "UNKNOWN";
                     }
                 }
 
             }
             _context.SaveChanges();
 
+        }
 
 
-            //var serializer = new DataContractJsonSerializer(typeof(List<GameData>));
+        public void AssignSalaries()
+        {
+          using (var reader = new StreamReader(@"C:\Users\cweid\source\repos\final-project\LCFinalProject\CSV\DKSalaries.csv"))
+            {
+                List<string> listA = new List<string>();
+                List<string> listB = new List<string>();
 
-            //starterClient.DefaultRequestHeaders.Accept.Clear();
-            //starterClient.DefaultRequestHeaders.Accept.Add(
-            //    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
 
-            //var urlString = "https://gd2.mlb.com/components/game/mlb/year_" + year + "/month_" + month + "/day_" + day + "/master_scoreboard.json";
+                    listA.Add(values[0]);
+                    listB.Add(values[8]);
 
-            //var streamTask = starterClient.GetStreamAsync(urlString);
-            //var games = serializer.ReadObject(await streamTask) as List<GameData>;
+                    var currentPitcher = _context.Pitchers.Where(p => p.DKID.ToString() == values[3]).FirstOrDefault();
+                    var currentPlayer = _context.PositionPlayers.Where(p => p.DKID.ToString() == values[3]).FirstOrDefault();
 
-            //return games;
+                    if (currentPitcher != null && values[4] == "P")
+                    {
+                        currentPitcher.Salary = int.Parse(values[5]);
+                        currentPitcher.DKID = int.Parse(values[3]);
+
+                        _context.Pitchers.Update(currentPitcher);
+                    }
+
+                    if (currentPlayer != null && values[4] != "P")
+                    {
+                        currentPlayer.Salary = int.Parse(values[5]);
+                        currentPlayer.DKID = int.Parse(values[3]);
+
+                        _context.PositionPlayers.Update(currentPlayer);
+                    }
+                }
+
+            }
+
+
+        }
+
+        public void GetProjections()
+        {
+            foreach (var player in _context.PositionPlayers)
+            {
+                if (player.MatchUp != null)
+                {
+                    var playerTeam = _context.Teams.Where(p => p.TeamName == player.TeamName).FirstOrDefault();
+                    var opponentStarter = _context.Pitchers.Where(p => p.FirstName + " " + p.LastName == playerTeam.OpponentStarter).FirstOrDefault();
+
+                    if (opponentStarter != null)
+                    {
+                        if (player.HomeAway == "Away")
+                        {
+                            if (opponentStarter.ThrowingHand == "RHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0 && opponentStarter.HomeIp != 0)
+                            {
+                                player.Projection = Convert.ToInt32(Math.Ceiling(((player.VsRhpScorePerAB / Convert.ToDecimal(3) + (player.AwayScorePerAB / Convert.ToDecimal(3)) * (player.LastFiveTotalScore / Convert.ToDecimal(8))) * (((opponentStarter.HomeRunsAllowed / opponentStarter.HomeIp) + (opponentStarter.HomeHomeRunAllowed / opponentStarter.HomeIp) + (opponentStarter.HomeHitsAllowed / opponentStarter.HomeIp) + (opponentStarter.LastThreeHRA / opponentStarter.LastThreeInningsPitched)) * Convert.ToDecimal(.8)))));
+                                _context.PositionPlayers.Update(player);
+                            }
+
+                            if (opponentStarter.ThrowingHand == "LHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0 && opponentStarter.HomeIp != 0)
+                            {
+                                player.Projection = Convert.ToInt32(Math.Ceiling(((player.VsLhpScorePerAB / Convert.ToDecimal(3) + (player.AwayScorePerAB / Convert.ToDecimal(3)) * (player.LastFiveTotalScore / Convert.ToDecimal(8))) * (((opponentStarter.HomeRunsAllowed / opponentStarter.HomeIp) + (opponentStarter.HomeHomeRunAllowed / opponentStarter.HomeIp) + (opponentStarter.HomeHitsAllowed / opponentStarter.HomeIp) + (opponentStarter.LastThreeHRA / opponentStarter.LastThreeInningsPitched)) * Convert.ToDecimal(.8)))));
+                                _context.PositionPlayers.Update(player);
+                            }
+                        }
+
+                        if (player.HomeAway == "Home")
+                        {
+                            if (opponentStarter.ThrowingHand == "RHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0 && opponentStarter.AwayIp != 0)
+                            {
+                                player.Projection = Convert.ToInt32(Math.Ceiling(((player.VsRhpScorePerAB / Convert.ToDecimal(3) + (player.HomeScorePerAB / Convert.ToDecimal(3)) * (player.LastFiveTotalScore / Convert.ToDecimal(8))) * (((opponentStarter.AwayRunsAllowed / opponentStarter.HomeIp) + (opponentStarter.AwayHomeRunAllowed / opponentStarter.AwayIp) + (opponentStarter.AwayHitsAllowed / opponentStarter.AwayIp) + (opponentStarter.LastThreeHRA / opponentStarter.LastThreeInningsPitched)) * Convert.ToDecimal(.8)))));
+                                _context.PositionPlayers.Update(player);
+                            }
+
+                            if (opponentStarter.ThrowingHand == "LHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0 && opponentStarter.AwayIp != 0)
+                            {
+                                player.Projection = Convert.ToInt32(Math.Ceiling(((player.VsLhpScorePerAB / Convert.ToDecimal(3) + (player.HomeScorePerAB / Convert.ToDecimal(3)) * (player.LastFiveTotalScore / Convert.ToDecimal(8))) * (((opponentStarter.AwayRunsAllowed / opponentStarter.AwayIp) + (opponentStarter.AwayHomeRunAllowed / opponentStarter.AwayIp) + (opponentStarter.AwayHitsAllowed / opponentStarter.AwayIp) + (opponentStarter.LastThreeHRA / opponentStarter.LastThreeInningsPitched)) * Convert.ToDecimal(.8)))));
+                                
+                                _context.PositionPlayers.Update(player);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            foreach (var pitcher in _context.Pitchers.Where(p => p.ProbableStarter == true))
+            {
+                var opponent = _context.Teams.Single(t => t.TeamName == pitcher.Opponent);
+
+                if (pitcher.HomeAway == "Home" && pitcher.LastThreeInningsPitched != 0 && pitcher.HomeIp != 0)
+                {
+                    pitcher.Projection = Convert.ToInt32(Math.Ceiling(((pitcher.LastThreeStrikeouts / pitcher.LastThreeInningsPitched) * (opponent.StrikeOuts / Convert.ToDecimal(6) * 2)) + ((pitcher.LastThreeERA / pitcher.LastThreeInningsPitched) * (opponent.Runs / Convert.ToDecimal(5) * Convert.ToDecimal(-1.25))) + (opponent.Hits / Convert.ToDecimal(5) * Convert.ToDecimal(-.7) + (pitcher.HomePointsPerIP * Convert.ToDecimal(.65)) + (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3) * Convert.ToDecimal(2)))));
+                    _context.Pitchers.Update(pitcher);
+                }
+
+                if (pitcher.HomeAway == "Away" && pitcher.LastThreeInningsPitched != 0 && pitcher.AwayIp != 0)
+                {
+                    pitcher.Projection = Convert.ToInt32(Math.Ceiling(((pitcher.LastThreeStrikeouts / pitcher.LastThreeInningsPitched) * (opponent.StrikeOuts / Convert.ToDecimal(6) * 2)) + ((pitcher.LastThreeERA / pitcher.LastThreeInningsPitched) * (opponent.Runs / Convert.ToDecimal(5) * Convert.ToDecimal(-1.25))) + (opponent.Hits / Convert.ToDecimal(5) * Convert.ToDecimal(-.7) + (pitcher.AwayPointsPerIP * Convert.ToDecimal(.65)) + (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3) * Convert.ToDecimal(2)))));
+                    _context.Pitchers.Update(pitcher);
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+
+        //This May Be Dumb
+
+        public void GetTeamProjections()
+        {
+            foreach (var team in _context.ProjectedTeams)
+            {
+                _context.ProjectedTeams.Remove(team);
+            }
+
+            var pitchers = _context.Pitchers.Where(p => p.ProbableStarter == true).ToList();
+
+
+            foreach (var pitcher in pitchers)
+            {
+                var pitcherOne = pitcher.FirstName + " " + pitcher.LastName;
+                var pitcherOneProjection = pitcher.Projection;
+                var pitcherOneSalary = pitcher.Salary;
+
+                foreach (var pitchertwo in _context.Pitchers.Where(p => p.ProbableStarter == true && p.PlayerID != pitcher.PlayerID))
+                {
+                    var pitcherTwo = pitchertwo.FirstName + " " + pitchertwo.LastName;
+                    var pitcherTwoProjection = pitchertwo.Projection;
+                    var pitcherTwoSalary = pitchertwo.Salary;
+
+                    foreach (var catcher in _context.PositionPlayers.Where(p => p.Position == "C" && p.Salary >= 4000))
+                    {
+                        var newCatcher = catcher.FirstName + " " + catcher.LastName;
+                        var newCatcherProjection = catcher.Projection;
+                        var newCatcherSalary = catcher.Salary;
+
+                        foreach (var firstBaseman in _context.PositionPlayers.Where(p => p.Position == "1B" && p.Salary >= 5000))
+                        {
+                            var newFirst = firstBaseman.FirstName + " " + firstBaseman.LastName;
+                            var newFirstProjection = firstBaseman.Projection;
+                            var newFirstSalary = firstBaseman.Salary;
+
+                            foreach (var secondBaseman in _context.PositionPlayers.Where(p => p.Position == "2B" && p.Salary >= 5000))
+                            {
+                                var newSecond = secondBaseman.FirstName + " " + secondBaseman.LastName;
+                                var newSecondProjection = secondBaseman.Projection;
+                                var newSecondSalary = secondBaseman.Salary;
+
+                                foreach (var thirdBaseman in _context.PositionPlayers.Where(p => p.Position == "3B" && p.Salary >= 5000))
+                                {
+                                    var newThird = thirdBaseman.FirstName + " " + thirdBaseman.LastName;
+                                    var newThirdProjection = thirdBaseman.Projection;
+                                    var newThirdSalary = thirdBaseman.Salary;
+
+                                    foreach (var shortstop in _context.PositionPlayers.Where(p => p.Position == "SS" && p.Salary >= 5000))
+                                    {
+                                        var newShort = shortstop.FirstName + " " + shortstop.LastName;
+                                        var newShortProjection = shortstop.Projection;
+                                        var newShortSalary = shortstop.Salary;
+
+                                        foreach (var outfielderOne in _context.PositionPlayers.Where(p => p.Position == "OF" && p.Salary >= 5000))
+                                        {
+                                            var outfieldOne = outfielderOne.FirstName + " " + outfielderOne.LastName;
+                                            var outfieldOneProjection = outfielderOne.Projection;
+                                            var outfieldOneSalary = outfielderOne.Salary;
+
+                                            foreach (var outfielderTwo in _context.PositionPlayers.Where(p => p.Position == "OF" && p.Salary >= 5000 && p.PlayerID != outfielderOne.PlayerID))
+                                            {
+                                                var outfieldTwo = outfielderTwo.FirstName + " " + outfielderTwo.LastName;
+                                                var outfieldTwoProjection = outfielderTwo.Projection;
+                                                var outfieldTwoSalary = outfielderTwo.Salary;
+
+                                                foreach (var outfielderThree in _context.PositionPlayers.Where(p => p.Position == "OF" && p.Salary >= 5000 && p.PlayerID != outfielderOne.PlayerID && p.PlayerID != outfielderTwo.PlayerID))
+                                                {
+                                                    var outfieldThree = outfielderThree.FirstName + " " + outfielderThree.LastName;
+                                                    var outfieldThreeProjection = outfielderThree.Projection;
+                                                    var outfieldThreeSalary = outfielderThree.Salary;
+
+                                                    ProjectedTeam newTeam = new ProjectedTeam()
+                                                    {
+                                                        PitcherOne = pitcherOne,
+                                                        PitcherOneProjection = pitcherOneProjection,
+                                                        PitcherOneSalary = pitcherOneSalary,
+                                                        PitcherTwo = pitcherTwo,
+                                                        PitcherTwoProjection = pitcherTwoProjection,
+                                                        PitcherTwoSalary = pitcherTwoSalary,
+                                                        Catcher = newCatcher,
+                                                        CatcherProjection = newCatcherProjection,
+                                                        CatcherSalary = newCatcherSalary,
+                                                        FirstBase = newFirst,
+                                                        FirstBaseProjection = newFirstProjection,
+                                                        FirstBaseSalary = newFirstSalary,
+                                                        SecondBase = newSecond,
+                                                        SecondBaseProjection = newSecondProjection,
+                                                        SecondBaseSalary = newSecondSalary,
+                                                        ThirdBase = newThird,
+                                                        ThirdBaseProjection = newThirdProjection,
+                                                        ThirdBaseSalary = newThirdSalary,
+                                                        Shortstop = newShort,
+                                                        ShortstopProjection = newShortProjection,
+                                                        ShortstopSalary = newShortSalary,
+                                                        OutfieldOne = outfieldOne,
+                                                        OutfieldOneProjection = outfieldOneProjection,
+                                                        OutfieldOneSalary = outfieldOneSalary,
+                                                        OutfieldTwo = outfieldTwo,
+                                                        OutfieldTwoProjection = outfieldTwoProjection,
+                                                        OutfieldTwoSalary = outfieldTwoSalary,
+                                                        OutfieldThree = outfieldThree,
+                                                        OutfieldThreeProjection = outfieldThreeProjection,
+                                                        OutfieldThreeSalary = outfieldThreeSalary,
+                                                        TotalCost = pitcherOneSalary + pitcherTwoSalary + newCatcherSalary + newFirstSalary + newSecondSalary + newThirdSalary + newShortSalary + outfieldOneSalary + outfieldTwoSalary + outfieldThreeSalary,
+                                                        TeamProjection = pitcherOneProjection + pitcherTwoProjection + newCatcherProjection + newFirstProjection + newSecondProjection + newThirdProjection + newShortProjection + outfieldOneProjection + outfieldTwoProjection + outfieldThreeProjection
+                                                    };
+                                                    _context.ProjectedTeams.Add(newTeam);
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+
         }
     }
 }

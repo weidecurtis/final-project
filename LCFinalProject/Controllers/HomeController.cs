@@ -23,12 +23,12 @@ namespace LCFinalProject.Controllers
         public IActionResult Index()
         {
             List<Pitcher> pitchers = _context.Pitchers.Where(p => p.ProbableStarter == true).ToList();
-            List<PositionPlayer> catchers = _context.PositionPlayers.Where(p => p.Position == "C").Where(p => p.LastFiveTotalScore >= 40).ToList();
-            List<PositionPlayer> firstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").Where(p => p.LastFiveTotalScore >= 40).ToList();
-            List<PositionPlayer> secondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").Where(p => p.LastFiveTotalScore >= 40).ToList();
-            List<PositionPlayer> shortstops = _context.PositionPlayers.Where(p => p.Position == "SS").Where(p => p.LastFiveTotalScore >= 40).ToList();
-            List<PositionPlayer> thirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").Where(p => p.LastFiveTotalScore >= 40).ToList();
-            List<PositionPlayer> outfielders = _context.PositionPlayers.Where(p => p.Position == "OF").Where(p => p.LastFiveTotalScore >= 40).ToList();
+            List<PositionPlayer> catchers = _context.PositionPlayers.Where(p => p.Position == "C").ToList();
+            List<PositionPlayer> firstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").ToList();
+            List<PositionPlayer> secondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").ToList();
+            List<PositionPlayer> shortstops = _context.PositionPlayers.Where(p => p.Position == "SS").ToList();
+            List<PositionPlayer> thirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").ToList();
+            List<PositionPlayer> outfielders = _context.PositionPlayers.Where(p => p.Position == "OF").ToList();
             List<Team> teams = _context.Teams.ToList();
 
            

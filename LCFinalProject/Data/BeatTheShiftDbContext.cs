@@ -17,6 +17,7 @@ namespace LCFinalProject.Data
         public DbSet<PositionPlayer> AwayCatchers { get; set; }
        
         public DbSet<Team> Teams { get; set; }
+        public DbSet<ProjectedTeam> ProjectedTeams { get; set; }
         public DbSet<LastFiveGamesTeam> LastFiveGamesTeams { get; set; }
 
 

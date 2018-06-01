@@ -69,5 +69,11 @@ namespace LCFinalProject.Models
         public bool ProbableStarter { get; set; }
         public string MatchUp { get; set; }
         public string Opponent { get; set; }
+
+        public int Salary { get; set; }
+        public int DKID { get; set; }
+
+        public int Projection { get; set; }
+        public string HomeAway { get; set; }
     }
 }
