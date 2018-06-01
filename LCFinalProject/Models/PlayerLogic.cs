@@ -22,7 +22,7 @@ namespace LCFinalProject.Models
         }
 
         // This Loads all data from previous day. Gets a list of playerIDs, checks for new players, adds / updates season stats.
-        public void GetData(Game game)
+        public void GetData(YesterdayGame game)
         {
             HtmlWeb hw = new HtmlWeb();
             HtmlDocument doc = hw.Load("https://gd2.mlb.com" + game.Directory + "/batters");
@@ -429,8 +429,9 @@ namespace LCFinalProject.Models
                             Losses = pitcherPlayer.l,
                             HomeRunsAllowed = pitcherPlayer.hra,
                             CompleteGame = completeGame,
-                            CompleteGameShutOut = completeGameShutOut
-                        };
+                            CompleteGameShutOut = completeGameShutOut,
+                            TotalScore = (pitcherPlayer.ip * Convert.ToDecimal(2.25)) + (pitcherPlayer.r * Convert.ToDecimal(-2)) + (pitcherPlayer.bb * Convert.ToDecimal(-.6)) + (pitcherPlayer.h * Convert.ToDecimal(-.6)) + (pitcherPlayer.k * Convert.ToDecimal(2)) + (completeGame * Convert.ToDecimal(2.5)) + (completeGameShutOut * Convert.ToDecimal(2.5))
+                    };
                         _context.IndividualGamePitchers.Add(newPitcher);
                     }
                 }

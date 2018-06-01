@@ -1,6 +1,7 @@
 ﻿using LCFinalProject.Models.gd2Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +17,8 @@ namespace LCFinalProject.Models
         public string TeamName { get; set; }
         public string Position { get; set; }
 
-        public int SeasonAb { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal SeasonAb { get; set; }
         public int SeasonHit { get; set; }
         public decimal SeasonAvg { get; set; }
         public int SeasonSingle { get; set; }
@@ -29,9 +31,11 @@ namespace LCFinalProject.Models
         public decimal SeasonOps { get; set; }
         public int SeasonSb { get; set; }
         public int SeasonCs { get; set; }
-        public int SeasonTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal SeasonTotalScore { get; set; }
 
-        public int AwayAb { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal AwayAb { get; set; }
         public int AwayHit { get; set; }
         public decimal AwayAvg { get; set; }
         public int AwayWalk { get; set; }
@@ -41,9 +45,11 @@ namespace LCFinalProject.Models
         public decimal AwayOps { get; set; }
         public int AwaySb { get; set; }
         public int AwayCs { get; set; }
-        public int AwayTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal AwayTotalScore { get; set; }
 
-        public int HomeAb { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal HomeAb { get; set; }
         public int HomeHit { get; set; }
         public decimal HomeAvg { get; set; }
         public int HomeWalk { get; set; }
@@ -53,9 +59,11 @@ namespace LCFinalProject.Models
         public decimal HomeOps { get; set; }
         public int HomeSb { get; set; }
         public int HomeCs { get; set; }
-        public int HomeTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal HomeTotalScore { get; set; }
 
-        public int VsLhpAb { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal VsLhpAb { get; set; }
         public int VsLhpHit { get; set; }
         public decimal VsLhpAvg { get; set; }
         public int VsLhpWalk { get; set; }
@@ -65,9 +73,11 @@ namespace LCFinalProject.Models
         public decimal VsLhpOps { get; set; }
         public int VsLhpSb { get; set; }
         public int VsLhpCs { get; set; }
-        public int VsLhpTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal VsLhpTotalScore { get; set; }
 
-        public int VsRhpAb { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal VsRhpAb { get; set; }
         public int VsRhpHit { get; set; }
         public decimal VsRhpAvg { get; set; }
         public int VsRhpWalk { get; set; }
@@ -77,14 +87,27 @@ namespace LCFinalProject.Models
         public decimal VsRhpOps { get; set; }
         public int VsRhpSb { get; set; }
         public int VsRhpCs { get; set; }
-        public int VsRhpTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal VsRhpTotalScore { get; set; }
 
+        [DataType("decimal(18,2)")]
         public decimal YesterdayTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
         public decimal LastFiveTotalScore { get; set; }
+        [DataType("decimal(18,2)")]
         public decimal AwayScorePerAB { get; set; }
+        [DataType("decimal(18,2)")]
         public decimal HomeScorePerAB { get; set; }
+        [DataType("decimal(18,2)")]
         public decimal VsLhpScorePerAB { get; set; }
+        [DataType("decimal(18,2)")]
         public decimal VsRhpScorePerAB { get; set; }
+
+        public string OpponentStarter { get; set; }
+        public string MatchUp { get; set; }
+        public decimal OpponentPointsLastThree { get; set; }
+        public int OpponentHRALastThree { get; set; }
+        public string OpponentThrowingHand { get; set; }
 
 
 

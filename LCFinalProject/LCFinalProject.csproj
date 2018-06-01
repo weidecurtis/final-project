@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CSV\" />
     <Folder Include="wwwroot\xml\" />
   </ItemGroup>
 

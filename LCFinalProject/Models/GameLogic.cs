@@ -17,9 +17,9 @@ namespace LCFinalProject.Models
             _context = dbContext;
         }
 
-        public List<Game> GetGames(DateTime dateTime)
+        public List<YesterdayGame> GetGames(DateTime dateTime)
         {
-            List<Game> gameUrls = new List<Game>();
+            List<YesterdayGame> gameUrls = new List<YesterdayGame>();
 
             var date = dateTime.Date;
             var year = date.ToString("yyyy");
@@ -45,7 +45,7 @@ namespace LCFinalProject.Models
 
                     var gameDuplicate = _context.Games.Any(g => g.GameID == int.Parse(gameID));
 
-                    Game newGame = new Game()
+                    YesterdayGame newGame = new YesterdayGame()
                     {
                         Directory = directory,
                         Venue = venue,

@@ -11,14 +11,35 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180528101544_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("LCFinalProject.Models.Game", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Directory");
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<int>("GameID");
+
+                    b.Property<string>("Venue");
+
+                    b.Property<int>("VenueID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Games");
+                });
 
             modelBuilder.Entity("LCFinalProject.Models.IndividualGamePitcher", b =>
                 {
@@ -279,13 +300,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("LastThreeTotalScore");
 
-                    b.Property<string>("MatchUp");
-
-                    b.Property<string>("Opponent");
-
                     b.Property<int>("PlayerID");
-
-                    b.Property<bool>("ProbableStarter");
 
                     b.Property<decimal>("SeasonEarnedRunsAllowed");
 
@@ -308,8 +323,6 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("SeasonWins");
 
                     b.Property<string>("TeamName");
-
-                    b.Property<string>("ThrowingHand");
 
                     b.HasKey("ID");
 
@@ -374,16 +387,6 @@ namespace LCFinalProject.Migrations
                     b.Property<decimal>("LastFiveTotalScore");
 
                     b.Property<string>("LastName");
-
-                    b.Property<string>("MatchUp");
-
-                    b.Property<int>("OpponentHRALastThree");
-
-                    b.Property<decimal>("OpponentPointsLastThree");
-
-                    b.Property<string>("OpponentStarter");
-
-                    b.Property<string>("OpponentThrowingHand");
 
                     b.Property<int>("PlayerID");
 
@@ -479,31 +482,17 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("GamesPlayedGauge");
-
-                    b.Property<int>("Hits");
-
-                    b.Property<decimal>("HitsAllowed");
-
                     b.Property<int>("HomeRuns");
 
-                    b.Property<decimal>("HomeRunsAllowed");
-
-                    b.Property<string>("Opponent");
-
-                    b.Property<decimal>("PointsGivenUp");
-
-                    b.Property<decimal>("PointsPerPitcherUsed");
+                    b.Property<int>("HomeRunsAllowed");
 
                     b.Property<int>("Runs");
 
-                    b.Property<decimal>("RunsAllowed");
+                    b.Property<int>("RunsAllowed");
 
                     b.Property<int>("StrikeOuts");
 
                     b.Property<string>("TeamName");
-
-                    b.Property<int>("TotalPoints");
 
                     b.HasKey("ID");
 
@@ -522,26 +511,6 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("LCFinalProject.Models.YesterdayGame", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Directory");
-
-                    b.Property<DateTime>("GameDate");
-
-                    b.Property<int>("GameID");
-
-                    b.Property<string>("Venue");
-
-                    b.Property<int>("VenueID");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Games");
                 });
 #pragma warning restore 612, 618
         }

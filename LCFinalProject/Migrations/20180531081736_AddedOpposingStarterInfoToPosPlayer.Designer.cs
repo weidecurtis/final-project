@@ -11,9 +11,10 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180531081736_AddedOpposingStarterInfoToPosPlayer")]
+    partial class AddedOpposingStarterInfoToPosPlayer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -379,7 +380,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("OpponentHRALastThree");
 
-                    b.Property<decimal>("OpponentPointsLastThree");
+                    b.Property<int>("OpponentPointsLastThree");
 
                     b.Property<string>("OpponentStarter");
 

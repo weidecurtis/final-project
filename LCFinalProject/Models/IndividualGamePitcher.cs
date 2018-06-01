@@ -23,5 +23,6 @@ namespace LCFinalProject.Models
         public int HomeRunsAllowed { get; set; }
         public int CompleteGame { get; set; }
         public int CompleteGameShutOut { get; set; }
+        public decimal TotalScore { get; set; }
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180531073432_AddedMatchUp")]
+    partial class AddedMatchUp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,8 +282,6 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("MatchUp");
 
-                    b.Property<string>("Opponent");
-
                     b.Property<int>("PlayerID");
 
                     b.Property<bool>("ProbableStarter");
@@ -374,16 +373,6 @@ namespace LCFinalProject.Migrations
                     b.Property<decimal>("LastFiveTotalScore");
 
                     b.Property<string>("LastName");
-
-                    b.Property<string>("MatchUp");
-
-                    b.Property<int>("OpponentHRALastThree");
-
-                    b.Property<decimal>("OpponentPointsLastThree");
-
-                    b.Property<string>("OpponentStarter");
-
-                    b.Property<string>("OpponentThrowingHand");
 
                     b.Property<int>("PlayerID");
 
@@ -488,8 +477,6 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("HomeRuns");
 
                     b.Property<decimal>("HomeRunsAllowed");
-
-                    b.Property<string>("Opponent");
 
                     b.Property<decimal>("PointsGivenUp");
 

@@ -36,23 +36,25 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
-           
-                DateTime yesterday = DateTime.Today.Date.AddDays(-1);
+
+            DateTime yesterday = DateTime.Today.Date.AddDays(-1);
 
             ////This gets the List of Game URLS for that day.
             var gameLogic = new GameLogic(_context);
-            List<Game> gameUrls = gameLogic.GetGames(yesterday);
+            List<YesterdayGame> gameUrls = gameLogic.GetGames(yesterday);
 
             ////This loops through each player in each game.
             var playerLogic = new PlayerLogic(_context);
-            foreach (Game game in gameUrls)
+            foreach (YesterdayGame game in gameUrls)
             {
                 playerLogic.GetData(game);
             }
             ////This loops through every players individual stats for that day
             playerLogic.LoadYesterdayGames(yesterday);
-            
+
             _context.SaveChanges();
+     
+
             return Redirect("GetData/Test");
         }
 
@@ -60,25 +62,15 @@ namespace LCFinalProject.Controllers
         {
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
-            predictorLogic.ClearPreviousDay();
+            //predictorLogic.TodayGameData();
 
-            foreach (PositionPlayer player in _context.PositionPlayers)
-            {
-                predictorLogic.LastTenGames(player);
-            }
-            foreach (Pitcher pitcher in _context.Pitchers)
-            {
-                predictorLogic.LastThreeGamesPitcher(pitcher);
-            }
-
+            predictorLogic.UpdatePlayers();
+            predictorLogic.UpdateTeamNames();
+            predictorLogic.RefreshTeams();
 
             _context.SaveChanges();
 
-            predictorLogic.UpdateYesterdayGames();
-            predictorLogic.UpdatePlayers();
-            predictorLogic.UpdateTeamNames();
-            predictorLogic.TeamStats();
-            predictorLogic.UpdateYesterdayGames();
+            predictorLogic.UpdateTeams();
 
             _context.SaveChanges();
             return View();
