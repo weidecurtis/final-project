@@ -37,6 +37,7 @@ namespace LCFinalProject.Controllers
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
 
+
             DateTime yesterday = DateTime.Today.Date.AddDays(-1);
 
             ////This gets the List of Game URLS for that day.
@@ -52,8 +53,7 @@ namespace LCFinalProject.Controllers
             ////This loops through every players individual stats for that day
             playerLogic.LoadYesterdayGames(yesterday);
 
-            _context.SaveChanges();
-     
+
 
             return Redirect("GetData/Test");
         }
@@ -73,9 +73,11 @@ namespace LCFinalProject.Controllers
             //predictorLogic.UpdateTeams();
 
             //predictorLogic.AssignSalaries();
-            //predictorLogic.GetProjections();
 
-            predictorLogic.GetTeamProjections();
+            //predictorLogic.AssignStarters();
+            predictorLogic.GetProjections();
+
+            //predictorLogic.GetTeamProjections();
 
             _context.SaveChanges();
             return View();

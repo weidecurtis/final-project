@@ -63,6 +63,8 @@ namespace LCFinalProject.Models
         public int LastThreeERA { get; set; }
         public decimal LastThreeInningsPitched { get; set; }
         public decimal LastStartScore { get; set; }
+        public int LastThreeHitsAllowed { get; set; }
+        public int LastThreeWalks { get; set; }
 
         public string ThrowingHand { get; set; }
 

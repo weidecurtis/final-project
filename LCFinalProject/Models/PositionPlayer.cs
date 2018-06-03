@@ -111,11 +111,19 @@ namespace LCFinalProject.Models
 
         public int DKID { get; set; }
         public int Salary { get; set; }
-        public int Projection { get; set; }
+        [DataType("decimal(18,2)")]
+        public decimal Projection { get; set; }
         public string HomeAway { get; set; }
 
-
-
+        public int LastFiveAb { get; set; }
+        public int LastFiveHit { get; set; }
+        public int LastFiveDouble { get; set; }
+        public int LastFiveTriple { get; set; }
+        public int LastFiveHR { get; set; }
+        public int LastFiveWalk { get; set; }
+        public int LastFiveRuns { get; set; }
+        public int LastFiveRBI { get; set; }
+        public int LastFiveSB { get; set; }
 
 
 

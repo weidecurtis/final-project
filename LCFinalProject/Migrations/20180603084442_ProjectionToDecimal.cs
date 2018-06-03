@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace LCFinalProject.Migrations
 {
-    public partial class AddedOpposingPitcherInfo : Migration
+    public partial class ProjectionToDecimal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<decimal>(
-                name: "OpponentPointsLastThree",
+                name: "Projection",
                 table: "PositionPlayer",
                 nullable: false,
                 oldClrType: typeof(int));
@@ -18,7 +18,7 @@ namespace LCFinalProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "OpponentPointsLastThree",
+                name: "Projection",
                 table: "PositionPlayer",
                 nullable: false,
                 oldClrType: typeof(decimal));

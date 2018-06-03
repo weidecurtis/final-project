@@ -363,7 +363,7 @@ namespace LCFinalProject.Models
                             Walk = player.bb,
                             Team = singlePlayer.TeamName,
                             StrikeOut = player.so,
-                            TotalScore = (player.single * 3) + (player.@double * 5) + (player.triple * 7) + (player.hr * 10) + (player.rbi * 2 ) + (player.r * 2) + (player.sb * 5) + (player.bb * 2)
+                            TotalScore = (player.single * 3) + (player.@double * 5) +  (player.sb * 5) + (player.bb * 2)
                         };
                         _context.IndividualGamePosPlayers.Add(newPlayerEntry);
 
@@ -385,7 +385,7 @@ namespace LCFinalProject.Models
                 catch (WebException ex)
                 {
                     HttpWebResponse webResponse = (HttpWebResponse)ex.Response;
-                    if (webResponse.StatusCode == HttpStatusCode.NotFound)
+                    if (webResponse.StatusCode == HttpStatusCode.NotFound || webResponse.StatusCode == HttpStatusCode.InternalServerError)
                     {
                         continue;
                     }

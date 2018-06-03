@@ -4,20 +4,21 @@ using System.Collections.Generic;
 
 namespace LCFinalProject.Migrations
 {
-    public partial class AddedThrowingHandToPitcher : Migration
+    public partial class AddedHitsAllowedTOPitcher : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ThrowingHand",
+            migrationBuilder.AddColumn<int>(
+                name: "LastThreeHitsAllowed",
                 table: "Pitchers",
-                nullable: true);
+                nullable: false,
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ThrowingHand",
+                name: "LastThreeHitsAllowed",
                 table: "Pitchers");
         }
     }

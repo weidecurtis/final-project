@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace LCFinalProject.Migrations
 {
-    public partial class AddedHitsToTeams : Migration
+    public partial class AddedLastFiveSB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "Hits",
-                table: "Teams",
+                name: "LastFiveSB",
+                table: "PositionPlayer",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -18,8 +18,8 @@ namespace LCFinalProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Hits",
-                table: "Teams");
+                name: "LastFiveSB",
+                table: "PositionPlayer");
         }
     }
 }

@@ -176,7 +176,9 @@ namespace LCFinalProject.Migrations
                     AwayStrikeOuts = table.Column<int>(nullable: false),
                     AwayTotalScore = table.Column<decimal>(nullable: false),
                     AwayWalks = table.Column<int>(nullable: false),
+                    DKID = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
+                    HomeAway = table.Column<string>(nullable: true),
                     HomeEarnedRunsAllowed = table.Column<decimal>(nullable: false),
                     HomeHitByPitch = table.Column<int>(nullable: false),
                     HomeHitsAllowed = table.Column<int>(nullable: false),
@@ -194,7 +196,12 @@ namespace LCFinalProject.Migrations
                     LastThreeInningsPitched = table.Column<decimal>(nullable: false),
                     LastThreeStrikeouts = table.Column<int>(nullable: false),
                     LastThreeTotalScore = table.Column<decimal>(nullable: false),
+                    MatchUp = table.Column<string>(nullable: true),
+                    Opponent = table.Column<string>(nullable: true),
                     PlayerID = table.Column<int>(nullable: false),
+                    ProbableStarter = table.Column<bool>(nullable: false),
+                    Projection = table.Column<int>(nullable: false),
+                    Salary = table.Column<int>(nullable: false),
                     SeasonEarnedRunsAllowed = table.Column<decimal>(nullable: false),
                     SeasonHitsAllowed = table.Column<int>(nullable: false),
                     SeasonHomeRunAllowed = table.Column<int>(nullable: false),
@@ -205,7 +212,8 @@ namespace LCFinalProject.Migrations
                     SeasonTotalScore = table.Column<decimal>(nullable: false),
                     SeasonWalks = table.Column<int>(nullable: false),
                     SeasonWins = table.Column<int>(nullable: false),
-                    TeamName = table.Column<string>(nullable: true)
+                    TeamName = table.Column<string>(nullable: true),
+                    ThrowingHand = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,9 +238,11 @@ namespace LCFinalProject.Migrations
                     AwayScorePerAB = table.Column<decimal>(nullable: false),
                     AwayTotalScore = table.Column<decimal>(nullable: false),
                     AwayWalk = table.Column<int>(nullable: false),
+                    DKID = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     HomeAb = table.Column<decimal>(nullable: false),
                     HomeAvg = table.Column<decimal>(nullable: false),
+                    HomeAway = table.Column<string>(nullable: true),
                     HomeCs = table.Column<int>(nullable: false),
                     HomeHit = table.Column<int>(nullable: false),
                     HomeHr = table.Column<int>(nullable: false),
@@ -245,8 +255,15 @@ namespace LCFinalProject.Migrations
                     HomeWalk = table.Column<int>(nullable: false),
                     LastFiveTotalScore = table.Column<decimal>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
+                    MatchUp = table.Column<string>(nullable: true),
+                    OpponentHRALastThree = table.Column<int>(nullable: false),
+                    OpponentPointsLastThree = table.Column<decimal>(nullable: false),
+                    OpponentStarter = table.Column<string>(nullable: true),
+                    OpponentThrowingHand = table.Column<string>(nullable: true),
                     PlayerID = table.Column<int>(nullable: false),
                     Position = table.Column<string>(nullable: true),
+                    Projection = table.Column<int>(nullable: false),
+                    Salary = table.Column<int>(nullable: false),
                     SeasonAb = table.Column<decimal>(nullable: false),
                     SeasonAvg = table.Column<decimal>(nullable: false),
                     SeasonCs = table.Column<int>(nullable: false),
@@ -294,17 +311,71 @@ namespace LCFinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProjectedTeams",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Catcher = table.Column<string>(nullable: true),
+                    CatcherProjection = table.Column<decimal>(nullable: false),
+                    CatcherSalary = table.Column<int>(nullable: false),
+                    FirstBase = table.Column<string>(nullable: true),
+                    FirstBaseProjection = table.Column<decimal>(nullable: false),
+                    FirstBaseSalary = table.Column<int>(nullable: false),
+                    OutfieldOne = table.Column<string>(nullable: true),
+                    OutfieldOneProjection = table.Column<decimal>(nullable: false),
+                    OutfieldOneSalary = table.Column<int>(nullable: false),
+                    OutfieldThree = table.Column<string>(nullable: true),
+                    OutfieldThreeProjection = table.Column<int>(nullable: false),
+                    OutfieldThreeSalary = table.Column<int>(nullable: false),
+                    OutfieldTwo = table.Column<string>(nullable: true),
+                    OutfieldTwoProjection = table.Column<decimal>(nullable: false),
+                    OutfieldTwoSalary = table.Column<int>(nullable: false),
+                    PitcherOne = table.Column<string>(nullable: true),
+                    PitcherOneProjection = table.Column<decimal>(nullable: false),
+                    PitcherOneSalary = table.Column<int>(nullable: false),
+                    PitcherTwo = table.Column<string>(nullable: true),
+                    PitcherTwoProjection = table.Column<decimal>(nullable: false),
+                    PitcherTwoSalary = table.Column<int>(nullable: false),
+                    SecondBase = table.Column<string>(nullable: true),
+                    SecondBaseProjection = table.Column<decimal>(nullable: false),
+                    SecondBaseSalary = table.Column<int>(nullable: false),
+                    Shortstop = table.Column<string>(nullable: true),
+                    ShortstopProjection = table.Column<decimal>(nullable: false),
+                    ShortstopSalary = table.Column<int>(nullable: false),
+                    TeamProjection = table.Column<decimal>(nullable: false),
+                    ThirdBase = table.Column<string>(nullable: true),
+                    ThirdBaseProjection = table.Column<decimal>(nullable: false),
+                    ThirdBaseSalary = table.Column<int>(nullable: false),
+                    TotalCost = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectedTeams", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GamesPlayedGauge = table.Column<decimal>(nullable: false),
+                    Hits = table.Column<int>(nullable: false),
+                    HitsAllowed = table.Column<decimal>(nullable: false),
+                    HomeAway = table.Column<string>(nullable: true),
                     HomeRuns = table.Column<int>(nullable: false),
-                    HomeRunsAllowed = table.Column<int>(nullable: false),
+                    HomeRunsAllowed = table.Column<decimal>(nullable: false),
+                    Opponent = table.Column<string>(nullable: true),
+                    OpponentStarter = table.Column<string>(nullable: true),
+                    PointsGivenUp = table.Column<decimal>(nullable: false),
+                    PointsPerPitcherUsed = table.Column<decimal>(nullable: false),
                     Runs = table.Column<int>(nullable: false),
-                    RunsAllowed = table.Column<int>(nullable: false),
+                    RunsAllowed = table.Column<decimal>(nullable: false),
+                    Starter = table.Column<string>(nullable: true),
                     StrikeOuts = table.Column<int>(nullable: false),
-                    TeamName = table.Column<string>(nullable: true)
+                    TeamName = table.Column<string>(nullable: true),
+                    TotalPoints = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -351,6 +422,9 @@ namespace LCFinalProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "PositionPlayer");
+
+            migrationBuilder.DropTable(
+                name: "ProjectedTeams");
 
             migrationBuilder.DropTable(
                 name: "Teams");

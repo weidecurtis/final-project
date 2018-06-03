@@ -11,8 +11,8 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    [Migration("20180529093742_AddedToPointsSystem")]
-    partial class AddedToPointsSystem
+    [Migration("20180603075208_AddedLastFiveSB")]
+    partial class AddedLastFiveSB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,26 +20,6 @@ namespace LCFinalProject.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("LCFinalProject.Models.Game", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Directory");
-
-                    b.Property<DateTime>("GameDate");
-
-                    b.Property<int>("GameID");
-
-                    b.Property<string>("Venue");
-
-                    b.Property<int>("VenueID");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Games");
-                });
 
             modelBuilder.Entity("LCFinalProject.Models.IndividualGamePitcher", b =>
                 {
@@ -264,7 +244,11 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("AwayWalks");
 
+                    b.Property<int>("DKID");
+
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("HomeAway");
 
                     b.Property<decimal>("HomeEarnedRunsAllowed");
 
@@ -294,13 +278,27 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("LastThreeHRA");
 
+                    b.Property<int>("LastThreeHitsAllowed");
+
                     b.Property<decimal>("LastThreeInningsPitched");
 
                     b.Property<int>("LastThreeStrikeouts");
 
                     b.Property<decimal>("LastThreeTotalScore");
 
+                    b.Property<int>("LastThreeWalks");
+
+                    b.Property<string>("MatchUp");
+
+                    b.Property<string>("Opponent");
+
                     b.Property<int>("PlayerID");
+
+                    b.Property<bool>("ProbableStarter");
+
+                    b.Property<int>("Projection");
+
+                    b.Property<int>("Salary");
 
                     b.Property<decimal>("SeasonEarnedRunsAllowed");
 
@@ -323,6 +321,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("SeasonWins");
 
                     b.Property<string>("TeamName");
+
+                    b.Property<string>("ThrowingHand");
 
                     b.HasKey("ID");
 
@@ -358,11 +358,15 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("AwayWalk");
 
+                    b.Property<int>("DKID");
+
                     b.Property<string>("FirstName");
 
                     b.Property<decimal>("HomeAb");
 
                     b.Property<decimal>("HomeAvg");
+
+                    b.Property<string>("HomeAway");
 
                     b.Property<int>("HomeCs");
 
@@ -384,13 +388,45 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("HomeWalk");
 
+                    b.Property<int>("LastFiveAb");
+
+                    b.Property<int>("LastFiveDouble");
+
+                    b.Property<int>("LastFiveHR");
+
+                    b.Property<int>("LastFiveHit");
+
+                    b.Property<int>("LastFiveRBI");
+
+                    b.Property<int>("LastFiveRuns");
+
+                    b.Property<int>("LastFiveSB");
+
                     b.Property<decimal>("LastFiveTotalScore");
 
+                    b.Property<int>("LastFiveTriple");
+
+                    b.Property<int>("LastFiveWalk");
+
                     b.Property<string>("LastName");
+
+                    b.Property<string>("MatchUp");
+
+                    b.Property<int>("OpponentHRALastThree");
+
+                    b.Property<decimal>("OpponentPointsLastThree");
+
+                    b.Property<string>("OpponentStarter");
+
+                    b.Property<string>("OpponentThrowingHand");
 
                     b.Property<int>("PlayerID");
 
                     b.Property<string>("Position");
+
+                    b.Property<int>("Projection");
+
+                    b.Property<int>("Salary");
 
                     b.Property<decimal>("SeasonAb");
 
@@ -477,6 +513,80 @@ namespace LCFinalProject.Migrations
                     b.ToTable("PositionPlayer");
                 });
 
+            modelBuilder.Entity("LCFinalProject.Models.ProjectedTeam", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Catcher");
+
+                    b.Property<decimal>("CatcherProjection");
+
+                    b.Property<int>("CatcherSalary");
+
+                    b.Property<string>("FirstBase");
+
+                    b.Property<decimal>("FirstBaseProjection");
+
+                    b.Property<int>("FirstBaseSalary");
+
+                    b.Property<string>("OutfieldOne");
+
+                    b.Property<decimal>("OutfieldOneProjection");
+
+                    b.Property<int>("OutfieldOneSalary");
+
+                    b.Property<string>("OutfieldThree");
+
+                    b.Property<int>("OutfieldThreeProjection");
+
+                    b.Property<int>("OutfieldThreeSalary");
+
+                    b.Property<string>("OutfieldTwo");
+
+                    b.Property<decimal>("OutfieldTwoProjection");
+
+                    b.Property<int>("OutfieldTwoSalary");
+
+                    b.Property<string>("PitcherOne");
+
+                    b.Property<decimal>("PitcherOneProjection");
+
+                    b.Property<int>("PitcherOneSalary");
+
+                    b.Property<string>("PitcherTwo");
+
+                    b.Property<decimal>("PitcherTwoProjection");
+
+                    b.Property<int>("PitcherTwoSalary");
+
+                    b.Property<string>("SecondBase");
+
+                    b.Property<decimal>("SecondBaseProjection");
+
+                    b.Property<int>("SecondBaseSalary");
+
+                    b.Property<string>("Shortstop");
+
+                    b.Property<decimal>("ShortstopProjection");
+
+                    b.Property<int>("ShortstopSalary");
+
+                    b.Property<decimal>("TeamProjection");
+
+                    b.Property<string>("ThirdBase");
+
+                    b.Property<decimal>("ThirdBaseProjection");
+
+                    b.Property<int>("ThirdBaseSalary");
+
+                    b.Property<int>("TotalCost");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ProjectedTeams");
+                });
+
             modelBuilder.Entity("LCFinalProject.Models.Team", b =>
                 {
                     b.Property<int>("ID")
@@ -488,9 +598,15 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("HitsAllowed");
 
+                    b.Property<string>("HomeAway");
+
                     b.Property<int>("HomeRuns");
 
                     b.Property<decimal>("HomeRunsAllowed");
+
+                    b.Property<string>("Opponent");
+
+                    b.Property<string>("OpponentStarter");
 
                     b.Property<decimal>("PointsGivenUp");
 
@@ -500,9 +616,15 @@ namespace LCFinalProject.Migrations
 
                     b.Property<decimal>("RunsAllowed");
 
+                    b.Property<string>("Starter");
+
                     b.Property<int>("StrikeOuts");
 
                     b.Property<string>("TeamName");
+
+                    b.Property<int>("TotalPoints");
+
+                    b.Property<int>("Walks");
 
                     b.HasKey("ID");
 
@@ -521,6 +643,26 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.YesterdayGame", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Directory");
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<int>("GameID");
+
+                    b.Property<string>("Venue");
+
+                    b.Property<int>("VenueID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Games");
                 });
 #pragma warning restore 612, 618
         }

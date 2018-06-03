@@ -14,6 +14,7 @@ namespace LCFinalProject.Models
         public int HomeRuns { get; set; }
         public int Hits { get; set; }
         public int Runs { get; set; }
+        public int Walks { get; set; }
         public int TotalPoints { get; set; }
         [DataType("decimal(18,2)")]
         public decimal RunsAllowed { get; set; }

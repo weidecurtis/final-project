@@ -23,12 +23,20 @@ namespace LCFinalProject.Controllers
         public IActionResult Index()
         {
             List<Pitcher> pitchers = _context.Pitchers.Where(p => p.ProbableStarter == true).ToList();
+            var pitcherNight = pitchers.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
             List<PositionPlayer> catchers = _context.PositionPlayers.Where(p => p.Position == "C").ToList();
+            var catcherNight = catchers.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
             List<PositionPlayer> firstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B").ToList();
+            var firstNight = firstBasemen.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
             List<PositionPlayer> secondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B").ToList();
+            var secondNight = secondBasemen.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
             List<PositionPlayer> shortstops = _context.PositionPlayers.Where(p => p.Position == "SS").ToList();
+            var shortNight = shortstops.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
             List<PositionPlayer> thirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B").ToList();
+            var thirdNight = thirdBasemen.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
             List<PositionPlayer> outfielders = _context.PositionPlayers.Where(p => p.Position == "OF").ToList();
+            var outfieldNight = outfielders.Where(p => p.TeamName == "Phillies" || p.TeamName == "Giants" || p.TeamName == "Rangers" || p.TeamName == "Angels" || p.TeamName == "Marlins" || p.TeamName == "Diamondbacks" || p.TeamName == "Mariners" || p.TeamName == "Rays").ToList();
+
             List<Team> teams = _context.Teams.ToList();
 
            
@@ -36,13 +44,13 @@ namespace LCFinalProject.Controllers
 
             PredictorViewModel predictorViewModel = new PredictorViewModel
             {
-                Pitchers = pitchers,
-                Catchers = catchers,
-                FirstBasemen = firstBasemen,
-                SecondBasemen = secondBasemen,
-                ThirdBasemen = thirdBasemen,
-                ShortStops = shortstops,
-                Outfielders = outfielders,
+                Pitchers = pitcherNight,
+                Catchers = catcherNight,
+                FirstBasemen = firstNight,
+                SecondBasemen = secondNight,
+                ThirdBasemen = thirdNight,
+                ShortStops = shortNight,
+                Outfielders = outfieldNight,
                 Teams = teams
 
             };
