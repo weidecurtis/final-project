@@ -125,6 +125,24 @@ namespace LCFinalProject.Models
         public int LastFiveRBI { get; set; }
         public int LastFiveSB { get; set; }
 
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedHit { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedDouble { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedTriple { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedHR { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedRun { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedRBI { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedWalk { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedSB { get; set; }
+
+
 
 
 

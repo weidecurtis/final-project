@@ -4,22 +4,21 @@ using System.Collections.Generic;
 
 namespace LCFinalProject.Migrations
 {
-    public partial class AddeDLastFiveRBI : Migration
+    public partial class AddedTeamToIndividualGamePitchers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "LastFiveRBI",
-                table: "PositionPlayer",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.AddColumn<string>(
+                name: "TeamName",
+                table: "IndividualGamePitchers",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "LastFiveRBI",
-                table: "PositionPlayer");
+                name: "TeamName",
+                table: "IndividualGamePitchers");
         }
     }
 }

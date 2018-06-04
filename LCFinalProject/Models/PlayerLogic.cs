@@ -343,6 +343,10 @@ namespace LCFinalProject.Models
                         {
                             singlePlayer.Position = "OF";
                         }
+                        if (singlePlayer.Position == "DH")
+                        {
+                            singlePlayer.Position = "1B";
+                        }
 
                         IndividualGamePosPlayer newPlayerEntry = new IndividualGamePosPlayer()
                         {
@@ -363,7 +367,7 @@ namespace LCFinalProject.Models
                             Walk = player.bb,
                             Team = singlePlayer.TeamName,
                             StrikeOut = player.so,
-                            TotalScore = (player.single * 3) + (player.@double * 5) +  (player.sb * 5) + (player.bb * 2)
+                            TotalScore = (player.single * 3) + (player.@double * 5) +  (player.sb * 5) + (player.bb * 2) + (player.triple * 7) + (player.hr * 10) + (player.r * 2) + (player.rbi * 2)
                         };
                         _context.IndividualGamePosPlayers.Add(newPlayerEntry);
 
@@ -430,6 +434,7 @@ namespace LCFinalProject.Models
                             HomeRunsAllowed = pitcherPlayer.hra,
                             CompleteGame = completeGame,
                             CompleteGameShutOut = completeGameShutOut,
+                            TeamName = pitcher.TeamName,
                             TotalScore = (pitcherPlayer.ip * Convert.ToDecimal(2.25)) + (pitcherPlayer.r * Convert.ToDecimal(-2)) + (pitcherPlayer.bb * Convert.ToDecimal(-.6)) + (pitcherPlayer.h * Convert.ToDecimal(-.6)) + (pitcherPlayer.k * Convert.ToDecimal(2)) + (completeGame * Convert.ToDecimal(2.5)) + (completeGameShutOut * Convert.ToDecimal(2.5))
                     };
                         _context.IndividualGamePitchers.Add(newPitcher);

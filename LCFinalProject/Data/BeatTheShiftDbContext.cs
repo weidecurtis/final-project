@@ -19,6 +19,7 @@ namespace LCFinalProject.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<ProjectedTeam> ProjectedTeams { get; set; }
         public DbSet<LastFiveGamesTeam> LastFiveGamesTeams { get; set; }
+        public DbSet<TeamGameDate> TeamGameDates { get; set; }
 
 
         public BeatTheShiftDbContext(DbContextOptions<BeatTheShiftDbContext> options) : base(options) { }

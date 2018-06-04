@@ -28,6 +28,135 @@ namespace LCFinalProject.Models
 
         public void UpdateTeamNames()
         {
+            foreach(var player in _context.IndividualGamePosPlayers)
+            {
+                if (player.Team == "ANA")
+                {
+                    player.Team = "Angels";
+                }
+                if (player.Team == "ARI")
+                {
+                    player.Team = "Diamondbacks";
+                }
+                if (player.Team == "ATL")
+                {
+                    player.Team = "Braves";
+                }
+                if (player.Team == "BAL")
+                {
+                    player.Team = "Orioles";
+                }
+                if (player.Team == "BOS")
+                {
+                    player.Team = "Red Sox";
+                }
+                if (player.Team == "CHA")
+                {
+                    player.Team = "White Sox";
+                }
+                if (player.Team == "CHN")
+                {
+                    player.Team = "Cubs";
+                }
+                if (player.Team == "CIN")
+                {
+                    player.Team = "Reds";
+                }
+                if (player.Team == "CLE")
+                {
+                    player.Team = "Indians";
+                }
+                if (player.Team == "COL")
+                {
+                    player.Team = "Rockies";
+                }
+                if (player.Team == "DET")
+                {
+                    player.Team = "Tigers";
+                }
+                if (player.Team == "HOU")
+                {
+                    player.Team = "Astros";
+                }
+                if (player.Team == "KCA")
+                {
+                    player.Team = "Royals";
+                }
+                if (player.Team == "LAN")
+                {
+                    player.Team = "Dodgers";
+                }
+                if (player.Team == "MIA")
+                {
+                    player.Team = "Marlins";
+                }
+                if (player.Team == "MIL")
+                {
+                    player.Team = "Brewers";
+                }
+                if (player.Team == "MIN")
+                {
+                    player.Team = "Twins";
+                }
+                if (player.Team == "NYA")
+                {
+                    player.Team = "Yankees";
+                }
+                if (player.Team == "NYN")
+                {
+                    player.Team = "Mets";
+                }
+                if (player.Team == "OAK")
+                {
+                    player.Team = "Athletics";
+                }
+                if (player.Team == "PHI")
+                {
+                    player.Team = "Phillies";
+                }
+                if (player.Team == "PIT")
+                {
+                    player.Team = "Pirates";
+                }
+                if (player.Team == "SDN")
+                {
+                    player.Team = "Padres";
+                }
+                if (player.Team == "SEA")
+                {
+                    player.Team = "Mariners";
+                }
+                if (player.Team == "SFN")
+                {
+                    player.Team = "Giants";
+                }
+                if (player.Team == "SLN")
+                {
+                    player.Team = "Cardinals";
+                }
+                if (player.Team == "TBA")
+                {
+                    player.Team = "Rays";
+                }
+                if (player.Team == "TEX")
+                {
+                    player.Team = "Rangers";
+                }
+                if (player.Team == "TOR")
+                {
+                    player.Team = "Blue Jays";
+                }
+                if (player.Team == "WAS")
+                {
+                    player.Team = "Nationals";
+                }
+
+                if (player.Team == "D-backs")
+                {
+                    player.Team = "Diamondbacks";
+                }
+            }
+
             foreach (var player in _context.PositionPlayers)
             {
                 if (player.TeamName == "ANA")
@@ -311,6 +440,14 @@ namespace LCFinalProject.Models
             }
         }
 
+        public void IndividualTotalScore()
+        {
+            foreach (var player in _context.IndividualGamePosPlayers)
+            {
+                player.TotalScore = (player.Single * 3) + (player.Double * 5) + (player.StolenBase * 5) + (player.Walk * 2) + (player.Triple * 7) + (player.HomeRun * 10) + (player.Run * 2) + (player.RBI * 2);
+            }
+        }
+
         //This gathers all data for players (home/away splits .. vs lhp and rhp)
         public void UpdatePlayers()
         {
@@ -460,82 +597,71 @@ namespace LCFinalProject.Models
             _context.SaveChanges();
         }
 
+
         public void UpdateTeams()
         {
 
-            foreach (var player in _context.PositionPlayers)
+            foreach (var team in _context.Teams)
             {
-                for (int i = -5; i < 0; i++)
+                var lastFiveGames = _context.TeamGameDates.Where(t => t.TeamName == team.TeamName).OrderByDescending(t => t.GameDate).Take(5).ToList();
+
+                foreach (var game in lastFiveGames)
                 {
-                    var loopDate = DateTime.Today.Date.AddDays(i);
-                    IndividualGamePosPlayer playerGames = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID && p.GameDate == loopDate).FirstOrDefault();
-                    Team playerTeam = _context.Teams.Single(p => p.TeamName == player.TeamName);
-
-                    if (playerGames != null)
+                    foreach (var player in _context.IndividualGamePosPlayers.Where(p => p.Team == game.TeamName && p.GameDate == game.GameDate))
                     {
-                        int hits = playerTeam.Hits;
-                        int strikeOuts = playerTeam.StrikeOuts;
-                        int homeRuns = playerTeam.HomeRuns;
-                        int runs = playerTeam.Runs;
-                        int walks = playerTeam.Walks;
+                        int hits = team.Hits;
+                        int strikeOuts = team.StrikeOuts;
+                        int homeRuns = team.HomeRuns;
+                        int runs = team.Runs;
+                        int walks = team.Walks;
 
-                        hits += playerGames.Single + playerGames.Double + playerGames.Triple + playerGames.HomeRun;
-                        strikeOuts += playerGames.StrikeOut;
-                        homeRuns += playerGames.HomeRun;
-                        runs += playerGames.Run;
-                        walks += playerGames.Walk;
+                        hits += player.Single + player.Double + player.Triple + player.HomeRun;
+                        strikeOuts += player.StrikeOut;
+                        homeRuns += player.HomeRun;
+                        runs += player.Run;
+                        walks += player.Walk;
 
-                        playerTeam.Hits = hits;
-                        playerTeam.StrikeOuts = strikeOuts;
-                        playerTeam.HomeRuns = homeRuns;
-                        playerTeam.Runs = runs;
-                        playerTeam.Walks = walks;
+                        team.Hits = hits;
+                        team.StrikeOuts = strikeOuts;
+                        team.HomeRuns = homeRuns;
+                        team.Runs = runs;
+                        team.Walks = walks;
 
-                        _context.Teams.Update(playerTeam);
                     }
 
-                }
-
-            }
-
-            foreach (var pitcher in _context.Pitchers)
-            {
-
-                for (int i = -5; i < 0; i++)
-                {
-                    var loopDate = DateTime.Today.Date.AddDays(i);
-                    IndividualGamePitcher pitcherGames = _context.IndividualGamePitchers.Where(p => p.PlayerID == pitcher.PlayerID && p.GameDate == loopDate).FirstOrDefault();
-                    Team playerTeam = _context.Teams.Single(p => p.TeamName == pitcher.TeamName);
-
-                    if (pitcherGames != null)
+                    foreach (var pitcher in _context.IndividualGamePitchers.Where(p => p.TeamName == game.TeamName && p.GameDate == game.GameDate))
                     {
-                        decimal count = playerTeam.GamesPlayedGauge;
-                        decimal runsAllowed = playerTeam.RunsAllowed;
-                        decimal homeRunsAllowed = playerTeam.HomeRunsAllowed;
-                        decimal hitsAllowed = playerTeam.HitsAllowed;
-                        decimal pointsGivenUp = playerTeam.PointsGivenUp;
+                        decimal runsAllowed = team.RunsAllowed;
+                        decimal homeRunsAllowed = team.HomeRunsAllowed;
+                        decimal hitsAllowed = team.HitsAllowed;
+                        decimal pointsGivenUp = team.PointsGivenUp;
 
-                        count += 1;
-                        runsAllowed += pitcherGames.RunsAllowed;
-                        homeRunsAllowed += pitcherGames.HomeRunsAllowed;
-                        hitsAllowed += pitcherGames.HitsAllowed;
-                        pointsGivenUp += (pitcherGames.HitsAllowed * 3) + (pitcherGames.RunsAllowed * 2) + (pitcherGames.HomeRunsAllowed * 10);
+                        runsAllowed += pitcher.RunsAllowed;
+                        homeRunsAllowed += pitcher.HomeRunsAllowed;
+                        hitsAllowed += pitcher.HitsAllowed;
+                        pointsGivenUp += (pitcher.HitsAllowed * 3) + (pitcher.RunsAllowed * 2) + (pitcher.HomeRunsAllowed * 10);
 
-                        playerTeam.HomeRunsAllowed = homeRunsAllowed;
-                        playerTeam.RunsAllowed = runsAllowed;
-                        playerTeam.HitsAllowed = hitsAllowed;
-                        playerTeam.GamesPlayedGauge = count;
-                        playerTeam.PointsGivenUp = pointsGivenUp;
-
-                        _context.Teams.Update(playerTeam);
+                        team.HomeRunsAllowed = homeRunsAllowed;
+                        team.RunsAllowed = runsAllowed;
+                        team.HitsAllowed = hitsAllowed;
+                        team.PointsGivenUp = pointsGivenUp;
                     }
                 }
+
             }
 
             foreach (var team in _context.Teams)
             {
-                team.PointsPerPitcherUsed = team.PointsGivenUp / team.GamesPlayedGauge;
-                team.TotalPoints = (team.Hits * 3) + (team.Runs * 2) + (team.HomeRuns * 5) + (team.StrikeOuts * -2);
+                var starter = _context.Pitchers.Where(p => p.TeamName == team.TeamName && p.ProbableStarter == true).FirstOrDefault();
+
+                if (starter != null)
+                {
+                    team.Opponent = starter.Opponent;
+                    team.Starter = starter.FirstName + " " + starter.LastName;
+                    team.HomeAway = starter.HomeAway;
+                }
+
+                team.TotalPoints = (team.Hits * 3) + (team.Runs * 2) + (team.HomeRuns * 10) + (team.StrikeOuts * -2);
             }
         }
 
@@ -546,7 +672,6 @@ namespace LCFinalProject.Models
             foreach (var team in _context.Teams)
             {
                 team.OpponentStarter = "UNKNOWN";
-                _context.Teams.Update(team);
             }
 
             foreach (var pitcher in _context.Pitchers)
@@ -732,48 +857,7 @@ namespace LCFinalProject.Models
                 _context.Update(pitcher);
             }
 
-            foreach (var team in _context.Teams)
-            {
-                List<PositionPlayer> positionPlayers = _context.PositionPlayers.Where(p => p.TeamName == team.TeamName).ToList();
-                Pitcher opponentStarter = _context.Pitchers.Where(p => p.TeamName == team.Opponent && p.ProbableStarter == true).FirstOrDefault();
-                Pitcher starter = _context.Pitchers.Where(p => p.TeamName == team.TeamName && p.ProbableStarter == true).FirstOrDefault();
-
-                if (starter != null)
-                {
-                    team.Starter = starter.FirstName + " " + starter.LastName;
-                }
-                else
-                {
-                    team.Starter = "UNKNOWN";
-                }
-
-
-                
-
-                if (opponentStarter != null)
-                {
-                    team.OpponentStarter = opponentStarter.FirstName + " " + opponentStarter.LastName;
-
-                    foreach (var player in positionPlayers)
-                    {
-                        player.HomeAway = team.HomeAway;
-                        player.OpponentStarter = team.OpponentStarter;
-                        player.MatchUp = opponentStarter.MatchUp;
-                        player.OpponentThrowingHand = opponentStarter.ThrowingHand;
-                        player.OpponentPointsLastThree = opponentStarter.LastThreeTotalScore;
-                        player.OpponentHRALastThree = opponentStarter.LastThreeHRA;
-                        _context.Update(player);
-                    }
-                }
-                else
-                {
-                    foreach (var player in positionPlayers)
-                    {
-                        player.OpponentStarter = "UNKNOWN";
-                    }
-                }
-
-            }
+           
             _context.SaveChanges();
 
         }
@@ -799,12 +883,55 @@ namespace LCFinalProject.Models
                     _context.Teams.Update(team);
                 }
             }
+
+            foreach (var team in _context.Teams)
+            {
+                List<PositionPlayer> positionPlayers = _context.PositionPlayers.Where(p => p.TeamName == team.TeamName).ToList();
+                Pitcher opponentStarter = _context.Pitchers.Where(p => p.TeamName == team.Opponent && p.ProbableStarter == true).FirstOrDefault();
+                Pitcher starter = _context.Pitchers.Where(p => p.TeamName == team.TeamName && p.ProbableStarter == true).FirstOrDefault();
+
+                if (starter != null)
+                {
+                    team.Starter = starter.FirstName + " " + starter.LastName;
+                }
+                else
+                {
+                    team.Starter = "UNKNOWN";
+                }
+
+
+
+
+                if (opponentStarter != null)
+                {
+                    team.OpponentStarter = opponentStarter.FirstName + " " + opponentStarter.LastName;
+
+                    foreach (var player in positionPlayers)
+                    {
+                        player.HomeAway = team.HomeAway;
+                        player.OpponentStarter = team.OpponentStarter;
+                        player.MatchUp = opponentStarter.MatchUp;
+                        player.OpponentThrowingHand = opponentStarter.ThrowingHand;
+                        player.OpponentPointsLastThree = opponentStarter.LastThreeTotalScore;
+                        player.OpponentHRALastThree = opponentStarter.LastThreeHRA;
+                        _context.Update(player);
+                    }
+                }
+                else
+                {
+                    foreach (var player in positionPlayers)
+                    {
+                        player.OpponentStarter = "UNKNOWN";
+                    }
+                }
+
+            }
         }
 
 
         public void AssignSalaries()
         {
-          using (var reader = new StreamReader(@"C:\Users\Visitor\Source\Repos\final-project\LCFinalProject\CSV\DKSalaries.csv"))
+          using (var reader = new StreamReader(@"C:\Users\cweid\source\repos\final-project\LCFinalProject\CSV\DKSalaries.csv"))
             {
                 List<string> listA = new List<string>();
                 List<string> listB = new List<string>();
@@ -850,6 +977,8 @@ namespace LCFinalProject.Models
                 {
                     var playerTeam = _context.Teams.Where(p => p.TeamName == player.TeamName).FirstOrDefault();
                     var opponentStarter = _context.Pitchers.Where(p => p.FirstName + " " + p.LastName == playerTeam.OpponentStarter).FirstOrDefault();
+                    var opponent = _context.Teams.Where(p => p.TeamName == playerTeam.Opponent).FirstOrDefault();
+
                     decimal pitcherAwayHit = 1;
                     decimal pitcherAwayRun = 1;
                     decimal pitcherAwayHr = 1;
@@ -858,6 +987,12 @@ namespace LCFinalProject.Models
                     decimal pitcherHomeRun = 1;
                     decimal pitcherHomeHr = 1;
                     decimal pitcherHomeWalk = 1;
+                    decimal opponentTeamRA = opponent.RunsAllowed / Convert.ToDecimal(135);
+                    decimal opponentTeamHRA = opponent.HomeRunsAllowed / Convert.ToDecimal(135);
+                    decimal opponentTeamPoints = opponent.PointsGivenUp / Convert.ToDecimal(135);
+                    decimal opponentTeamHits = opponent.HitsAllowed / Convert.ToDecimal(135);
+                    decimal opponentTeamWalks = opponent.Walks / Convert.ToDecimal(135);
+
                     if (opponentStarter.HomeIp != 0 && opponentStarter.AwayIp != 0)
                     {
                         pitcherAwayHit = opponentStarter.AwayHitsAllowed / Convert.ToDecimal(opponentStarter.AwayIp);
@@ -902,14 +1037,23 @@ namespace LCFinalProject.Models
                          
                             if (opponentStarter.ThrowingHand == "RHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0 && opponentStarter.HomeIp != 0)
                             {
-                                projectedHit = (((player.VsRhpHit / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHit / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherAwayHit / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedHR = (((player.VsRhpHr / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHr / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherAwayHr / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedR = (((player.VsRhpRun / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRun / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedRBI = (((player.VsRhpRbi / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRbi / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedWalk = (((player.VsRhpWalk / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayWalk / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherAwayWalk / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedSB = (((player.VsRhpSb / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwaySb / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2)) / Convert.ToDecimal(3));
+                                projectedHit = (((player.VsRhpHit / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHit / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherHomeHit / Convert.ToDecimal(9)) + (opponentTeamHits) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedHR = (((player.VsRhpHr / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHr / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherHomeHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedR = (((player.VsRhpRun / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRun / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedRBI = (((player.VsRhpRbi / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRbi / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedWalk = (((player.VsRhpWalk / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayWalk / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherHomeWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
+                                projectedSB = ((player.VsRhpSb / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwaySb / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2) / Convert.ToDecimal(3));
+
+                                player.ProjectedHit = projectedHit;
+                                player.ProjectedDouble = projectedDouble;
+                                player.ProjectedTriple = projectedTriple;
+                                player.ProjectedHR = projectedHR;
+                                player.ProjectedRun = projectedR;
+                                player.ProjectedRBI = projectedRBI;
+                                player.ProjectedWalk = projectedWalk;
+                                player.ProjectedSB = projectedSB;
 
                                 player.Projection = (projectedHit * Convert.ToDecimal(3)) + (projectedDouble * Convert.ToDecimal(2)) + (projectedTriple * Convert.ToDecimal(4)) + (projectedHR * Convert.ToDecimal(10)) + (projectedSB * Convert.ToDecimal(5)) + (projectedWalk * Convert.ToDecimal(2)) + (projectedR * Convert.ToDecimal(2)) + (projectedRBI * Convert.ToDecimal(2));
                                 _context.PositionPlayers.Update(player);
@@ -917,15 +1061,23 @@ namespace LCFinalProject.Models
 
                             if (opponentStarter.ThrowingHand == "LHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0 && opponentStarter.HomeIp != 0)
                             {
-                                projectedHit = (((player.VsLhpHit / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHit / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherAwayHit / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(1.5)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(1.5)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedHR = (((player.VsLhpHr / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHr / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherAwayHr / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedR = (((player.VsLhpRun / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRun / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedRBI = (((player.VsLhpRbi / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRbi / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedWalk = (((player.VsLhpWalk / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayWalk / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherAwayWalk / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedSB = (((player.VsLhpSb / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwaySb / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2)) / Convert.ToDecimal(3));
+                                projectedHit = (((player.VsLhpHit / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHit / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherHomeHit / Convert.ToDecimal(9)) + (opponentTeamHits) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedHR = (((player.VsLhpHr / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHr / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherHomeHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedR = (((player.VsLhpRun / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRun / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedRBI = (((player.VsLhpRbi / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRbi / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedWalk = (((player.VsLhpWalk / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayWalk / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherHomeWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
+                                projectedSB = ((player.VsLhpSb / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwaySb / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2) / Convert.ToDecimal(3));
 
+                                player.ProjectedHit = projectedHit;
+                                player.ProjectedDouble = projectedDouble;
+                                player.ProjectedTriple = projectedTriple;
+                                player.ProjectedHR = projectedHR;
+                                player.ProjectedRun = projectedR;
+                                player.ProjectedRBI = projectedRBI;
+                                player.ProjectedWalk = projectedWalk;
+                                player.ProjectedSB = projectedSB;
 
                                 player.Projection = (projectedHit * Convert.ToDecimal(3)) + (projectedDouble * Convert.ToDecimal(2)) + (projectedTriple * Convert.ToDecimal(4)) + (projectedHR * Convert.ToDecimal(10)) + (projectedSB * Convert.ToDecimal(5)) + (projectedWalk * Convert.ToDecimal(2)) + (projectedR * Convert.ToDecimal(2)) + (projectedRBI * Convert.ToDecimal(2));
                                 _context.PositionPlayers.Update(player);
@@ -936,14 +1088,23 @@ namespace LCFinalProject.Models
                         {
                             if (opponentStarter.ThrowingHand == "RHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0 && opponentStarter.AwayIp != 0)
                             {
-                                projectedHit = (((player.VsRhpHit / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHit / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherHomeHit / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(3)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(2)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(3)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(2)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedHR = (((player.VsRhpHr / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHr / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherHomeHr / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedR = (((player.VsRhpRun / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRun / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedRBI = (((player.VsRhpRbi / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRbi / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedWalk = (((player.VsRhpWalk / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeWalk / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherHomeWalk / Convert.ToDecimal(9)) / Convert.ToDecimal(4));
-                                projectedSB = (((player.VsRhpSb / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeSb / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2)) / Convert.ToDecimal(3));
+                                projectedHit = (((player.VsRhpHit / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHit / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherAwayHit / Convert.ToDecimal(9)) + (opponentTeamHits) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedHR = (((player.VsRhpHr / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHr / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherAwayHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedR = (((player.VsRhpRun / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRun / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedRBI = (((player.VsRhpRbi / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRbi / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedWalk = (((player.VsRhpWalk / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeWalk / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherAwayWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
+                                projectedSB = ((player.VsRhpSb / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeSb / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2) / Convert.ToDecimal(3));
+
+                                player.ProjectedHit = projectedHit;
+                                player.ProjectedDouble = projectedDouble;
+                                player.ProjectedTriple = projectedTriple;
+                                player.ProjectedHR = projectedHR;
+                                player.ProjectedRun = projectedR;
+                                player.ProjectedRBI = projectedRBI;
+                                player.ProjectedWalk = projectedWalk;
+                                player.ProjectedSB = projectedSB;
 
                                 player.Projection = (projectedHit * Convert.ToDecimal(3)) + (projectedDouble * Convert.ToDecimal(2)) + (projectedTriple * Convert.ToDecimal(4)) + (projectedHR * Convert.ToDecimal(10)) + (projectedSB * Convert.ToDecimal(5)) + (projectedWalk * Convert.ToDecimal(2)) + (projectedR * Convert.ToDecimal(2)) + (projectedRBI * Convert.ToDecimal(2));
                                 _context.PositionPlayers.Update(player);
@@ -951,14 +1112,23 @@ namespace LCFinalProject.Models
 
                             if (opponentStarter.ThrowingHand == "LHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0 && opponentStarter.AwayIp != 0)
                             {
-                                projectedHit = (((player.VsLhpHit / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHit / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherHomeHit / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) * (opponentHRA / Convert.ToDecimal(3));
-                                projectedHR = (((player.VsLhpHr / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHr / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherHomeHr / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedR = (((player.VsLhpRun / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRun / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedRBI = (((player.VsLhpRbi / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRbi / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedWalk = (((player.VsLhpWalk / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeWalk / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherHomeWalk / Convert.ToDecimal(9)) / Convert.ToDecimal(5));
-                                projectedSB = (((player.VsLhpSb / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeSb / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2)) / Convert.ToDecimal(3));
+                                projectedHit = (((player.VsLhpHit / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHit / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherAwayHit / Convert.ToDecimal(9) + (opponentTeamHits)) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
+                                projectedHR = (((player.VsLhpHr / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHr / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherAwayHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedR = (((player.VsLhpRun / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRun / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedRBI = (((player.VsLhpRbi / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRbi / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
+                                projectedWalk = (((player.VsLhpWalk / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeWalk / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherAwayWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
+                                projectedSB = ((player.VsLhpSb / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeSb / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveSB / player.LastFiveAb) * Convert.ToDecimal(2) / Convert.ToDecimal(3));
+
+                                player.ProjectedHit = projectedHit;
+                                player.ProjectedDouble = projectedDouble;
+                                player.ProjectedTriple = projectedTriple;
+                                player.ProjectedHR = projectedHR;
+                                player.ProjectedRun = projectedR;
+                                player.ProjectedRBI = projectedRBI;
+                                player.ProjectedWalk = projectedWalk;
+                                player.ProjectedSB = projectedSB;
 
                                 player.Projection = (projectedHit * Convert.ToDecimal(3)) + (projectedDouble * Convert.ToDecimal(2)) + (projectedTriple * Convert.ToDecimal(4)) + (projectedHR * Convert.ToDecimal(10)) + (projectedSB * Convert.ToDecimal(5)) + (projectedWalk * Convert.ToDecimal(2)) + (projectedR * Convert.ToDecimal(2)) + (projectedRBI * Convert.ToDecimal(2));
                                 _context.PositionPlayers.Update(player);
@@ -971,11 +1141,11 @@ namespace LCFinalProject.Models
             foreach (var pitcher in _context.Pitchers.Where(p => p.ProbableStarter == true))
             {
                 var opponent = _context.Teams.Single(t => t.TeamName == pitcher.Opponent);
-                var opponentStrikeOuts = opponent.StrikeOuts * .66;
-                var opponentHR = opponent.HomeRuns * .66;
-                var opponentR = opponent.Runs *  .66;
-                var opponentWalk = opponent.Walks * .66;
-                var opponentHit = opponent.Hits * .66;
+                var opponentStrikeOuts = (opponent.StrikeOuts / 3) * .66;
+                var opponentHR = (opponent.HomeRuns / 3) * .66;
+                var opponentR = (opponent.Runs / 3) * .66;
+                var opponentWalk = (opponent.Walks / 3) * .66;
+                var opponentHit = (opponent.Hits / 3) * .66;
                 var pitcherStrikeOuts = pitcher.LastThreeStrikeouts / 3;
                 var pitcherHRA = pitcher.LastThreeHRA / 3;
                 var pitcherERA = pitcher.LastThreeERA / 3;
@@ -1053,16 +1223,27 @@ namespace LCFinalProject.Models
                 }
 
                 if (pitcher.HomeAway == "Home" && pitcher.LastThreeInningsPitched != 0 && pitcher.HomeIp != 0)
-                    {
-                        pitcher.Projection = Convert.ToInt32(Math.Ceiling((projectedStrikeOuts * Convert.ToDecimal(2)) + (projectedRuns * Convert.ToDecimal(-2)) + (projectedHits * Convert.ToDecimal(-.6)) + (projectedHR * Convert.ToDecimal(-3)) + (projectedWalks * Convert.ToDecimal(-.6)) + (pitcher.HomePointsPerIP * (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3)))));
+                {
+                    pitcher.ProjectedStrikeout = projectedStrikeOuts;
+                    pitcher.ProjectedWalk = projectedWalks;
+                    pitcher.ProjectedHit = projectedHits;
+                    pitcher.ProjectedHRA = projectedHR;
+                    pitcher.ProjectedRA = projectedRuns;
+                    pitcher.Projection = Convert.ToInt32(Math.Ceiling((projectedStrikeOuts * Convert.ToDecimal(2)) + (projectedRuns * Convert.ToDecimal(-2)) + (projectedHits * Convert.ToDecimal(-.6)) + (projectedHR * Convert.ToDecimal(-3)) + (projectedWalks * Convert.ToDecimal(-.6)) + (pitcher.HomePointsPerIP * (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3)))));
                     _context.Pitchers.Update(pitcher);
-                    }
+                }
 
-                    if (pitcher.HomeAway == "Away" && pitcher.LastThreeInningsPitched != 0 && pitcher.AwayIp != 0)
-                    {
-                        pitcher.Projection = Convert.ToInt32(Math.Ceiling((projectedStrikeOuts * Convert.ToDecimal(2)) + (projectedRuns * Convert.ToDecimal(-2)) + (projectedHits * Convert.ToDecimal(-.6)) + (projectedHR * Convert.ToDecimal(-3)) + (projectedWalks * Convert.ToDecimal(-.6)) + (pitcher.AwayPointsPerIP * (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3)))));
-                        _context.Pitchers.Update(pitcher);
-                    }
+                if (pitcher.HomeAway == "Away" && pitcher.LastThreeInningsPitched != 0 && pitcher.AwayIp != 0)
+                {
+
+                    pitcher.ProjectedStrikeout = projectedStrikeOuts;
+                    pitcher.ProjectedWalk = projectedWalks;
+                    pitcher.ProjectedHit = projectedHits;
+                    pitcher.ProjectedHRA = projectedHR;
+                    pitcher.ProjectedRA = projectedRuns;
+                    pitcher.Projection = Convert.ToInt32(Math.Ceiling((projectedStrikeOuts * Convert.ToDecimal(2)) + (projectedRuns * Convert.ToDecimal(-2)) + (projectedHits * Convert.ToDecimal(-.6)) + (projectedHR * Convert.ToDecimal(-3)) + (projectedWalks * Convert.ToDecimal(-.6)) + (pitcher.AwayPointsPerIP * (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3)))));
+                    _context.Pitchers.Update(pitcher);
+                }
                 
 
 
@@ -1074,7 +1255,25 @@ namespace LCFinalProject.Models
 
 
 
+        public void GetTeamGameDates()
+        {
+            foreach (var team in _context.Teams)
+            {
+                var gameDate = _context.IndividualGamePosPlayers.Where(p => p.Team == team.TeamName).OrderByDescending(p => p.GameDate).DistinctBy(p => p.GameDate).Take(5).ToList();
 
+                foreach (var game in gameDate)
+                {
+                    TeamGameDate newTeam = new TeamGameDate()
+                    {
+                        TeamName = team.TeamName,
+                        GameDate = game.GameDate
+                    };
+                    _context.TeamGameDates.Add(newTeam);
+                }
+            }
+
+            
+        }
 
 
 

@@ -51,6 +51,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("StrikeOuts");
 
+                    b.Property<string>("TeamName");
+
                     b.Property<decimal>("TotalScore");
 
                     b.Property<int>("Walks");
@@ -295,6 +297,16 @@ namespace LCFinalProject.Migrations
 
                     b.Property<bool>("ProbableStarter");
 
+                    b.Property<decimal>("ProjectedHRA");
+
+                    b.Property<decimal>("ProjectedHit");
+
+                    b.Property<decimal>("ProjectedRA");
+
+                    b.Property<decimal>("ProjectedStrikeout");
+
+                    b.Property<decimal>("ProjectedWalk");
+
                     b.Property<int>("Projection");
 
                     b.Property<int>("Salary");
@@ -422,6 +434,22 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("PlayerID");
 
                     b.Property<string>("Position");
+
+                    b.Property<decimal>("ProjectedDouble");
+
+                    b.Property<decimal>("ProjectedHR");
+
+                    b.Property<decimal>("ProjectedHit");
+
+                    b.Property<decimal>("ProjectedRBI");
+
+                    b.Property<decimal>("ProjectedRun");
+
+                    b.Property<decimal>("ProjectedSB");
+
+                    b.Property<decimal>("ProjectedTriple");
+
+                    b.Property<decimal>("ProjectedWalk");
 
                     b.Property<decimal>("Projection");
 
@@ -628,6 +656,20 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.TeamGameDate", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<string>("TeamName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TeamGameDates");
                 });
 
             modelBuilder.Entity("LCFinalProject.Models.User", b =>

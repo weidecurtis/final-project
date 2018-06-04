@@ -37,21 +37,25 @@ namespace LCFinalProject.Controllers
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
 
-
-            DateTime yesterday = DateTime.Today.Date.AddDays(-1);
-
-            ////This gets the List of Game URLS for that day.
-            var gameLogic = new GameLogic(_context);
-            List<YesterdayGame> gameUrls = gameLogic.GetGames(yesterday);
-
-            ////This loops through each player in each game.
-            var playerLogic = new PlayerLogic(_context);
-            foreach (YesterdayGame game in gameUrls)
+            for (int i = -4; i < 0; i++)
             {
-                playerLogic.GetData(game);
+                DateTime yesterday = DateTime.Today.Date.AddDays(i);
+
+                ////This gets the List of Game URLS for that day.
+                var gameLogic = new GameLogic(_context);
+                List<YesterdayGame> gameUrls = gameLogic.GetGames(yesterday);
+
+                ////This loops through each player in each game.
+                var playerLogic = new PlayerLogic(_context);
+                foreach (YesterdayGame game in gameUrls)
+                {
+                    playerLogic.GetData(game);
+                }
+                ////This loops through every players individual stats for that day
+                playerLogic.LoadYesterdayGames(yesterday);
             }
-            ////This loops through every players individual stats for that day
-            playerLogic.LoadYesterdayGames(yesterday);
+
+
 
 
 
@@ -62,12 +66,14 @@ namespace LCFinalProject.Controllers
         {
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
-
+            //predictorLogic.IndividualTotalScore();
             //predictorLogic.RefreshTeams();
             //predictorLogic.UpdatePlayers();
             //predictorLogic.UpdateTeamNames();
 
             //predictorLogic.TodayGameData();
+
+            
             //_context.SaveChanges();
 
             //predictorLogic.UpdateTeams();
@@ -79,6 +85,7 @@ namespace LCFinalProject.Controllers
 
             //predictorLogic.GetTeamProjections();
 
+            //predictorLogic.GetTeamGameDates();
             _context.SaveChanges();
             return View();
         }

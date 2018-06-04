@@ -77,5 +77,17 @@ namespace LCFinalProject.Models
 
         public int Projection { get; set; }
         public string HomeAway { get; set; }
+
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedStrikeout { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedWalk { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedHit { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedHRA { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal ProjectedRA { get; set; }
+
     }
 }

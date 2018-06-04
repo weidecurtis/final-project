@@ -11,8 +11,8 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    [Migration("20180602011508_Initial")]
-    partial class Initial
+    [Migration("20180604074823_AddedTeamGameDatesModel")]
+    partial class AddedTeamGameDatesModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -278,11 +278,15 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("LastThreeHRA");
 
+                    b.Property<int>("LastThreeHitsAllowed");
+
                     b.Property<decimal>("LastThreeInningsPitched");
 
                     b.Property<int>("LastThreeStrikeouts");
 
                     b.Property<decimal>("LastThreeTotalScore");
+
+                    b.Property<int>("LastThreeWalks");
 
                     b.Property<string>("MatchUp");
 
@@ -384,7 +388,25 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("HomeWalk");
 
+                    b.Property<int>("LastFiveAb");
+
+                    b.Property<int>("LastFiveDouble");
+
+                    b.Property<int>("LastFiveHR");
+
+                    b.Property<int>("LastFiveHit");
+
+                    b.Property<int>("LastFiveRBI");
+
+                    b.Property<int>("LastFiveRuns");
+
+                    b.Property<int>("LastFiveSB");
+
                     b.Property<decimal>("LastFiveTotalScore");
+
+                    b.Property<int>("LastFiveTriple");
+
+                    b.Property<int>("LastFiveWalk");
 
                     b.Property<string>("LastName");
 
@@ -402,7 +424,7 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("Position");
 
-                    b.Property<int>("Projection");
+                    b.Property<decimal>("Projection");
 
                     b.Property<int>("Salary");
 
@@ -602,9 +624,25 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("TotalPoints");
 
+                    b.Property<int>("Walks");
+
                     b.HasKey("ID");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.TeamGameDate", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<string>("TeamName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TeamGameDates");
                 });
 
             modelBuilder.Entity("LCFinalProject.Models.User", b =>

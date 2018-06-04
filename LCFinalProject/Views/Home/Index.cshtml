@@ -108,7 +108,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -156,35 +156,35 @@
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "Hit",
+                field: "Hit",
                 encoded: true
             },  {
-                title: "Away PPA",
-                field: "AwayPPA",
+                title: "2B",
+                field: "Double",
                 encoded: true
             },{
-                title: "Home Games",
-                field: "HomeGames",
+                title: "3B",
+                field: "Triple",
                 encoded: true
             }, {
-                title: "Home PPA",
-                field: "HomePPA",
+                title: "HR",
+                field: "HomeRun",
                 encoded: true
             }, {
-                title: "Versus LHP",
-                field: "VersusLHP",
+                title: "RBI",
+                field: "RBI",
                 encoded: true
             }, {
-                title: "LHP PPA",
-                field: "LhpPPA",
+                title: "Run",
+                field: "Run",
                 encoded: true
             }, {
-                title: "Versus RHP",
-                field: "VersusRHP"
+                title: "BB",
+                field: "Walk"
             },  {
-                title: "RHP PPA",
-                field: "RhpPPA",
+                title: "SB",
+                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -223,32 +223,32 @@
                                 type: "number",
                                 defaultValue: null
                             },
-                            AwayGames: {
-                                type: "number"
-                            },
-                            AwayPPA: {
+                            Hit: {
                                 type: "decimal"
                             },
-                            HomeGames: {
-                                type: "number",
+                            Double: {
+                                type: "decimal"
+                            },
+                            Triple: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            HomePPA: {
+                            HomeRun: {
                                 type: "decimal"
 
                             },
-                            VersusLHP: {
-                                type: "number",
+                            RBI: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            LhpPPA: {
+                            Run: {
                                 type: "decimal"
 
                             },
-                            VersusRHP: {
-                                type: "number"
+                            Walk: {
+                                type: "decimal"
                             },
-                            RhpPPA: {
+                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -269,7 +269,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
         }
 
         return data;
@@ -289,6 +289,7 @@
             columns: [{
                 title: "Name",
                 field: "Name",
+                filterable: false,
                 encoded: true
             }, {
                 title: "Team",
@@ -315,35 +316,35 @@
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "Hit",
+                field: "Hit",
                 encoded: true
             }, {
-                title: "Away PPA",
-                field: "AwayPPA",
+                title: "2B",
+                field: "Double",
                 encoded: true
             }, {
-                title: "Home Games",
-                field: "HomeGames",
+                title: "3B",
+                field: "Triple",
                 encoded: true
             }, {
-                title: "Home PPA",
-                field: "HomePPA",
+                title: "HR",
+                field: "HomeRun",
                 encoded: true
             }, {
-                title: "Versus LHP",
-                field: "VersusLHP",
+                title: "RBI",
+                field: "RBI",
                 encoded: true
             }, {
-                title: "LHP PPA",
-                field: "LhpPPA",
+                title: "Run",
+                field: "Run",
                 encoded: true
             }, {
-                title: "Versus RHP",
-                field: "VersusRHP"
+                title: "BB",
+                field: "Walk"
             }, {
-                title: "RHP PPA",
-                field: "RhpPPA",
+                title: "SB",
+                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -382,32 +383,32 @@
                                 type: "number",
                                 defaultValue: null
                             },
-                            AwayGames: {
-                                type: "number"
-                            },
-                            AwayPPA: {
+                            Hit: {
                                 type: "decimal"
                             },
-                            HomeGames: {
-                                type: "number",
+                            Double: {
+                                type: "decimal"
+                            },
+                            Triple: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            HomePPA: {
+                            HomeRun: {
                                 type: "decimal"
 
                             },
-                            VersusLHP: {
-                                type: "number",
+                            RBI: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            LhpPPA: {
+                            Run: {
                                 type: "decimal"
 
                             },
-                            VersusRHP: {
-                                type: "number"
+                            Walk: {
+                                type: "decimal"
                             },
-                            RhpPPA: {
+                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -428,7 +429,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+           @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -449,6 +450,7 @@
             columns: [{
                 title: "Name",
                 field: "Name",
+                filterable: false,
                 encoded: true
             }, {
                 title: "Team",
@@ -475,35 +477,35 @@
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "Hit",
+                field: "Hit",
                 encoded: true
             }, {
-                title: "Away PPA",
-                field: "AwayPPA",
+                title: "2B",
+                field: "Double",
                 encoded: true
             }, {
-                title: "Home Games",
-                field: "HomeGames",
+                title: "3B",
+                field: "Triple",
                 encoded: true
             }, {
-                title: "Home PPA",
-                field: "HomePPA",
+                title: "HR",
+                field: "HomeRun",
                 encoded: true
             }, {
-                title: "Versus LHP",
-                field: "VersusLHP",
+                title: "RBI",
+                field: "RBI",
                 encoded: true
             }, {
-                title: "LHP PPA",
-                field: "LhpPPA",
+                title: "Run",
+                field: "Run",
                 encoded: true
             }, {
-                title: "Versus RHP",
-                field: "VersusRHP"
+                title: "BB",
+                field: "Walk"
             }, {
-                title: "RHP PPA",
-                field: "RhpPPA",
+                title: "SB",
+                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -542,32 +544,32 @@
                                 type: "number",
                                 defaultValue: null
                             },
-                            AwayGames: {
-                                type: "number"
-                            },
-                            AwayPPA: {
+                            Hit: {
                                 type: "decimal"
                             },
-                            HomeGames: {
-                                type: "number",
+                            Double: {
+                                type: "decimal"
+                            },
+                            Triple: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            HomePPA: {
+                            HomeRun: {
                                 type: "decimal"
 
                             },
-                            VersusLHP: {
-                                type: "number",
+                            RBI: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            LhpPPA: {
+                            Run: {
                                 type: "decimal"
 
                             },
-                            VersusRHP: {
-                                type: "number"
+                            Walk: {
+                                type: "decimal"
                             },
-                            RhpPPA: {
+                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -588,7 +590,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -609,6 +611,7 @@
             columns: [{
                 title: "Name",
                 field: "Name",
+                filterable: false,
                 encoded: true
             }, {
                 title: "Team",
@@ -635,35 +638,35 @@
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "Hit",
+                field: "Hit",
                 encoded: true
             }, {
-                title: "Away PPA",
-                field: "AwayPPA",
+                title: "2B",
+                field: "Double",
                 encoded: true
             }, {
-                title: "Home Games",
-                field: "HomeGames",
+                title: "3B",
+                field: "Triple",
                 encoded: true
             }, {
-                title: "Home PPA",
-                field: "HomePPA",
+                title: "HR",
+                field: "HomeRun",
                 encoded: true
             }, {
-                title: "Versus LHP",
-                field: "VersusLHP",
+                title: "RBI",
+                field: "RBI",
                 encoded: true
             }, {
-                title: "LHP PPA",
-                field: "LhpPPA",
+                title: "Run",
+                field: "Run",
                 encoded: true
             }, {
-                title: "Versus RHP",
-                field: "VersusRHP"
+                title: "BB",
+                field: "Walk"
             }, {
-                title: "RHP PPA",
-                field: "RhpPPA",
+                title: "SB",
+                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -702,32 +705,32 @@
                                 type: "number",
                                 defaultValue: null
                             },
-                            AwayGames: {
-                                type: "number"
-                            },
-                            AwayPPA: {
+                            Hit: {
                                 type: "decimal"
                             },
-                            HomeGames: {
-                                type: "number",
+                            Double: {
+                                type: "decimal"
+                            },
+                            Triple: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            HomePPA: {
+                            HomeRun: {
                                 type: "decimal"
 
                             },
-                            VersusLHP: {
-                                type: "number",
+                            RBI: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            LhpPPA: {
+                            Run: {
                                 type: "decimal"
 
                             },
-                            VersusRHP: {
-                                type: "number"
+                            Walk: {
+                                type: "decimal"
                             },
-                            RhpPPA: {
+                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -747,7 +750,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -768,6 +771,7 @@
             columns: [{
                 title: "Name",
                 field: "Name",
+                filterable: false,
                 encoded: true
             }, {
                 title: "Team",
@@ -794,35 +798,35 @@
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "Hit",
+                field: "Hit",
                 encoded: true
             }, {
-                title: "Away PPA",
-                field: "AwayPPA",
+                title: "2B",
+                field: "Double",
                 encoded: true
             }, {
-                title: "Home Games",
-                field: "HomeGames",
+                title: "3B",
+                field: "Triple",
                 encoded: true
             }, {
-                title: "Home PPA",
-                field: "HomePPA",
+                title: "HR",
+                field: "HomeRun",
                 encoded: true
             }, {
-                title: "Versus LHP",
-                field: "VersusLHP",
+                title: "RBI",
+                field: "RBI",
                 encoded: true
             }, {
-                title: "LHP PPA",
-                field: "LhpPPA",
+                title: "Run",
+                field: "Run",
                 encoded: true
             }, {
-                title: "Versus RHP",
-                field: "VersusRHP"
+                title: "BB",
+                field: "Walk"
             }, {
-                title: "RHP PPA",
-                field: "RhpPPA",
+                title: "SB",
+                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -861,32 +865,32 @@
                                 type: "number",
                                 defaultValue: null
                             },
-                            AwayGames: {
-                                type: "number"
-                            },
-                            AwayPPA: {
+                            Hit: {
                                 type: "decimal"
                             },
-                            HomeGames: {
-                                type: "number",
+                            Double: {
+                                type: "decimal"
+                            },
+                            Triple: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            HomePPA: {
+                            HomeRun: {
                                 type: "decimal"
 
                             },
-                            VersusLHP: {
-                                type: "number",
+                            RBI: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            LhpPPA: {
+                            Run: {
                                 type: "decimal"
 
                             },
-                            VersusRHP: {
-                                type: "number"
+                            Walk: {
+                                type: "decimal"
                             },
-                            RhpPPA: {
+                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -906,7 +910,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", AwayGames: "@player.AwayTotalScore", AwayPPA: "@player.AwayScorePerAB", HomeGames: "@player.HomeTotalScore", HomePPA: "@player.HomeScorePerAB", VersusLHP: "@player.VsLhpTotalScore", LhpPPA: "@player.VsLhpScorePerAB",  VersusRHP: "@player.VsLhpTotalScore", RhpPPA: "@player.VsRhpScorePerAB" });
+              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -927,6 +931,7 @@
             columns: [{
                 title: "Name",
                 field: "Name",
+                filterable: false,
                 encoded: true
             }, {
                 title: "Team",
@@ -953,35 +958,35 @@
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "Hit",
+                field: "Hit",
                 encoded: true
             }, {
-                title: "Away PPA",
-                field: "AwayPPA",
+                title: "2B",
+                field: "Double",
                 encoded: true
             }, {
-                title: "Home Games",
-                field: "HomeGames",
+                title: "3B",
+                field: "Triple",
                 encoded: true
             }, {
-                title: "Home PPA",
-                field: "HomePPA",
+                title: "HR",
+                field: "HomeRun",
                 encoded: true
             }, {
-                title: "Versus LHP",
-                field: "VersusLHP",
+                title: "RBI",
+                field: "RBI",
                 encoded: true
             }, {
-                title: "LHP PPA",
-                field: "LhpPPA",
+                title: "Run",
+                field: "Run",
                 encoded: true
             }, {
-                title: "Versus RHP",
-                field: "VersusRHP"
+                title: "BB",
+                field: "Walk"
             }, {
-                title: "RHP PPA",
-                field: "RhpPPA",
+                title: "SB",
+                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -1003,7 +1008,7 @@
                             },
                             Team: {
                                 type: "string"
-                            }, 
+                            },
                             Opponent: {
                                 type: "string"
                             },
@@ -1020,32 +1025,32 @@
                                 type: "number",
                                 defaultValue: null
                             },
-                            AwayGames: {
-                                type: "number"
-                            },
-                            AwayPPA: {
+                            Hit: {
                                 type: "decimal"
                             },
-                            HomeGames: {
-                                type: "number",
+                            Double: {
+                                type: "decimal"
+                            },
+                            Triple: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            HomePPA: {
+                            HomeRun: {
                                 type: "decimal"
 
                             },
-                            VersusLHP: {
-                                type: "number",
+                            RBI: {
+                                type: "decimal",
                                 defaultValue: null
                             },
-                            LhpPPA: {
+                            Run: {
                                 type: "decimal"
 
                             },
-                            VersusRHP: {
-                                type: "number"
+                            Walk: {
+                                type: "decimal"
                             },
-                            RhpPPA: {
+                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -1065,7 +1070,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", Projection: "@player.Projection", Salary: "@player.Salary", LastGame: "@player.LastStartScore", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched", AwayGames: "@player.AwayTotalScore", AwayHRA: "@player.AwayHomeRunAllowed", AwayPPIP: "@player.AwayPointsPerIP",  HomeGames: "@player.HomeTotalScore", HomeHRA: "@player.HomeHomeRunAllowed", HomePPIP: "@player.HomePointsPerIP" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", Projection: "@player.Projection", Salary: "@player.Salary", LastGame: "@player.LastStartScore", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched", StrikeOuts: "@player.ProjectedStrikeout", Hits: "@player.ProjectedHit",  Walks: "@player.ProjectedWalk", Homeruns: "@player.ProjectedHRA", Runs: "@player.ProjectedRA" });
 
         }
 
@@ -1128,28 +1133,24 @@
                 field: "LastThreeRuns",
                 encoded: true
             }, {
-                title: "Away Games",
-                field: "AwayGames",
+                title: "StrikeOuts",
+                field: "StrikeOuts",
                 encoded: true
             }, {
-                title: "Away HRA",
-                field: "AwayHRA",
+                title: "Hits",
+                field: "Hits",
                 encoded: true
             }, {
-                title: "Away PPIP",
-                field: "AwayPPIP",
+                title: "Walks",
+                field: "Walks",
                 encoded: true
             }, {
-                title: "Home Games",
-                field: "HomeGames",
+                title: "HR",
+                field: "Homeruns",
                 encoded: true
             }, {
-                title: "Home HRA",
-                field: "HomeHRA",
-                encoded: true
-            }, {
-                title: "Home PPIP",
-                field: "HomePPIP",
+                title: "Runs",
+                field: "Runs",
                 encoded: true
             }],
             pageable: {
@@ -1199,22 +1200,19 @@
                             LastThreeIP: {
                                 type: "decimal"
                             },
-                            AwayGames: {
+                            StrikeOuts: {
                                 type: "decimal"
                             },
-                            AwayHRA: {
-                                type: "number"
-                            },
-                            AwayPPIP: {
+                            Hits: {
                                 type: "decimal"
                             },
-                            HomeGames: {
+                            Walks: {
                                 type: "decimal"
                             },
-                            HomeHRA: {
-                                type: "number"
+                            Homeruns: {
+                                type: "decimal"
                             },
-                            HomePPIP: {
+                            Runs: {
                                 type: "decimal"
                             }
                         }
