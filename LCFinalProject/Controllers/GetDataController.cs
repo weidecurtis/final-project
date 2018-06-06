@@ -66,30 +66,34 @@ namespace LCFinalProject.Controllers
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
             //predictorLogic.IndividualTotalScore();
-            //predictorLogic.RefreshTeams();
-            //predictorLogic.UpdatePlayers();
-            //predictorLogic.UpdateTeamNames();
-
-            //predictorLogic.TodayGameData();
-
-
             //_context.SaveChanges();
-
+            //predictorLogic.RefreshTeams();
+            //_context.SaveChanges();
+            //predictorLogic.UpdatePlayers();
+            //_context.SaveChanges();
+            //predictorLogic.UpdateTeamNames();
+            //_context.SaveChanges();
+            //predictorLogic.TodayGameData();
+            //_context.SaveChanges();
             //predictorLogic.UpdateTeams();
+            //_context.SaveChanges();
             //predictorLogic.UpdateTriplesAndDoubles();
+            //_context.SaveChanges();
             //predictorLogic.GetTeamGameDates();
+            //_context.SaveChanges();
             //predictorLogic.AssignSalaries();
-
+            //_context.SaveChanges();
             //predictorLogic.AssignStarters();
-            //predictorLogic.GetProjections();
+            //_context.SaveChanges();
+            predictorLogic.GetProjections();
+            _context.SaveChanges();
+            //predictorLogic.GetDeviance();
+            //_context.SaveChanges();
 
             //predictorLogic.TestTeamProjections();
             //predictorLogic.GetTeamProjections();
 
 
-            predictorLogic.GetDeviance();
-
-            _context.SaveChanges();
             return View();
         }
     }

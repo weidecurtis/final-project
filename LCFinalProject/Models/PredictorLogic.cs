@@ -468,7 +468,7 @@ namespace LCFinalProject.Models
 
             foreach (var player in _context.PositionPlayers)
             {
-                var posPlayer = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID).OrderByDescending(p => p.GameDate).FirstOrDefault();
+                var posPlayer = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID && p.Played == true).OrderByDescending(p => p.GameDate).FirstOrDefault();
 
                 if (posPlayer != null)
                 {
@@ -481,7 +481,7 @@ namespace LCFinalProject.Models
 
             foreach (var player in _context.PositionPlayers)
             {
-                var lastFive = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID).OrderByDescending(p => p.GameDate).Take(5);
+                var lastFive = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID && p.Played == true).OrderByDescending(p => p.GameDate).Take(5);
 
                 if (lastFive != null)
                 {
@@ -991,6 +991,7 @@ namespace LCFinalProject.Models
 
         public void GetProjections()
         {
+
             foreach (var player in _context.PositionPlayers)
             {
                 if (player.MatchUp != null)
@@ -998,6 +999,9 @@ namespace LCFinalProject.Models
                     var playerTeam = _context.Teams.Where(p => p.TeamName == player.TeamName).FirstOrDefault();
                     var opponentStarter = _context.Pitchers.Where(p => p.FirstName + " " + p.LastName == playerTeam.OpponentStarter).FirstOrDefault();
                     var opponent = _context.Teams.Where(p => p.TeamName == playerTeam.Opponent).FirstOrDefault();
+                    var lastGame = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID && p.Played == true).OrderByDescending(p => p.GameDate).FirstOrDefault();
+
+
 
                     decimal pitcherAwayHit = 1;
                     decimal pitcherAwayRun = 1;
@@ -1046,11 +1050,16 @@ namespace LCFinalProject.Models
                     decimal projectedRBI = Convert.ToDecimal(0);
                     decimal projectedSB = Convert.ToDecimal(0);
 
+                    if (lastGame != null && lastGame.GameDate < DateTime.Today.Date.AddDays(-10))
+                    {
+                        player.YesterdayTotalScore = 0;
+                        player.LastFiveTotalScore = 0;
+                        player.Projection = 0;
+                    }
 
 
 
-
-                    if (opponentStarter != null)
+                    if (opponentStarter != null && lastGame != null && lastGame.GameDate > DateTime.Today.Date.AddDays(-7))
                     {
                         if (player.HomeAway == "Away")
                         {
@@ -1893,14 +1902,13 @@ namespace LCFinalProject.Models
         }
 
 
-
         public void GetDeviance()
         {
             foreach (var player in _context.PositionPlayers)
             {
                 player.YesterdayDeviance = player.YesterdayTotalScore - player.YesterdayProjected;
 
-                var lastFiveGames = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID).OrderByDescending(p => p.GameDate).Take(5);
+                var lastFiveGames = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID && p.Played == true).OrderByDescending(p => p.GameDate).Take(5);
 
                 decimal lastFiveScore = 0;
                 decimal  lastFiveProjected = 0;

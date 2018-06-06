@@ -27,5 +27,6 @@ namespace LCFinalProject.Models
         public decimal TotalScore { get; set; }
         public int StrikeOut { get; set; }
         public decimal Projection { get; set; }
+        public bool Played { get; set; }
     }
 }

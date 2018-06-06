@@ -379,7 +379,8 @@ namespace LCFinalProject.Models
                             Team = singlePlayer.TeamName,
                             StrikeOut = player.so,
                             TotalScore = (player.single * 3) + (player.@double * 5) +  (player.sb * 5) + (player.bb * 2) + (player.triple * 7) + (player.hr * 10) + (player.r * 2) + (player.rbi * 2),
-                            Projection = singlePlayer.Projection
+                            Projection = singlePlayer.Projection,
+                            Played = true
                         };
                         _context.IndividualGamePosPlayers.Add(newPlayerEntry);
 
@@ -414,7 +415,8 @@ namespace LCFinalProject.Models
                             Team = singlePlayer.TeamName,
                             StrikeOut = player.so,
                             TotalScore = (player.single * 3) + (player.@double * 5) + (player.sb * 5) + (player.bb * 2) + (player.triple * 7) + (player.hr * 10) + (player.r * 2) + (player.rbi * 2),
-                            Projection = 0
+                            Projection = 0,
+                            Played = false
                         };
                         _context.IndividualGamePosPlayers.Add(newPlayerEntry);
                     }
