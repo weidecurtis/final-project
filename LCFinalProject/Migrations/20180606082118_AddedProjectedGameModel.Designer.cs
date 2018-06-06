@@ -11,9 +11,10 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180606082118_AddedProjectedGameModel")]
+    partial class AddedProjectedGameModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,8 +47,6 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("Losses");
 
                     b.Property<int>("PlayerID");
-
-                    b.Property<decimal>("ProjectedScore");
 
                     b.Property<int>("RunsAllowed");
 
@@ -88,8 +87,6 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("PlayerID");
 
                     b.Property<string>("Position");
-
-                    b.Property<decimal>("Projection");
 
                     b.Property<int>("RBI");
 
@@ -277,13 +274,9 @@ namespace LCFinalProject.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<decimal>("LastStartDeviance");
-
                     b.Property<decimal>("LastStartProjected");
 
                     b.Property<decimal>("LastStartScore");
-
-                    b.Property<decimal>("LastThreeDeviance");
 
                     b.Property<int>("LastThreeERA");
 
@@ -292,8 +285,6 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("LastThreeHitsAllowed");
 
                     b.Property<decimal>("LastThreeInningsPitched");
-
-                    b.Property<decimal>("LastThreeProjected");
 
                     b.Property<int>("LastThreeStrikeouts");
 

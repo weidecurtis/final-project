@@ -89,5 +89,18 @@ namespace LCFinalProject.Models
         [DataType("decimal(18,4)")]
         public decimal ProjectedRA { get; set; }
 
+        [DataType("decimal(18,4)")]
+        public decimal OpposingTeamProjected { get; set; }
+
+        [DataType("decimal(18,4)")]
+        public decimal LastStartProjected { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal LastThreeProjected { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal LastStartDeviance { get; set; }
+        [DataType("decimal(18,4)")]
+        public decimal LastThreeDeviance { get; set; }
+        
+
     }
 }

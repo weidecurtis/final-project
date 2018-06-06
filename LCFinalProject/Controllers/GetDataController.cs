@@ -37,23 +37,22 @@ namespace LCFinalProject.Controllers
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
 
-            for (int i = -4; i < 0; i++)
+            
+            DateTime yesterday = DateTime.Today.Date.AddDays(-1);
+
+            ////This gets the List of Game URLS for that day.
+            var gameLogic = new GameLogic(_context);
+            List<YesterdayGame> gameUrls = gameLogic.GetGames(yesterday);
+
+            ////This loops through each player in each game.
+            var playerLogic = new PlayerLogic(_context);
+            foreach (YesterdayGame game in gameUrls)
             {
-                DateTime yesterday = DateTime.Today.Date.AddDays(i);
-
-                ////This gets the List of Game URLS for that day.
-                var gameLogic = new GameLogic(_context);
-                List<YesterdayGame> gameUrls = gameLogic.GetGames(yesterday);
-
-                ////This loops through each player in each game.
-                var playerLogic = new PlayerLogic(_context);
-                foreach (YesterdayGame game in gameUrls)
-                {
-                    playerLogic.GetData(game);
-                }
-                ////This loops through every players individual stats for that day
-                playerLogic.LoadYesterdayGames(yesterday);
+                playerLogic.GetData(game);
             }
+            ////This loops through every players individual stats for that day
+            playerLogic.LoadYesterdayGames(yesterday);
+            
 
 
 
@@ -73,19 +72,23 @@ namespace LCFinalProject.Controllers
 
             //predictorLogic.TodayGameData();
 
-            
+
             //_context.SaveChanges();
 
             //predictorLogic.UpdateTeams();
-
+            //predictorLogic.UpdateTriplesAndDoubles();
+            //predictorLogic.GetTeamGameDates();
             //predictorLogic.AssignSalaries();
 
             //predictorLogic.AssignStarters();
-            predictorLogic.GetProjections();
+            //predictorLogic.GetProjections();
 
+            //predictorLogic.TestTeamProjections();
             //predictorLogic.GetTeamProjections();
 
-            //predictorLogic.GetTeamGameDates();
+
+            predictorLogic.GetDeviance();
+
             _context.SaveChanges();
             return View();
         }

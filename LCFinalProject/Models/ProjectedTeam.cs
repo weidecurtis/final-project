@@ -46,7 +46,7 @@ namespace LCFinalProject.Models
         public int OutfieldTwoSalary { get; set; }
 
         public string OutfieldThree { get; set; }
-        public int OutfieldThreeProjection { get; set; }
+        public decimal OutfieldThreeProjection { get; set; }
         public int OutfieldThreeSalary { get; set; }
 
         public int TotalCost { get; set; }

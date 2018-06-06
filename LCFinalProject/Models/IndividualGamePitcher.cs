@@ -25,5 +25,6 @@ namespace LCFinalProject.Models
         public int CompleteGameShutOut { get; set; }
         public decimal TotalScore { get; set; }
         public string TeamName { get; set; }
+        public decimal ProjectedScore { get; set; }
     }
 }

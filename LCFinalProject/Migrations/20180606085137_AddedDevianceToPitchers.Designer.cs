@@ -11,9 +11,10 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180606085137_AddedDevianceToPitchers")]
+    partial class AddedDevianceToPitchers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

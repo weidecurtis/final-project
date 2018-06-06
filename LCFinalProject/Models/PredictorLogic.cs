@@ -28,7 +28,7 @@ namespace LCFinalProject.Models
 
         public void UpdateTeamNames()
         {
-            foreach(var player in _context.IndividualGamePosPlayers)
+            foreach (var player in _context.IndividualGamePosPlayers)
             {
                 if (player.Team == "ANA")
                 {
@@ -486,7 +486,7 @@ namespace LCFinalProject.Models
                 if (lastFive != null)
                 {
                     decimal totalScore = 0;
-                    
+
                     var hr = 0;
                     var hits = 0;
                     var doubles = 0;
@@ -603,6 +603,16 @@ namespace LCFinalProject.Models
 
             foreach (var team in _context.Teams)
             {
+                team.Hits = 0;
+                team.HitsAllowed = 0;
+                team.HomeRuns = 0;
+                team.HomeRunsAllowed = 0;
+                team.StrikeOuts = 0;
+                team.Runs = 0;
+                team.Walks = 0;
+                team.RunsAllowed = 0;
+                team.PointsGivenUp = 0;
+
                 var lastFiveGames = _context.TeamGameDates.Where(t => t.TeamName == team.TeamName).OrderByDescending(t => t.GameDate).Take(5).ToList();
 
                 foreach (var game in lastFiveGames)
@@ -722,7 +732,7 @@ namespace LCFinalProject.Models
                     }
                     var matchUp = gameMatchUpNode.Attributes["title"].InnerText;
 
-                   
+
                     var startingPitcher = _context.Pitchers.Where(p => p.PlayerID.ToString() == awayPitcherID).FirstOrDefault();
                     var pitcherTeam = _context.Teams.Where(p => p.TeamName == awayPitcherTeam).FirstOrDefault();
 
@@ -739,7 +749,7 @@ namespace LCFinalProject.Models
                         startingPitcher.MatchUp = matchUp;
                         startingPitcher.HomeAway = "Away";
 
-                         
+
 
                         _context.Pitchers.Update(startingPitcher);
                     }
@@ -761,7 +771,7 @@ namespace LCFinalProject.Models
 
                         _context.Pitchers.Add(newPitcher);
                     }
-                    
+
 
                 }
 
@@ -806,7 +816,7 @@ namespace LCFinalProject.Models
 
 
 
-                    var startingPitcher = _context.Pitchers.Where(p => p.PlayerID == int.Parse(homePitcherID)).FirstOrDefault();
+                    var startingPitcher = _context.Pitchers.Where(p => p.PlayerID.ToString() == homePitcherID).FirstOrDefault();
 
                     if (startingPitcher != null)
                     {
@@ -820,23 +830,23 @@ namespace LCFinalProject.Models
                         _context.Pitchers.Update(startingPitcher);
                     }
 
-                    if (startingPitcher == null)
-                    {
-                        Pitcher newPitcher = new Pitcher()
-                        {
-                            FirstName = homePitcherFirstName,
-                            LastName = homePitcherLastName,
-                            PlayerID = int.Parse(homePitcherID),
-                            ThrowingHand = homePitcherThrowingHand,
-                            ProbableStarter = true,
-                            TeamName = homePitcherTeam,
-                            Opponent = opponentPitcherTeam,
-                            MatchUp = matchUp,
-                            HomeAway = "Home"
-                        };
+                    //if (startingPitcher == null)
+                    //{
+                    //    Pitcher newPitcher = new Pitcher()
+                    //    {
+                    //        FirstName = homePitcherFirstName,
+                    //        LastName = homePitcherLastName,
+                    //        PlayerID = int.Parse(homePitcherID),
+                    //        ThrowingHand = homePitcherThrowingHand,
+                    //        ProbableStarter = true,
+                    //        TeamName = homePitcherTeam,
+                    //        Opponent = opponentPitcherTeam,
+                    //        MatchUp = matchUp,
+                    //        HomeAway = "Home"
+                    //    };
 
-                        _context.Pitchers.Add(newPitcher);
-                    }
+                    //    _context.Pitchers.Add(newPitcher);
+                    //}
 
 
                 }
@@ -857,7 +867,7 @@ namespace LCFinalProject.Models
                 _context.Update(pitcher);
             }
 
-           
+
             _context.SaveChanges();
 
         }
@@ -931,7 +941,17 @@ namespace LCFinalProject.Models
 
         public void AssignSalaries()
         {
-          using (var reader = new StreamReader(@"C:\Users\cweid\source\repos\final-project\LCFinalProject\CSV\DKSalaries.csv"))
+            foreach (var player in _context.PositionPlayers)
+            {
+                player.Salary = 0;
+            }
+
+            foreach (var player in _context.Pitchers)
+            {
+                player.Salary = 0;
+            }
+
+            using (var reader = new StreamReader(@"C:\Users\cweid\source\repos\final-project\LCFinalProject\CSV\DKSalaries.csv"))
             {
                 List<string> listA = new List<string>();
                 List<string> listB = new List<string>();
@@ -1008,7 +1028,7 @@ namespace LCFinalProject.Models
                     decimal opponentHits = opponentStarter.LastThreeHitsAllowed / Convert.ToDecimal(5);
                     decimal opponentWalks = opponentStarter.LastThreeWalks / Convert.ToDecimal(5);
                     decimal opponentRuns = opponentStarter.LastThreeERA / Convert.ToDecimal(5);
-                    
+
                     decimal playerHR = player.LastFiveHR / Convert.ToDecimal(7);
                     decimal playerHit = player.LastFiveHit / Convert.ToDecimal(7);
                     decimal playerWalk = player.LastFiveWalk / Convert.ToDecimal(7);
@@ -1028,19 +1048,19 @@ namespace LCFinalProject.Models
 
 
 
-                    
+
 
                     if (opponentStarter != null)
                     {
                         if (player.HomeAway == "Away")
                         {
-                         
-                            if (opponentStarter.ThrowingHand == "RHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0 && opponentStarter.HomeIp != 0)
+
+                            if (opponentStarter.ThrowingHand == "RHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0)
                             {
                                 projectedHit = (((player.VsRhpHit / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHit / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherHomeHit / Convert.ToDecimal(9)) + (opponentTeamHits) / Convert.ToDecimal(6));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
                                 projectedHR = (((player.VsRhpHr / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHr / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherHomeHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
                                 projectedR = (((player.VsRhpRun / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRun / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedRBI = (((player.VsRhpRbi / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRbi / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedWalk = (((player.VsRhpWalk / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayWalk / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherHomeWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
@@ -1059,12 +1079,12 @@ namespace LCFinalProject.Models
                                 _context.PositionPlayers.Update(player);
                             }
 
-                            if (opponentStarter.ThrowingHand == "LHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0 && opponentStarter.HomeIp != 0)
+                            if (opponentStarter.ThrowingHand == "LHP" && player.AwayAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0)
                             {
                                 projectedHit = (((player.VsLhpHit / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHit / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherHomeHit / Convert.ToDecimal(9)) + (opponentTeamHits) / Convert.ToDecimal(6));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
                                 projectedHR = (((player.VsLhpHr / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayHr / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherHomeHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
                                 projectedR = (((player.VsLhpRun / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRun / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedRBI = (((player.VsLhpRbi / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayRbi / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherHomeRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedWalk = (((player.VsLhpWalk / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.AwayWalk / player.AwayAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherHomeWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
@@ -1086,12 +1106,12 @@ namespace LCFinalProject.Models
 
                         if (player.HomeAway == "Home")
                         {
-                            if (opponentStarter.ThrowingHand == "RHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0 && opponentStarter.AwayIp != 0)
+                            if (opponentStarter.ThrowingHand == "RHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsRhpAb != 0)
                             {
                                 projectedHit = (((player.VsRhpHit / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHit / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherAwayHit / Convert.ToDecimal(9)) + (opponentTeamHits) / Convert.ToDecimal(6));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
                                 projectedHR = (((player.VsRhpHr / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHr / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherAwayHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
                                 projectedR = (((player.VsRhpRun / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRun / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedRBI = (((player.VsRhpRbi / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRbi / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedWalk = (((player.VsRhpWalk / player.VsRhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeWalk / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherAwayWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
@@ -1110,12 +1130,12 @@ namespace LCFinalProject.Models
                                 _context.PositionPlayers.Update(player);
                             }
 
-                            if (opponentStarter.ThrowingHand == "LHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0 && opponentStarter.AwayIp != 0)
+                            if (opponentStarter.ThrowingHand == "LHP" && player.HomeAb != 0 && player.LastFiveTotalScore != 0 && player.VsLhpAb != 0)
                             {
                                 projectedHit = (((player.VsLhpHit / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHit / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHit / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHits / Convert.ToDecimal(3)) + (pitcherAwayHit / Convert.ToDecimal(9) + (opponentTeamHits)) / Convert.ToDecimal(6));
-                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
-                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) * Convert.ToDecimal(2)) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + (opponentTeamHRA) * (opponentHRA / Convert.ToDecimal(3.5));
                                 projectedHR = (((player.VsLhpHr / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeHr / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveHR / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentHRA / Convert.ToDecimal(3)) + (pitcherAwayHr / Convert.ToDecimal(9)) + (opponentTeamHRA) / Convert.ToDecimal(6));
+                                projectedDouble = ((player.LastFiveDouble / player.LastFiveAb) + ((player.SeasonDouble / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
+                                projectedTriple = ((player.LastFiveTriple / player.LastFiveAb) + ((player.SeasonTriple / player.SeasonAb) * Convert.ToDecimal(3)) + ((projectedHR) * Convert.ToDecimal(2))) / Convert.ToDecimal(3);
                                 projectedR = (((player.VsLhpRun / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRun / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRuns / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedRBI = (((player.VsLhpRbi / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeRbi / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveRBI / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentRuns / Convert.ToDecimal(3)) + (pitcherAwayRun / Convert.ToDecimal(9)) + (opponentTeamRA) / Convert.ToDecimal(6));
                                 projectedWalk = (((player.VsLhpWalk / player.VsLhpAb) * Convert.ToDecimal(1.5)) + ((player.HomeWalk / player.HomeAb) * Convert.ToDecimal(1.5)) + ((player.LastFiveWalk / player.LastFiveAb) * Convert.ToDecimal(2)) + (opponentWalks / Convert.ToDecimal(3)) + (pitcherAwayWalk / Convert.ToDecimal(9)) + (opponentTeamWalks) / Convert.ToDecimal(6));
@@ -1156,7 +1176,14 @@ namespace LCFinalProject.Models
                 decimal projectedHits = 0;
                 decimal projectedWalks = 0;
                 decimal projectedHR = 0;
-               
+
+                pitcher.OpposingTeamProjected = 0;
+
+                foreach (var player in _context.PositionPlayers.Where(p => p.TeamName == opponent.TeamName))
+                {
+                    pitcher.OpposingTeamProjected += player.Projection;
+                }
+
                 if (pitcherStrikeOuts > opponentStrikeOuts)
                 {
                     projectedStrikeOuts = (pitcherStrikeOuts + Convert.ToDecimal(pitcherStrikeOuts - opponentStrikeOuts) / Convert.ToDecimal(2));
@@ -1165,7 +1192,7 @@ namespace LCFinalProject.Models
                 {
                     projectedStrikeOuts = (pitcherStrikeOuts + Convert.ToDecimal(opponentStrikeOuts - pitcherStrikeOuts) / Convert.ToDecimal(2));
                 }
-                if (opponentStrikeOuts == pitcherStrikeOuts) 
+                if (opponentStrikeOuts == pitcherStrikeOuts)
                 {
                     projectedStrikeOuts = pitcherStrikeOuts;
                 }
@@ -1182,7 +1209,7 @@ namespace LCFinalProject.Models
                 {
                     projectedHits = pitcherHit;
                 }
-                
+
                 if (pitcherWalk > opponentWalk)
                 {
                     projectedWalks = (pitcherWalk + Convert.ToDecimal(pitcherWalk - opponentWalk) / Convert.ToDecimal(2));
@@ -1244,7 +1271,7 @@ namespace LCFinalProject.Models
                     pitcher.Projection = Convert.ToInt32(Math.Ceiling((projectedStrikeOuts * Convert.ToDecimal(2)) + (projectedRuns * Convert.ToDecimal(-2)) + (projectedHits * Convert.ToDecimal(-.6)) + (projectedHR * Convert.ToDecimal(-3)) + (projectedWalks * Convert.ToDecimal(-.6)) + (pitcher.AwayPointsPerIP * (pitcher.LastThreeInningsPitched / Convert.ToDecimal(3)))));
                     _context.Pitchers.Update(pitcher);
                 }
-                
+
 
 
 
@@ -1253,10 +1280,27 @@ namespace LCFinalProject.Models
 
         }
 
+        public void UpdateTriplesAndDoubles()
+        {
+            foreach (var player in _context.PositionPlayers)
+            {
+                var individualGames = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID && p.GameDate == DateTime.Today.Date.AddDays(-1)).ToList();
+
+                foreach (var game in individualGames)
+                {
+                    player.SeasonTriple += game.Triple;
+                    player.SeasonDouble += game.Double;
+                }
+            }
+        }
 
 
         public void GetTeamGameDates()
         {
+            foreach (var team in _context.TeamGameDates)
+            {
+                _context.TeamGameDates.Remove(team);
+            }
             foreach (var team in _context.Teams)
             {
                 var gameDate = _context.IndividualGamePosPlayers.Where(p => p.Team == team.TeamName).OrderByDescending(p => p.GameDate).DistinctBy(p => p.GameDate).Take(5).ToList();
@@ -1272,7 +1316,7 @@ namespace LCFinalProject.Models
                 }
             }
 
-            
+
         }
 
 
@@ -1408,5 +1452,492 @@ namespace LCFinalProject.Models
         //    }
 
         //}
+
+
+        //This May Be Dumb
+
+        public void NewPitcher()
+        {
+            Pitcher newPitcher = new Pitcher()
+            {
+                FirstName = "Caleb",
+                LastName = "Ferguson",
+                TeamName = "Dodgers",
+                PlayerID = 657571,
+                SeasonIp = 0,
+                SeasonHitsAllowed = 0,
+                SeasonEarnedRunsAllowed = 0,
+                SeasonHomeRunAllowed = 0,
+                SeasonPointsPerIP = 0,
+                SeasonRunsAllowed = 0,
+                SeasonStrikeOuts = 0,
+                SeasonTotalScore = 0,
+                SeasonWalks = 0,
+                SeasonWins = 0,
+                Salary = 0,
+                AwayEarnedRunsAllowed = 0,
+                AwayHitByPitch = 0,
+                AwayHitsAllowed = 0,
+                AwayHomeRunAllowed = 0,
+                AwayIp = 0,
+                AwayPointsPerIP = 0,
+                AwayRunsAllowed = 0,
+                AwayStrikeOuts = 0,
+                AwayTotalScore = 0,
+                AwayWalks = 0,
+                HomeAway = "Away",
+                HomeEarnedRunsAllowed = 0,
+                HomeHitByPitch = 0,
+                HomeHitsAllowed = 0,
+                HomeHomeRunAllowed = 0,
+                HomeIp = 0,
+                HomePointsPerIP = 0,
+                HomeRunsAllowed = 0,
+                HomeStrikeOuts = 0,
+                HomeTotalScore = 0,
+                HomeWalks = 0,
+                LastStartScore = 0,
+                LastThreeERA = 0,
+                LastThreeHitsAllowed = 0,
+                LastThreeHRA = 0,
+                LastThreeInningsPitched = 0,
+                LastThreeStrikeouts = 0,
+                LastThreeTotalScore = 0,
+                LastThreeWalks = 0,
+                Opponent = "Pirates",
+                OpposingTeamProjected = 0,
+                DKID = 10765327,
+                ProbableStarter = true,
+                ProjectedHit = 0,
+                ProjectedHRA = 0,
+                ProjectedRA = 0,
+                ProjectedStrikeout = 0, 
+                ProjectedWalk = 0,
+                Projection = 0,
+                ThrowingHand = "LHP"
+            };
+            _context.Pitchers.Add(newPitcher);
+        }
+
+        public void GetTeamProjections()
+        {
+            foreach (var team in _context.ProjectedTeams)
+            {
+                _context.ProjectedTeams.Remove(team);
+            }
+
+            var pitchers = _context.Pitchers.Where(p => (p.TeamName == "Phillies" || p.TeamName == "Athletics" || p.TeamName == "Rangers" || p.TeamName == "Cubs" || p.TeamName == "Astros" || p.TeamName == "Marlins" || p.TeamName == "Mariners" || p.TeamName == "Cardinals") && p.ProbableStarter == true);
+            var catching = _context.PositionPlayers.Where(p => (p.TeamName == "Cubs" || p.TeamName == "Marlins" || p.TeamName == "Cardinals") && p.Position == "C" && p.Salary >= 2700 && p.LastFiveTotalScore >= 28);
+            var firstBasemen = _context.PositionPlayers.Where(p => (p.TeamName == "Cubs" || p.TeamName == "Marlins" || p.TeamName == "Cardinals") && p.Position == "1B" && p.Salary >= 3000 && p.LastFiveTotalScore >= 28);
+            var secondBasemen = _context.PositionPlayers.Where(p => (p.TeamName == "Cubs" || p.TeamName == "Marlins" || p.TeamName == "Cardinals") && p.Position == "2B" && p.Salary >= 3000 && p.LastFiveTotalScore >= 28);
+            var thirdBasemen = _context.PositionPlayers.Where(p => (p.TeamName == "Cubs" || p.TeamName == "Marlins" || p.TeamName == "Cardinals") && p.Position == "3B" && p.Salary >= 3000 && p.LastFiveTotalScore >= 28);
+            var shortstoppers = _context.PositionPlayers.Where(p => (p.TeamName == "Cubs" || p.TeamName == "Marlins" || p.TeamName == "Cardinals") && p.Position == "SS" && p.Salary >= 3000 && p.LastFiveTotalScore >= 28);
+            var outfielderss = _context.PositionPlayers.Where(p => (p.TeamName == "Cubs" || p.TeamName == "Marlins" || p.TeamName == "Cardinals") && p.Position == "OF" && p.Salary >= 3000 && p.LastFiveTotalScore >= 35);
+
+            foreach (var pitcher in pitchers)
+            {
+                var totalSalary = 0;   
+                var pitcherOne = pitcher.FirstName + " " + pitcher.LastName;
+                var pitcherOneProjection = pitcher.Projection;
+                var pitcherOneSalary = pitcher.Salary;
+
+                totalSalary = pitcher.Salary;
+
+                foreach (var pitchertwo in pitchers.Where(p => p.PlayerID != pitcher.PlayerID))
+                {
+                    var pitcherTwo = pitchertwo.FirstName + " " + pitchertwo.LastName;
+                    var pitcherTwoProjection = pitchertwo.Projection;
+                    var pitcherTwoSalary = pitchertwo.Salary;
+
+                    totalSalary = pitcher.Salary + pitchertwo.Salary;
+
+                    if (totalSalary <= 20000)
+                    {
+                        foreach (var outOne in outfielderss)
+                        {
+                            var outfieldOne = outOne.FirstName + " " + outOne.LastName;
+                            var outfieldOneProjection = outOne.Projection;
+                            var outfieldOneSalary = outOne.Salary;
+
+                            totalSalary = pitcher.Salary + pitchertwo.Salary +outOne.Salary;
+
+                            if (totalSalary <= 25000)
+                            {
+                                foreach (var outTwo in outfielderss.Where(p => p.PlayerID != outOne.PlayerID))
+                                {
+                                    var outfieldTwo = outTwo.FirstName + " " + outTwo.LastName;
+                                    var outfieldTwoProjection = outTwo.Projection;
+                                    var outfieldTwoSalary = outTwo.Salary;
+
+                                    totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary;
+
+                                    if (totalSalary <= 28500)
+                                    {
+                                        foreach (var outThree in outfielderss.Where(p => p.PlayerID != outOne.PlayerID && p.PlayerID != outTwo.PlayerID))
+                                        {
+                                            var outfieldThree = outThree.FirstName + " " + outThree.LastName;
+                                            var outfieldThreeProjection = outThree.Projection;
+                                            var outfieldThreeSalary = outThree.Salary;
+
+                                            totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary + outThree.Salary;
+
+                                            if (totalSalary <= 33000)
+                                            {
+                                                foreach (var firstbase in firstBasemen)
+                                                {
+                                                    var first = firstbase.FirstName + " " + firstbase.LastName;
+                                                    var firstProjection = firstbase.Projection;
+                                                    var firstSalary = firstbase.Salary;
+
+                                                    totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary + outThree.Salary + firstbase.Salary;
+
+                                                    if (totalSalary <= 37500)
+                                                    {
+                                                        foreach (var thirdbase in thirdBasemen)
+                                                        {
+                                                            var third = thirdbase.FirstName + " " + thirdbase.LastName;
+                                                            var thirdProjection = thirdbase.Projection;
+                                                            var thirdSalary = thirdbase.Salary;
+
+                                                            totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary + outThree.Salary + thirdbase.Salary + firstbase.Salary;
+
+                                                            if (totalSalary <= 41600)
+                                                            {
+                                                                foreach (var secondbase in secondBasemen)
+                                                                {
+                                                                    var second = secondbase.FirstName + " " + secondbase.LastName;
+                                                                    var secondProjection = secondbase.Projection;
+                                                                    var secondSalary = secondbase.Salary;
+
+                                                                    totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary + outThree.Salary + thirdbase.Salary + firstbase.Salary + secondbase.Salary;
+
+                                                                    if (totalSalary <= 44400)
+                                                                    {
+                                                                        foreach (var shortstops in shortstoppers)
+                                                                        {
+                                                                            var shortstop = shortstops.FirstName + " " + shortstops.LastName;
+                                                                            var shortstopProjection = shortstops.Projection;
+                                                                            var shortstopSalary = shortstops.Salary;
+
+                                                                            totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary + outThree.Salary + thirdbase.Salary + firstbase.Salary + secondbase.Salary + shortstops.Salary;
+
+                                                                            if (totalSalary <= 47200)
+                                                                            {
+                                                                                foreach (var catchers in catching)
+                                                                                {
+                                                                                    var catcher = catchers.FirstName + " " + catchers.LastName;
+                                                                                    var catcherProjection = catchers.Projection;
+                                                                                    var catcherSalary = catchers.Salary;
+
+                                                                                    totalSalary = pitcher.Salary + pitchertwo.Salary + outOne.Salary + outTwo.Salary + outThree.Salary + thirdbase.Salary + firstbase.Salary + secondbase.Salary + catchers.Salary + shortstops.Salary;
+
+                                                                                    if (totalSalary <= 50000)
+                                                                                    {
+                                                                                        ProjectedTeam newTeam = new ProjectedTeam()
+                                                                                        {
+                                                                                            PitcherOne = pitcherOne,
+                                                                                            PitcherOneProjection = pitcherOneProjection,
+                                                                                            PitcherOneSalary = pitcherOneSalary,
+                                                                                            PitcherTwo = pitcherTwo,
+                                                                                            PitcherTwoProjection = pitcherTwoProjection,
+                                                                                            PitcherTwoSalary = pitcherTwoSalary,
+                                                                                            Catcher = catcher,
+                                                                                            CatcherProjection = catcherProjection,
+                                                                                            CatcherSalary = catcherSalary,
+                                                                                            FirstBase = first,
+                                                                                            FirstBaseProjection = firstProjection,
+                                                                                            FirstBaseSalary = firstSalary,
+                                                                                            SecondBase = second,
+                                                                                            SecondBaseProjection = secondProjection,
+                                                                                            SecondBaseSalary = secondSalary,
+                                                                                            ThirdBase = third,
+                                                                                            ThirdBaseProjection = thirdProjection,
+                                                                                            ThirdBaseSalary = thirdSalary,
+                                                                                            Shortstop = shortstop,
+                                                                                            ShortstopProjection = shortstopProjection,
+                                                                                            ShortstopSalary = shortstopSalary,
+                                                                                            OutfieldOne = outfieldOne,
+                                                                                            OutfieldOneProjection = outfieldOneProjection,
+                                                                                            OutfieldOneSalary = outfieldOneSalary,
+                                                                                            OutfieldTwo = outfieldTwo,
+                                                                                            OutfieldTwoProjection = outfieldTwoProjection,
+                                                                                            OutfieldTwoSalary = outfieldTwoSalary,
+                                                                                            OutfieldThree = outfieldThree,
+                                                                                            OutfieldThreeProjection = outfieldThreeProjection,
+                                                                                            OutfieldThreeSalary = outfieldThreeSalary,
+                                                                                            TotalCost = totalSalary,
+                                                                                            TeamProjection = pitcherTwoProjection + pitcherOneProjection + catcherProjection + firstProjection + secondProjection + thirdProjection + shortstopProjection + outfieldOneProjection + outfieldThreeProjection + outfieldTwoProjection
+                                                                                        };
+                                                                                        _context.ProjectedTeams.Add(newTeam);
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+
+
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+
+                }
+            }
+        }
+
+        public void TestTeamProjections()
+        {
+
+            foreach (var team in _context.ProjectedTeams)
+            {
+                _context.ProjectedTeams.Remove(team);
+            }
+
+            var pitchers = _context.Pitchers.Where(p => p.ProbableStarter == true);
+            var players = _context.PositionPlayers.Where(p => p.Salary >= 2700 && p.SeasonAb >= 50 && p.LastFiveTotalScore >= 25).OrderByDescending(p => p.Projection);
+           
+
+            foreach (var pitcher in pitchers)
+            {
+                var totalSalary = 0;
+
+                var pitcherOne = pitcher.FirstName + " " + pitcher.LastName;
+                var pitcherOneProjection = pitcher.Projection;
+                var pitcherOneSalary = pitcher.Salary;
+
+                totalSalary = pitcherOneSalary;
+
+                foreach (var pitcher2 in pitchers.Where(p => p.PlayerID != pitcher.PlayerID))
+                {
+                    var pitcherTwo = pitcher2.FirstName + " " + pitcher2.LastName;
+                    var pitcherTwoProjection = pitcher2.Projection;
+                    var pitcherTwoSalary = pitcher2.Salary;
+
+                    totalSalary = pitcherOneSalary + pitcherTwoSalary;
+                    var catcher = " ";
+                    decimal catcherProjection = 0;
+                    var catcherSalary = 0;
+                    var firstBase = " ";
+                    decimal firstBaseProjection = 0;
+                    var firstBaseSalary = 0;
+                    var secondBase = " ";
+                    decimal secondBaseProjection = 0;
+                    var secondBaseSalary = 0;
+                    var thirdBase = " ";
+                    decimal thirdBaseProjection = 0;
+                    var thirdBaseSalary = 0;
+                    var shortstop = " ";
+                    decimal shortstopProjection = 0;
+                    var shortstopSalary = 0;
+                    var outfieldOne = " ";
+                    decimal outfieldOneProjection = 0;
+                    var outfieldOneSalary = 0;
+                    var outfieldTwo = " ";
+                    decimal outfieldTwoProjection = 0;
+                    var outfieldTwoSalary = 0;
+                    var outfieldThree = " ";
+                    decimal outfieldThreeProjection = 0;
+                    var outfieldThreeSalary = 0;
+
+                    var outfieldOneID = 0;
+                    var outfieldTwoID = 0;
+                    var catcherCount = 0;
+                    var firstCount = 0;
+                    var secondCount = 0;
+                    var thirdCount = 0;
+                    var shortCount = 0;
+                    var outfieldCount = 0;
+
+                    foreach (var player in players)
+                    {
+
+                        if (totalSalary <= 50000)
+                        {
+                            if (player.Position == "C" && catcherCount == 0 && totalSalary <= 50000)
+                            {
+                                catcher = player.FirstName + " " + player.LastName;
+                                catcherProjection = player.Projection;
+                                catcherSalary = player.Salary;
+                                catcherCount += 1;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "1B" && firstCount == 0 && totalSalary <= 50000)
+                            {
+                                firstBase = player.FirstName + " " + player.LastName;
+                                firstBaseProjection = player.Projection;
+                                firstBaseSalary = player.Salary;
+                                firstCount += 1;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "2B" && secondCount == 0 && totalSalary <= 50000)
+                            {
+                                secondBase = player.FirstName + " " + player.LastName;
+                                secondBaseProjection = player.Projection;
+                                secondBaseSalary = player.Salary;
+                                secondCount += 1;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "3B" && thirdCount == 0 && totalSalary <= 50000)
+                            {
+                                thirdBase = player.FirstName + " " + player.LastName;
+                                thirdBaseProjection = player.Projection;
+                                thirdBaseSalary = player.Salary;
+                                thirdCount += 1;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "SS" && shortCount == 0 && totalSalary <= 50000)
+                            {
+                                shortstop = player.FirstName + " " + player.LastName;
+                                shortstopProjection = player.Projection;
+                                shortstopSalary = player.Salary;
+                                shortCount += 1;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "OF" && outfieldCount == 0 && totalSalary <= 50000)
+                            {
+                                outfieldOne = player.FirstName + " " + player.LastName;
+                                outfieldOneProjection = player.Projection;
+                                outfieldOneSalary = player.Salary;
+                                outfieldCount += 1;
+                                outfieldOneID = player.PlayerID;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "OF" && outfieldCount == 1 && totalSalary <= 50000 && player.PlayerID != outfieldOneID)
+                            {
+                                outfieldTwo = player.FirstName + " " + player.LastName;
+                                outfieldTwoProjection = player.Projection;
+                                outfieldTwoSalary = player.Salary;
+                                outfieldCount += 1;
+                                outfieldTwoID = player.PlayerID;
+                                totalSalary += player.Salary;
+                            }
+
+                            if (player.Position == "OF" && outfieldCount == 2 && totalSalary <= 50000 && player.PlayerID != outfieldOneID && player.PlayerID != outfieldTwoID)
+                            {
+                                outfieldThree = player.FirstName + " " + player.LastName;
+                                outfieldThreeProjection = player.Projection;
+                                outfieldThreeSalary = player.Salary;
+                                outfieldCount += 1;
+
+                                totalSalary += player.Salary;
+                            }
+
+                            if (catcherCount == 1 && firstCount == 1 && secondCount == 1 && thirdCount == 1 && shortCount == 1 && outfieldCount == 3 && totalSalary <= 50000)
+                            {
+                                ProjectedTeam newTeam = new ProjectedTeam()
+                                {
+                                    PitcherOne = pitcherOne,
+                                    PitcherOneSalary = pitcherOneSalary,
+                                    PitcherOneProjection = pitcherOneProjection,
+                                    PitcherTwo = pitcherTwo,
+                                    PitcherTwoProjection = pitcherTwoProjection,
+                                    PitcherTwoSalary = pitcherTwoSalary,
+                                    Catcher = catcher,
+                                    CatcherProjection = catcherProjection,
+                                    CatcherSalary = catcherSalary,
+                                    FirstBase = firstBase,
+                                    FirstBaseProjection = firstBaseProjection,
+                                    FirstBaseSalary = firstBaseSalary,
+                                    SecondBase = secondBase,
+                                    SecondBaseProjection = secondBaseProjection,
+                                    SecondBaseSalary = secondBaseSalary,
+                                    ThirdBase = thirdBase,
+                                    ThirdBaseProjection = thirdBaseProjection,
+                                    ThirdBaseSalary = thirdBaseSalary,
+                                    Shortstop = shortstop,
+                                    ShortstopProjection = shortstopProjection,
+                                    ShortstopSalary = shortstopSalary,
+                                    OutfieldOne = outfieldOne,
+                                    OutfieldOneProjection = outfieldOneProjection,
+                                    OutfieldOneSalary = outfieldOneSalary,
+                                    OutfieldThree = outfieldThree,
+                                    OutfieldThreeProjection = outfieldThreeProjection,
+                                    OutfieldThreeSalary = outfieldThreeSalary,
+                                    OutfieldTwo = outfieldTwo,
+                                    OutfieldTwoProjection = outfieldTwoProjection,
+                                    OutfieldTwoSalary = outfieldTwoSalary,
+                                    TeamProjection = pitcherOneProjection + pitcherTwoProjection + catcherProjection + firstBaseProjection + secondBaseProjection + thirdBaseProjection + shortstopProjection + outfieldTwoProjection + outfieldOneProjection + outfieldThreeProjection,
+                                    TotalCost = totalSalary
+                                };
+                                _context.ProjectedTeams.Add(newTeam);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        public void GetDeviance()
+        {
+            foreach (var player in _context.PositionPlayers)
+            {
+                player.YesterdayDeviance = player.YesterdayTotalScore - player.YesterdayProjected;
+
+                var lastFiveGames = _context.IndividualGamePosPlayers.Where(p => p.PlayerID == player.PlayerID).OrderByDescending(p => p.GameDate).Take(5);
+
+                decimal lastFiveScore = 0;
+                decimal  lastFiveProjected = 0;
+
+                foreach (var game in lastFiveGames)
+                {
+                    lastFiveScore += game.TotalScore;
+                    lastFiveProjected += game.Projection;
+                }
+
+                player.LastFiveProjected = lastFiveProjected;
+                player.LastFiveDeviance = lastFiveScore - lastFiveProjected;
+            }
+
+            foreach (var pitcher in _context.Pitchers)
+            {
+                var lastStart = _context.IndividualGamePitchers.Where(p => p.PlayerID == pitcher.PlayerID).OrderByDescending(p => p.GameDate).FirstOrDefault();
+                var lastThreeStarts = _context.IndividualGamePitchers.Where(p => p.PlayerID == pitcher.PlayerID).OrderByDescending(p => p.GameDate).Take(3);
+
+                if (lastStart != null)
+                {
+                    pitcher.LastStartProjected = lastStart.ProjectedScore;
+                    pitcher.LastStartDeviance = lastStart.TotalScore - lastStart.ProjectedScore;
+                }
+
+                decimal lastThreeScore = 0;
+                decimal lastThreeProjected = 0;
+
+                foreach (var start in lastThreeStarts)
+                {
+                    lastThreeScore += start.TotalScore;
+                    lastThreeProjected = start.ProjectedScore;
+                }
+
+                pitcher.LastThreeProjected = lastThreeProjected;
+                pitcher.LastThreeDeviance = lastThreeScore - lastThreeProjected;
+            }
+        }
     }
 }

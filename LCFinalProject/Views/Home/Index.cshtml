@@ -108,7 +108,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
+            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
 
         }
 
@@ -135,11 +135,11 @@
                 title: "Team",
                 field: "Team",
                 encoded: true
-                }, {
-                    title: "Opponent",
-                    field: "Opponent",
-                    encoded: true
-                }, {
+            }, {
+                title: "Opponent",
+                field: "Opponent",
+                encoded: true
+            }, {
                 title: "Projection",
                 field: "Projection",
                 encoded: true
@@ -152,39 +152,24 @@
                 field: "YesterdayScore",
                 encoded: true
             }, {
+                title: "Yesterday Projection",
+                field: "YesterdayProjection",
+                encoded: true
+            }, {
+                title: "Deviance",
+                field: "YesterdayDeviance",
+                encoded: true
+            }, {
                 title: "Last Five Games",
                 field: "LastFiveGames",
                 encoded: true
             }, {
-                title: "Hit",
+                title: "Projected Hits",
                 field: "Hit",
                 encoded: true
-            },  {
-                title: "2B",
-                field: "Double",
-                encoded: true
-            },{
-                title: "3B",
-                field: "Triple",
-                encoded: true
             }, {
-                title: "HR",
+                title: "Projected HR",
                 field: "HomeRun",
-                encoded: true
-            }, {
-                title: "RBI",
-                field: "RBI",
-                encoded: true
-            }, {
-                title: "Run",
-                field: "Run",
-                encoded: true
-            }, {
-                title: "BB",
-                field: "Walk"
-            },  {
-                title: "SB",
-                field: "StolenBase",
                 encoded: true
             }],
             pageable: {
@@ -218,6 +203,13 @@
                             },
                             YesterdayScore: {
                                 type: "number"
+                            }, 
+                            YesterdayProjection: {
+                                type: "decimal"
+                            },
+                            YesterdayDeviance: {
+                                type: "decimal"
+
                             },
                             LastFiveGames: {
                                 type: "number",
@@ -226,29 +218,7 @@
                             Hit: {
                                 type: "decimal"
                             },
-                            Double: {
-                                type: "decimal"
-                            },
-                            Triple: {
-                                type: "decimal",
-                                defaultValue: null
-                            },
                             HomeRun: {
-                                type: "decimal"
-
-                            },
-                            RBI: {
-                                type: "decimal",
-                                defaultValue: null
-                            },
-                            Run: {
-                                type: "decimal"
-
-                            },
-                            Walk: {
-                                type: "decimal"
-                            },
-                            StolenBase: {
                                 type: "decimal"
 
                             }
@@ -269,7 +239,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
         }
 
         return data;
@@ -310,6 +280,10 @@
             }, {
                 title: "Yesterday Score",
                 field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Yesterday Projection",
+                field: "YesterdayProjection",
                 encoded: true
             }, {
                 title: "Last Five Games",
@@ -379,6 +353,9 @@
                             YesterdayScore: {
                                 type: "number"
                             },
+                            YesterdayProjection: {
+                                type: "decimal"
+                            },
                             LastFiveGames: {
                                 type: "number",
                                 defaultValue: null
@@ -429,7 +406,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-           @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
+           @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -471,6 +448,10 @@
             }, {
                 title: "Yesterday Score",
                 field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Yesterday Projection",
+                field: "YesterdayProjection",
                 encoded: true
             }, {
                 title: "Last Five Games",
@@ -540,6 +521,9 @@
                             YesterdayScore: {
                                 type: "number"
                             },
+                            YesterdayProjection: {
+                                type: "decimal"
+                            },
                             LastFiveGames: {
                                 type: "number",
                                 defaultValue: null
@@ -590,7 +574,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -632,6 +616,10 @@
             }, {
                 title: "Yesterday Score",
                 field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Yesterday Projection",
+                field: "YesterdayProjection",
                 encoded: true
             }, {
                 title: "Last Five Games",
@@ -701,6 +689,9 @@
                             YesterdayScore: {
                                 type: "number"
                             },
+                            YesterdayProjection: {
+                                type: "decimal"
+                            },
                             LastFiveGames: {
                                 type: "number",
                                 defaultValue: null
@@ -750,7 +741,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
+              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -792,6 +783,10 @@
             }, {
                 title: "Yesterday Score",
                 field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Yesterday Projection",
+                field: "YesterdayProjection",
                 encoded: true
             }, {
                 title: "Last Five Games",
@@ -861,6 +856,9 @@
                             YesterdayScore: {
                                 type: "number"
                             },
+                            YesterdayProjection: {
+                                type: "decimal"
+                            },
                             LastFiveGames: {
                                 type: "number",
                                 defaultValue: null
@@ -910,7 +908,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
+              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", LastFiveGames: "@player.LastFiveTotalScore", Hit: "@player.ProjectedHit", Double: "@player.ProjectedDouble", Triple: "@player.ProjectedTriple", HomeRun: "@player.ProjectedHR", RBI: "@player.ProjectedRBI", Run: "@player.ProjectedRun",  Walk: "@player.ProjectedWalk", StolenBase: "@player.ProjectedSB" });
 
         }
 
@@ -952,6 +950,10 @@
             }, {
                 title: "Yesterday Score",
                 field: "YesterdayScore",
+                encoded: true
+            }, {
+                title: "Yesterday Projection",
+                field: "YesterdayProjection",
                 encoded: true
             }, {
                 title: "Last Five Games",
@@ -1021,6 +1023,9 @@
                             YesterdayScore: {
                                 type: "number"
                             },
+                            YesterdayProjection: {
+                                type: "decimal"
+                            },
                             LastFiveGames: {
                                 type: "number",
                                 defaultValue: null
@@ -1070,7 +1075,7 @@
         {
             var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", Projection: "@player.Projection", Salary: "@player.Salary", LastGame: "@player.LastStartScore", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched", StrikeOuts: "@player.ProjectedStrikeout", Hits: "@player.ProjectedHit",  Walks: "@player.ProjectedWalk", Homeruns: "@player.ProjectedHRA", Runs: "@player.ProjectedRA" });
+             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", Projection: "@player.Projection", Salary: "@player.Salary", LastGame: "@player.LastStartScore", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched", OpponentProjections: "@player.OpposingTeamProjected", StrikeOuts: "@player.ProjectedStrikeout", Hits: "@player.ProjectedHit",  Walks: "@player.ProjectedWalk", Homeruns: "@player.ProjectedHRA", Runs: "@player.ProjectedRA" });
 
         }
 
@@ -1131,6 +1136,10 @@
             }, {
                 title: "Last Three Runs",
                 field: "LastThreeRuns",
+                encoded: true
+            }, {
+                title: "Opponent Projections",
+                field: "OpponentProjections",
                 encoded: true
             }, {
                 title: "StrikeOuts",
@@ -1198,6 +1207,9 @@
                                 type: "number"
                             },
                             LastThreeIP: {
+                                type: "decimal"
+                            },
+                            OpponentProjections: {
                                 type: "decimal"
                             },
                             StrikeOuts: {

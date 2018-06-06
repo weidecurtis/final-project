@@ -24,6 +24,17 @@ namespace LCFinalProject.Models
         // This Loads all data from previous day. Gets a list of playerIDs, checks for new players, adds / updates season stats.
         public void GetData(YesterdayGame game)
         {
+
+            foreach (var player in _context.PositionPlayers)
+            {
+                player.YesterdayProjected = player.Projection;
+            }
+
+            foreach (var pitcher in _context.Pitchers)
+            {
+                pitcher.LastStartProjected = pitcher.Projection;
+            }
+
             HtmlWeb hw = new HtmlWeb();
             HtmlDocument doc = hw.Load("https://gd2.mlb.com" + game.Directory + "/batters");
 
@@ -367,10 +378,45 @@ namespace LCFinalProject.Models
                             Walk = player.bb,
                             Team = singlePlayer.TeamName,
                             StrikeOut = player.so,
-                            TotalScore = (player.single * 3) + (player.@double * 5) +  (player.sb * 5) + (player.bb * 2) + (player.triple * 7) + (player.hr * 10) + (player.r * 2) + (player.rbi * 2)
+                            TotalScore = (player.single * 3) + (player.@double * 5) +  (player.sb * 5) + (player.bb * 2) + (player.triple * 7) + (player.hr * 10) + (player.r * 2) + (player.rbi * 2),
+                            Projection = singlePlayer.Projection
                         };
                         _context.IndividualGamePosPlayers.Add(newPlayerEntry);
 
+                    } else
+                    {
+                        if (singlePlayer.Position == "LF" || singlePlayer.Position == "RF" || singlePlayer.Position == "CF")
+                        {
+                            singlePlayer.Position = "OF";
+                        }
+                        if (singlePlayer.Position == "DH")
+                        {
+                            singlePlayer.Position = "1B";
+                        }
+
+                        IndividualGamePosPlayer newPlayerEntry = new IndividualGamePosPlayer()
+                        {
+                            FirstName = singlePlayer.FirstName,
+                            LastName = singlePlayer.LastName,
+                            PlayerID = singlePlayer.PlayerID,
+                            GameDate = date,
+                            Ab = player.ab,
+                            HomeRun = player.hr,
+                            Single = player.single,
+                            Double = player.@double,
+                            Triple = player.triple,
+                            RBI = player.rbi,
+                            Run = player.r,
+                            CaughtStealing = player.cs,
+                            StolenBase = player.sb,
+                            Position = singlePlayer.Position,
+                            Walk = player.bb,
+                            Team = singlePlayer.TeamName,
+                            StrikeOut = player.so,
+                            TotalScore = (player.single * 3) + (player.@double * 5) + (player.sb * 5) + (player.bb * 2) + (player.triple * 7) + (player.hr * 10) + (player.r * 2) + (player.rbi * 2),
+                            Projection = 0
+                        };
+                        _context.IndividualGamePosPlayers.Add(newPlayerEntry);
                     }
                 }
             }
@@ -435,6 +481,7 @@ namespace LCFinalProject.Models
                             CompleteGame = completeGame,
                             CompleteGameShutOut = completeGameShutOut,
                             TeamName = pitcher.TeamName,
+                            ProjectedScore = pitcher.Projection,
                             TotalScore = (pitcherPlayer.ip * Convert.ToDecimal(2.25)) + (pitcherPlayer.r * Convert.ToDecimal(-2)) + (pitcherPlayer.bb * Convert.ToDecimal(-.6)) + (pitcherPlayer.h * Convert.ToDecimal(-.6)) + (pitcherPlayer.k * Convert.ToDecimal(2)) + (completeGame * Convert.ToDecimal(2.5)) + (completeGameShutOut * Convert.ToDecimal(2.5))
                     };
                         _context.IndividualGamePitchers.Add(newPitcher);
@@ -443,6 +490,8 @@ namespace LCFinalProject.Models
             }
             _context.SaveChanges();
         }
+
+       
     }
 }
 
