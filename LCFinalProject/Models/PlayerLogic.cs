@@ -28,6 +28,10 @@ namespace LCFinalProject.Models
             foreach (var player in _context.PositionPlayers)
             {
                 player.YesterdayProjected = player.Projection;
+                if (player.Projection < 0)
+                {
+                    player.YesterdayProjected = 0;
+                }
             }
 
             foreach (var pitcher in _context.Pitchers)

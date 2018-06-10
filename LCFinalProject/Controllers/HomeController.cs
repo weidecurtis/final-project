@@ -23,35 +23,37 @@ namespace LCFinalProject.Controllers
         public IActionResult Index()
         {
             List<Pitcher> pitchers = _context.Pitchers.Where(p => p.ProbableStarter == true).ToList();
-            var pitcherNight = pitchers.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
-            List<PositionPlayer> catchers = _context.PositionPlayers.Where(p => p.Position == "C" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25).ToList();
-            var catcherNight = catchers.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
-            List<PositionPlayer> firstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25).ToList();
-            var firstNight = firstBasemen.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
-            List<PositionPlayer> secondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25).ToList();
-            var secondNight = secondBasemen.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
-            List<PositionPlayer> shortstops = _context.PositionPlayers.Where(p => p.Position == "SS" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25).ToList();
-            var shortNight = shortstops.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
-            List<PositionPlayer> thirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25).ToList();
-            var thirdNight = thirdBasemen.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
-            List<PositionPlayer> outfielders = _context.PositionPlayers.Where(p => p.Position == "OF" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25).ToList();
-            var outfieldNight = outfielders.Where(p => p.TeamName == "Rays" || p.TeamName == "Nationals" || p.TeamName == "Brewers" || p.TeamName == "Indians" || p.TeamName == "Orioles" || p.TeamName == "Mets" || p.TeamName == "Giants" || p.TeamName == "Diamondbacks" || p.TeamName == "Braves" || p.TeamName == "Padres").ToList();
+            var pitcherNight = pitchers.Where(p => p.TeamName == "Braves" || p.TeamName == "Dodgers").ToList();
+            List<PositionPlayer> catchers = _context.PositionPlayers.Where(p => p.Position == "C" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            var catcherNight = catchers.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
+            List<PositionPlayer> firstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            var firstNight = firstBasemen.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
+            List<PositionPlayer> secondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            var secondNight = secondBasemen.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
+            List<PositionPlayer> shortstops = _context.PositionPlayers.Where(p => p.Position == "SS" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            var shortNight = shortstops.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
+            List<PositionPlayer> thirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            var thirdNight = thirdBasemen.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
+            List<PositionPlayer> outfielders = _context.PositionPlayers.Where(p => p.Position == "OF" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            var outfieldNight = outfielders.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
 
             List<Team> teams = _context.Teams.ToList();
+            List<ProjectedTeam> projectedTeams = _context.ProjectedTeams.ToList();
 
            
 
 
             PredictorViewModel predictorViewModel = new PredictorViewModel
             {
-                Pitchers = pitcherNight,
+                Pitchers = pitchers,
                 Catchers = catcherNight,
                 FirstBasemen = firstNight,
                 SecondBasemen = secondNight,
                 ThirdBasemen = thirdNight,
                 ShortStops = shortNight,
                 Outfielders = outfieldNight,
-                Teams = teams
+                Teams = teams,
+                ProjectedTeams = projectedTeams
 
             };
 

@@ -36,7 +36,7 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
-
+            var predictorLogic = new PredictorLogic(_context);
             
             DateTime yesterday = DateTime.Today.Date.AddDays(-1);
 
@@ -52,11 +52,12 @@ namespace LCFinalProject.Controllers
             }
             ////This loops through every players individual stats for that day
             playerLogic.LoadYesterdayGames(yesterday);
-            
 
-
-
-
+            predictorLogic.RefreshTeams();
+            predictorLogic.UpdatePlayers();
+            predictorLogic.UpdateTeamNames();
+            predictorLogic.UpdateTriplesAndDoubles();
+            predictorLogic.ChangeProjectionForGamesNotPlayed();
 
             return Redirect("GetData/Test");
         }
@@ -65,33 +66,36 @@ namespace LCFinalProject.Controllers
         {
             PredictorLogic predictorLogic = new PredictorLogic(_context);
 
-            //predictorLogic.IndividualTotalScore();
-            //_context.SaveChanges();
-            //predictorLogic.RefreshTeams();
-            //_context.SaveChanges();
-            //predictorLogic.UpdatePlayers();
-            //_context.SaveChanges();
-            //predictorLogic.UpdateTeamNames();
-            //_context.SaveChanges();
-            //predictorLogic.TodayGameData();
-            //_context.SaveChanges();
-            //predictorLogic.UpdateTeams();
-            //_context.SaveChanges();
-            //predictorLogic.UpdateTriplesAndDoubles();
-            //_context.SaveChanges();
-            //predictorLogic.GetTeamGameDates();
-            //_context.SaveChanges();
-            //predictorLogic.AssignSalaries();
-            //_context.SaveChanges();
-            //predictorLogic.AssignStarters();
-            //_context.SaveChanges();
-            predictorLogic.GetProjections();
-            _context.SaveChanges();
-            //predictorLogic.GetDeviance();
+
+
+
+            //predictorLogic.ChangeAllToStartersForDataGathering();
             //_context.SaveChanges();
 
+            //predictorLogic.TodayGameData();
+            //_context.SaveChanges();
+
+            //predictorLogic.TestAssignStarters();
+            //_context.SaveChanges();
+
+            //predictorLogic.UpdateTeams();
+            //_context.SaveChanges();
+
+
+            //predictorLogic.AssignSalaries();
+            //_context.SaveChanges();
+
+            //predictorLogic.GetDeviance();
+            //_context.SaveChanges();
+            //predictorLogic.GetProjections();
+            //_context.SaveChanges();
+
+            //predictorLogic.NewPitcher();
             //predictorLogic.TestTeamProjections();
-            //predictorLogic.GetTeamProjections();
+            predictorLogic.GetTeamProjections();
+            _context.SaveChanges();
+            //predictorLogic.YesterdayTotalScore();
+            //_context.SaveChanges();
 
 
             return View();

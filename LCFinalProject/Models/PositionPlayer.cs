@@ -125,30 +125,32 @@ namespace LCFinalProject.Models
         public int LastFiveRBI { get; set; }
         public int LastFiveSB { get; set; }
 
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedHit { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedDouble { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedTriple { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedHR { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedRun { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedRBI { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedWalk { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal ProjectedSB { get; set; }
         [DataType("decimal(18,4)")]
         public decimal YesterdayProjected { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal YesterdayDeviance { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal LastFiveProjected { get; set; }
-        [DataType("decimal(18,4)")]
+        [DataType("decimal(18,2)")]
         public decimal LastFiveDeviance { get; set; }
+
+        public bool Starting { get; set; }
 
 
 

@@ -17,9 +17,7 @@ namespace LCFinalProject.ViewModels
         public IList<PositionPlayer> ThirdBasemen { get; set; }
         public IList<PositionPlayer> Outfielders { get; set; }
         public IList<Team> Teams { get; set; }
-        
-        
-
+        public IList<ProjectedTeam> ProjectedTeams { get; set; }
 
     }
 }

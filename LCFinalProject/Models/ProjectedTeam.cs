@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,6 +51,7 @@ namespace LCFinalProject.Models
         public int OutfieldThreeSalary { get; set; }
 
         public int TotalCost { get; set; }
+        [DataType("decimal(18,2)")]
         public decimal TeamProjection { get; set; }
 
 
