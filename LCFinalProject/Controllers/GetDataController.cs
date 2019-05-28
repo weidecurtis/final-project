@@ -56,7 +56,8 @@ namespace LCFinalProject.Controllers
 
                 foreach (Game game in gameUrls)
                 {
-                    gameLogic.GetData(game);
+                    //gameLogic.GetBatterData(game);
+                    gameLogic.GetPitcherData(game);
                 }
 
             }

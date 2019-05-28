@@ -59,7 +59,7 @@ namespace LCFinalProject.Models
             return gameList;
         }
 
-        public void GetData(Game game)
+        public void GetBatterData(Game game)
         {
             var idJson = new WebClient().DownloadString("http://statsapi.mlb.com/api/v1/game/" + game.GameID + "/boxscore");
             var deIdJson = JsonConvert.DeserializeObject<dynamic>(idJson);
@@ -76,17 +76,7 @@ namespace LCFinalProject.Models
 
             }
 
-            foreach (string id in home.pitchers)
-            {
-                playerIds.Add(id);
-
-            }
             foreach (string id in away.batters)
-            {
-                playerIds.Add(id);
-
-            }
-            foreach (string id in away.pitchers)
             {
                 playerIds.Add(id);
 
@@ -177,7 +167,7 @@ namespace LCFinalProject.Models
                                         Date = DateTime.Now.Date
                                     };
 
-                                    _context.Add(newHitData);
+                                    _context.HitDatas.Add(newHitData);
                                 }
 
                             }
@@ -259,11 +249,167 @@ namespace LCFinalProject.Models
                                         Date = DateTime.Now.Date
                                     };
 
-                                    _context.Add(newHitData);
+                                    _context.HitDatas.Add(newHitData);
+                                    _context.Batters.Update(batter);
                                 }
 
                             }
                             _context.GameStats.Add(newGameStat);
+                        }
+                    }
+                }
+            }
+            _context.SaveChanges(); 
+        }
+
+        public void GetPitcherData(Game game)
+        {
+            var idJson = new WebClient().DownloadString("http://statsapi.mlb.com/api/v1/game/" + game.GameID + "/boxscore");
+            var deIdJson = JsonConvert.DeserializeObject<dynamic>(idJson);
+
+            var playerIds = new List<string>();
+
+            var home = deIdJson.teams.home;
+            var away = deIdJson.teams.away;
+
+            foreach (string id in home.pitchers)
+            {
+                playerIds.Add(id);
+            }
+            foreach (string id in away.pitchers)
+            {
+                playerIds.Add(id);
+            }
+
+            foreach (var player in playerIds)
+            {
+                var downloadString = "http://statsapi.mlb.com/api/v1/people/" + player;
+                //var downloadString = "http://statsapi.mlb.com/api/v1/people/665742";
+                //Player information Json
+                var playerJson = new WebClient().DownloadString(downloadString);
+                var dePlayerJson = JsonConvert.DeserializeObject<dynamic>(playerJson);
+                var people = dePlayerJson.people[0];
+                var dupPitcher = _context.Pitchers.Any(p => p.PlayerID.ToString() == player);
+
+                //GameStats Json
+                var statJson = new WebClient().DownloadString("http://statsapi.mlb.com/api/v1/people/" + player + "/stats/game/" + game.GameID);
+                var deStatJson = JsonConvert.DeserializeObject<dynamic>(statJson);
+
+                if (dupPitcher)
+                {
+                    var statsCount = 0;
+
+                    foreach (var item in deStatJson.stats)
+                    {
+                        statsCount += 1;
+                    }
+
+                    if (statsCount > 1)
+                    {
+                        if (deStatJson.stats[1] != null && deStatJson.stats[0] != null)
+                        {
+                            var pitcher = _context.Pitchers.Where(p => p.PlayerID.ToString() == player).FirstOrDefault();
+                            var countingStats = deStatJson.stats[0].splits[1].stat;
+
+                            PitcherGameStat newGameStat = new PitcherGameStat()
+                            {
+                                Hits = countingStats.hits,
+                                Doubles = countingStats.doubles,
+                                Triples = countingStats.triples,
+                                HomeRuns = countingStats.homeRuns,
+                                Walks = countingStats.baseOnBalls,
+                                RBIs = countingStats.rbi,
+                                Runs = countingStats.runs,
+                                EarnedRuns = countingStats.earnedRuns,
+                                SB = countingStats.stolenBases,
+                                CS = countingStats.caughtStealing,
+                                OpponentScore = (countingStats.hits * 3) + (countingStats.doubles * 2) + (countingStats.triples * 4) + (countingStats.homeRuns * 10)
+                                 + (countingStats.baseOnBalls * 2) + (countingStats.rbi * 2) + (countingStats.runs * 2) + (countingStats.stolenBases * 5),
+                                Score = (countingStats.hits * -.6) + (countingStats.earnedRuns * -2) +  (countingStats.baseOnBalls * -.6) + (countingStats.hitBatsmen * -.6) 
+                                 + (countingStats.inningsPitched * 2.25)
+                            };
+
+
+
+                            int gHits = countingStats.hits;
+                            int gDoubles = countingStats.doubles;
+                            int gTriples = countingStats.triples;
+                            int gHomeRuns = countingStats.homeRuns;
+                            int gWalks = countingStats.baseOnBalls;
+                            int gRBIs = countingStats.rbi;
+                            int gRuns = countingStats.runs;
+                            int gSB = countingStats.stolenBases;
+                            int gCS = countingStats.caughtStealing;
+
+                            pitcher.Hits += gHits;
+                            pitcher.Doubles += gDoubles;
+                            pitcher.Triples += gTriples;
+                            pitcher.HomeRuns += gHomeRuns;
+                            pitcher.Walks += gWalks;
+                            pitcher.RBIs += gRBIs;
+                            pitcher.Runs += gRuns;
+                            pitcher.SB += gSB;
+                            pitcher.CS += gCS;
+
+                            _context.PitcherGameStats.Add(newGameStat);
+                            _context.Pitchers.Update(pitcher);
+                        }
+     
+                        
+                    }
+                }
+
+                else
+                {
+                    var statsCount = 0;
+
+                    foreach (var item in deStatJson.stats)
+                    {
+                        statsCount += 1;
+                    }
+
+                    if (statsCount > 1)
+                    {
+                        if (deStatJson.stats[1] != null && deStatJson.stats[0] != null)
+                        {
+                            var batter = _context.Batters.Where(p => p.PlayerID.ToString() == player).FirstOrDefault();
+                            var countingStats = deStatJson.stats[0].splits[1].stat;
+
+                            PitcherGameStat newGameStat = new PitcherGameStat()
+                            {
+                                Hits = countingStats.hits,
+                                Doubles = countingStats.doubles,
+                                Triples = countingStats.triples,
+                                HomeRuns = countingStats.homeRuns,
+                                Walks = countingStats.baseOnBalls,
+                                RBIs = countingStats.rbi,
+                                Runs = countingStats.runs,
+                                EarnedRuns = countingStats.earnedRuns,
+                                SB = countingStats.stolenBases,
+                                CS = countingStats.caughtStealing,
+                                OpponentScore = (countingStats.hits * 3) + (countingStats.doubles * 2) + (countingStats.triples * 4) + (countingStats.homeRuns * 10)
+                                 + (countingStats.baseOnBalls * 2) + (countingStats.rbi * 2) + (countingStats.runs * 2) + (countingStats.stolenBases * 5),
+                                Score = (countingStats.hits * -.6) + (countingStats.earnedRuns * -2) + (countingStats.baseOnBalls * -.6) + (countingStats.hitBatsmen * -.6)
+                                 + (countingStats.inningsPitched * 2.25)
+                            };
+
+                            Pitcher newPitcher = new Pitcher()
+                            {
+                                PlayerID = people.id,
+                                FirstName = people.firstName,
+                                LastName = people.lastName,
+                                Hits = countingStats.hits,
+                                Doubles = countingStats.doubles,
+                                Triples = countingStats.triples,
+                                HomeRuns = countingStats.homeRuns,
+                                Walks = countingStats.baseOnBalls,
+                                RBIs = countingStats.rbi,
+                                Runs = countingStats.runs,
+                                SB = countingStats.stolenBases,
+                                CS = countingStats.caughtStealing
+                            };
+                            _context.PitcherGameStats.Add(newGameStat);
+                            _context.Pitchers.Add(newPitcher);
                         }
                     }
                 }

@@ -169,129 +169,81 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("AwayEarnedRunsAllowed");
+                    b.Property<int>("CS");
 
-                    b.Property<int>("AwayHitByPitch");
-
-                    b.Property<int>("AwayHitsAllowed");
-
-                    b.Property<int>("AwayHomeRunAllowed");
-
-                    b.Property<decimal>("AwayIp");
-
-                    b.Property<decimal>("AwayPointsPerIP");
-
-                    b.Property<int>("AwayRunsAllowed");
-
-                    b.Property<int>("AwayStrikeOuts");
-
-                    b.Property<decimal>("AwayTotalScore");
-
-                    b.Property<int>("AwayWalks");
-
-                    b.Property<int>("DKID");
+                    b.Property<int>("Doubles");
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("HomeAway");
+                    b.Property<int>("Hits");
 
-                    b.Property<decimal>("HomeEarnedRunsAllowed");
-
-                    b.Property<int>("HomeHitByPitch");
-
-                    b.Property<int>("HomeHitsAllowed");
-
-                    b.Property<int>("HomeHomeRunAllowed");
-
-                    b.Property<decimal>("HomeIp");
-
-                    b.Property<decimal>("HomePointsPerIP");
-
-                    b.Property<int>("HomeRunsAllowed");
-
-                    b.Property<int>("HomeStrikeOuts");
-
-                    b.Property<decimal>("HomeTotalScore");
-
-                    b.Property<int>("HomeWalks");
+                    b.Property<int>("HomeRuns");
 
                     b.Property<string>("LastName");
 
-                    b.Property<decimal>("LastStartDeviance");
-
-                    b.Property<decimal>("LastStartProjected");
-
-                    b.Property<decimal>("LastStartScore");
-
-                    b.Property<decimal>("LastThreeDeviance");
-
-                    b.Property<int>("LastThreeERA");
-
-                    b.Property<int>("LastThreeHRA");
-
-                    b.Property<int>("LastThreeHitsAllowed");
-
-                    b.Property<decimal>("LastThreeInningsPitched");
-
-                    b.Property<decimal>("LastThreeProjected");
-
-                    b.Property<int>("LastThreeStrikeouts");
-
-                    b.Property<decimal>("LastThreeTotalScore");
-
-                    b.Property<int>("LastThreeWalks");
-
-                    b.Property<string>("MatchUp");
-
-                    b.Property<string>("Opponent");
-
-                    b.Property<decimal>("OpposingTeamProjected");
-
                     b.Property<int>("PlayerID");
 
-                    b.Property<bool>("ProbableStarter");
+                    b.Property<int>("RBIs");
 
-                    b.Property<decimal>("ProjectedHRA");
+                    b.Property<int>("Runs");
 
-                    b.Property<decimal>("ProjectedHit");
-
-                    b.Property<decimal>("ProjectedRA");
-
-                    b.Property<decimal>("ProjectedStrikeout");
-
-                    b.Property<decimal>("ProjectedWalk");
-
-                    b.Property<int>("Projection");
-
-                    b.Property<int>("Salary");
-
-                    b.Property<decimal>("SeasonEarnedRunsAllowed");
-
-                    b.Property<int>("SeasonHitsAllowed");
-
-                    b.Property<int>("SeasonHomeRunAllowed");
-
-                    b.Property<decimal>("SeasonIp");
-
-                    b.Property<decimal>("SeasonPointsPerIP");
-
-                    b.Property<int>("SeasonRunsAllowed");
-
-                    b.Property<int>("SeasonStrikeOuts");
-
-                    b.Property<decimal>("SeasonTotalScore");
-
-                    b.Property<int>("SeasonWalks");
-
-                    b.Property<int>("SeasonWins");
+                    b.Property<int>("SB");
 
                     b.Property<string>("TeamName");
 
-                    b.Property<string>("ThrowingHand");
+                    b.Property<int>("Triples");
+
+                    b.Property<int>("Walks");
 
                     b.HasKey("ID");
 
                     b.ToTable("Pitchers");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.PitcherGameStat", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BattersFaced");
+
+                    b.Property<int>("CS");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("Doubles");
+
+                    b.Property<int>("EarnedRuns");
+
+                    b.Property<int>("FlyOuts");
+
+                    b.Property<int>("GroundOuts");
+
+                    b.Property<int>("Hits");
+
+                    b.Property<int>("HomeRuns");
+
+                    b.Property<int>("OpponentScore");
+
+                    b.Property<int>("PitchesThrown");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<int>("RBIs");
+
+                    b.Property<int>("Runs");
+
+                    b.Property<int>("SB");
+
+                    b.Property<decimal>("Score");
+
+                    b.Property<int>("Triples");
+
+                    b.Property<int>("Walks");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PitcherGameStats");
                 });
 
             modelBuilder.Entity("LCFinalProject.Models.Team", b =>
