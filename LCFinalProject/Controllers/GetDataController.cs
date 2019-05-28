@@ -36,35 +36,38 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
-            var predictorLogic = new PredictorLogic(_context);
-            
-            DateTime yesterday = DateTime.Today.Date.AddDays(-1);
+           
 
-            ////This gets the List of Game URLS for that day.
-            var gameLogic = new GameLogic(_context);
-            List<YesterdayGame> gameUrls = gameLogic.GetGames(yesterday);
-
-            ////This loops through each player in each game.
-            var playerLogic = new PlayerLogic(_context);
-            foreach (YesterdayGame game in gameUrls)
+            for (int i = 0; i >= -3; i--)
             {
-                playerLogic.GetData(game);
-            }
-            ////This loops through every players individual stats for that day
-            playerLogic.LoadYesterdayGames(yesterday);
+                DateTime yesterday = DateTime.Today.Date.AddDays(i);
+                var date = yesterday.Date;
+                var year = date.ToString("yyyy");
+                var month = date.ToString("MM");
+                var day = date.ToString("dd");
 
-            predictorLogic.RefreshTeams();
-            predictorLogic.UpdatePlayers();
-            predictorLogic.UpdateTeamNames();
-            predictorLogic.UpdateTriplesAndDoubles();
-            predictorLogic.ChangeProjectionForGamesNotPlayed();
+
+                string strJson = "http://statsapi.mlb.com/api/v1/schedule?sportId=1&date=" + month + "/" + day + "/" + year;
+
+
+                ////This gets the List of Game URLS for that day.
+                var gameLogic = new GameLogic(_context);
+                List<Game> gameUrls = gameLogic.UpdateYesterdayGames(strJson);
+
+                foreach (Game game in gameUrls)
+                {
+                    gameLogic.GetData(game);
+                }
+
+            }
+           
 
             return Redirect("GetData/Test");
         }
 
         public IActionResult Test()
         {
-            PredictorLogic predictorLogic = new PredictorLogic(_context);
+          
 
 
 
@@ -92,7 +95,7 @@ namespace LCFinalProject.Controllers
 
             //predictorLogic.NewPitcher();
             //predictorLogic.TestTeamProjections();
-            predictorLogic.GetTeamProjections();
+            //predictorLogic.GetTeamProjections();
             _context.SaveChanges();
             //predictorLogic.YesterdayTotalScore();
             //_context.SaveChanges();

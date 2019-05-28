@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace LCFinalProject.Models
 {
-    public class ProjectedGame
+    public class Player
     {
         public int ID { get; set; }
         public int PlayerID { get; set; }
-        public decimal TotalScore { get; set; }
-        public decimal Projection { get; set; }
-        public DateTime GameDate { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string TeamName { get; set; }
     }
 }

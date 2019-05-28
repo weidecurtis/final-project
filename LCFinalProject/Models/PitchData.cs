@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace LCFinalProject.Models
 {
-    public class TeamGameDate
+    public class PitchData
     {
         public int ID { get; set; }
-        public DateTime GameDate { get; set; }
-        public string TeamName { get; set; }
     }
 }

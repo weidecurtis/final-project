@@ -27,28 +27,6 @@ namespace LCFinalProject.Controllers
             return View();
         }
 
-        //TODO#1 Validate that the user isnt trying to sign up with a username already in db
-        [HttpPost]
-        public IActionResult Index(SignupViewModel signupViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                byte[] data = System.Text.Encoding.ASCII.GetBytes(signupViewModel.Password);
-                data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
-                String hash = System.Text.Encoding.ASCII.GetString(data);
-
-                User newUser = new User
-                {
-                    Name = signupViewModel.Name,
-                    Password = hash
-                };
-
-                _context.Users.Add(newUser);
-                _context.SaveChanges();
-
-                return Redirect("/Login");
-            }
-            return View(signupViewModel);
-        }
+       
     }
 }

@@ -4,22 +4,22 @@ using System.Collections.Generic;
 
 namespace LCFinalProject.Migrations
 {
-    public partial class AddedStartingOption : Migration
+    public partial class addedScoreToGameStat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "Starting",
-                table: "PositionPlayer",
+            migrationBuilder.AddColumn<int>(
+                name: "Score",
+                table: "GameStats",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Starting",
-                table: "PositionPlayer");
+                name: "Score",
+                table: "GameStats");
         }
     }
 }
