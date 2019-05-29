@@ -20,6 +20,8 @@ namespace LCFinalProject.Models
         public int Runs { get; set; }
         public int Walks { get; set; }
 
+        public string Position { get; set; }
+
         public int Score { get; set; }
     }
 }

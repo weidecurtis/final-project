@@ -8,6 +8,7 @@ namespace LCFinalProject.Models
     public class Batter : Player 
     {
         public int AtBats { get; set; }
+        public string Position { get; set; }
         public int Hits {get;set;}
         public int Doubles { get; set; }
         public int Triples { get; set; }
@@ -29,6 +30,7 @@ namespace LCFinalProject.Models
         public decimal LastTenLaunchAvg { get; set; }
         public decimal LastTenSpeedAvg { get; set; }
         public decimal DistanceAvg { get; set; }
+        public int DaysInTop { get; set; }
 
     }
 }

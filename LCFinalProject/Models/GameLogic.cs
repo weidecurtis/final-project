@@ -23,12 +23,14 @@ namespace LCFinalProject.Models
         }
 
         // This downloads the gamePks (gameIds)
-        public List<Game> UpdateYesterdayGames(string strJson)
+        public List<Game> UpdateYesterdayGames(string strJson, DateTime dateTime)
         {
             List<Game> gameList = new List<Game>();
             var json = new WebClient().DownloadString(strJson);
             var deJson = JsonConvert.DeserializeObject<dynamic>(json);
             int gameCount = 0;
+
+            var date = dateTime.Date;
 
             foreach (var game in deJson.dates[0].games)
             {
@@ -41,7 +43,7 @@ namespace LCFinalProject.Models
                 {
                     Venue = deJson.dates[0].games[i].venue.name,
                     VenueID = deJson.dates[0].games[i].venue.id,
-                    GameDate = deJson.dates[0].games[i].gameDate,
+                    GameDate = date,
                     GameID = deJson.dates[0].games[i].gamePk
                 };
 
@@ -115,6 +117,7 @@ namespace LCFinalProject.Models
                         {
                             GameStat newGameStat = new GameStat()
                             {
+                                PlayerID = people.id,
                                 Hits = countingStats.hits,
                                 Doubles = countingStats.doubles,
                                 Triples = countingStats.triples,
@@ -124,6 +127,8 @@ namespace LCFinalProject.Models
                                 Runs = countingStats.runs,
                                 SB = countingStats.stolenBases,
                                 CS = countingStats.caughtStealing,
+                                Date = game.GameDate,
+                                Position = people.primaryPosition.abbreviation,
                                 Score = (countingStats.hits * 3) + (countingStats.doubles * 2) + (countingStats.triples * 4) + (countingStats.homeRuns * 10)
                                  + (countingStats.baseOnBalls * 2) + (countingStats.rbi * 2) + (countingStats.runs * 2) + (countingStats.stolenBases * 5)
                             };
@@ -133,6 +138,7 @@ namespace LCFinalProject.Models
                                 PlayerID = people.id,
                                 FirstName = people.firstName,
                                 LastName = people.lastName,
+                                Position = people.primaryPosition.abbreviation,
                                 AtBats = countingStats.atBats,
                                 Hits = countingStats.hits,
                                 Doubles = countingStats.doubles,
@@ -196,6 +202,7 @@ namespace LCFinalProject.Models
 
                             GameStat newGameStat = new GameStat()
                             {
+                                PlayerID = people.id,
                                 Hits = countingStats.hits,
                                 Doubles = countingStats.doubles,
                                 Triples = countingStats.triples,
@@ -204,7 +211,9 @@ namespace LCFinalProject.Models
                                 RBIs = countingStats.rbi,
                                 Runs = countingStats.runs,
                                 SB = countingStats.stolenBases,
-                                CS = countingStats.caughtStealing
+                                CS = countingStats.caughtStealing,
+                                Position = batter.Position,
+                                Date = game.GameDate
                             };
 
                             int AB = countingStats.atBats;
@@ -313,6 +322,7 @@ namespace LCFinalProject.Models
 
                             PitcherGameStat newGameStat = new PitcherGameStat()
                             {
+                                PlayerID = people.id,
                                 Hits = countingStats.hits,
                                 Doubles = countingStats.doubles,
                                 Triples = countingStats.triples,
@@ -323,13 +333,12 @@ namespace LCFinalProject.Models
                                 EarnedRuns = countingStats.earnedRuns,
                                 SB = countingStats.stolenBases,
                                 CS = countingStats.caughtStealing,
+                                Date = game.GameDate,
                                 OpponentScore = (countingStats.hits * 3) + (countingStats.doubles * 2) + (countingStats.triples * 4) + (countingStats.homeRuns * 10)
                                  + (countingStats.baseOnBalls * 2) + (countingStats.rbi * 2) + (countingStats.runs * 2) + (countingStats.stolenBases * 5),
                                 Score = (countingStats.hits * -.6) + (countingStats.earnedRuns * -2) +  (countingStats.baseOnBalls * -.6) + (countingStats.hitBatsmen * -.6) 
                                  + (countingStats.inningsPitched * 2.25)
                             };
-
-
 
                             int gHits = countingStats.hits;
                             int gDoubles = countingStats.doubles;
@@ -354,8 +363,6 @@ namespace LCFinalProject.Models
                             _context.PitcherGameStats.Add(newGameStat);
                             _context.Pitchers.Update(pitcher);
                         }
-     
-                        
                     }
                 }
 
@@ -376,7 +383,8 @@ namespace LCFinalProject.Models
                             var countingStats = deStatJson.stats[0].splits[1].stat;
 
                             PitcherGameStat newGameStat = new PitcherGameStat()
-                            {
+                            { 
+                                PlayerID = people.id,
                                 Hits = countingStats.hits,
                                 Doubles = countingStats.doubles,
                                 Triples = countingStats.triples,
@@ -387,6 +395,7 @@ namespace LCFinalProject.Models
                                 EarnedRuns = countingStats.earnedRuns,
                                 SB = countingStats.stolenBases,
                                 CS = countingStats.caughtStealing,
+                                Date = game.GameDate,
                                 OpponentScore = (countingStats.hits * 3) + (countingStats.doubles * 2) + (countingStats.triples * 4) + (countingStats.homeRuns * 10)
                                  + (countingStats.baseOnBalls * 2) + (countingStats.rbi * 2) + (countingStats.runs * 2) + (countingStats.stolenBases * 5),
                                 Score = (countingStats.hits * -.6) + (countingStats.earnedRuns * -2) + (countingStats.baseOnBalls * -.6) + (countingStats.hitBatsmen * -.6)
@@ -412,6 +421,123 @@ namespace LCFinalProject.Models
                             _context.Pitchers.Add(newPitcher);
                         }
                     }
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        public void TopGameData(DateTime dateTime) 
+        {
+            var batterList = new List<Batter>();
+            var gameData = _context.GameStats.Where(d => d.Date == dateTime.Date).OrderByDescending(i => i.Score);
+            var catcher = 0;
+            var first = 0;
+            var second = 0;
+            var third = 0;
+            var shortStop = 0;
+            var outfield = 0;
+
+            foreach (var game in gameData)
+            {
+                if (game.Position == "1B" && first < 5)
+                {
+                    var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault();
+
+                    TopGame newTopGame = new TopGame()
+                    {
+                        PlayerID = player.PlayerID,
+                        Score = game.Score,
+                        Position = player.Position,
+                        Date = game.Date
+                    };
+                    _context.TopGames.Add(newTopGame);
+                    first += 1;
+                    player.DaysInTop += 1;
+                }
+
+                if (game.Position == "2B" && second < 5)
+                {
+                    var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault();
+
+                    TopGame newTopGame = new TopGame()
+                    {
+                        PlayerID = player.PlayerID,
+                        Score = game.Score,
+                        Position = player.Position,
+                        Date = game.Date
+                    };
+                    _context.TopGames.Add(newTopGame);
+                    second += 1;
+                    player.DaysInTop += 1;
+                }
+
+                if (game.Position == "3B" && third < 5)
+                {
+                    var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault();
+
+                    TopGame newTopGame = new TopGame()
+                    {
+                        PlayerID = player.PlayerID,
+                        Score = game.Score,
+                        Position = player.Position,
+                        Date = game.Date
+                    };
+                    _context.TopGames.Add(newTopGame);
+                    third += 1;
+                    player.DaysInTop += 1;
+                }
+
+                if (game.Position == "SS" && shortStop < 5)
+                {
+                    var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault();
+
+                    TopGame newTopGame = new TopGame()
+                    {
+                        PlayerID = player.PlayerID,
+                        Score = game.Score,
+                        Position = player.Position,
+                        Date = game.Date
+                    };
+                    _context.TopGames.Add(newTopGame);
+                    shortStop += 1;
+                    player.DaysInTop += 1;
+                }
+
+                if (game.Position == "C" && catcher < 5)
+                {
+                    var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault();
+
+                    TopGame newTopGame = new TopGame()
+                    {
+                        PlayerID = player.PlayerID,
+                        Score = game.Score,
+                        Position = player.Position,
+                        Date = game.Date
+                    };
+                    _context.TopGames.Add(newTopGame);
+                    catcher += 1;
+                    player.DaysInTop += 1;
+                }
+
+                if (game.Position == "OF" || game.Position == "LF" || game.Position == "RF" || game.Position == "CF")
+                {
+
+                    if (outfield < 15)
+                    {
+                        var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault();
+
+                        TopGame newTopGame = new TopGame()
+                        {
+                            PlayerID = player.PlayerID,
+                            Score = game.Score,
+                            Position = player.Position,
+                            Date = game.Date
+                        };
+                        _context.TopGames.Add(newTopGame);
+                        outfield += 1;
+                        player.DaysInTop += 1;
+                    }
+
                 }
             }
             _context.SaveChanges();

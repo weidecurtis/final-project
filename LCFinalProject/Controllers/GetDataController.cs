@@ -38,9 +38,9 @@ namespace LCFinalProject.Controllers
         {
            
 
-            for (int i = 0; i >= -3; i--)
-            {
-                DateTime yesterday = DateTime.Today.Date.AddDays(i);
+            //for (int i = 0; i >= -3; i--)
+            //{
+                DateTime yesterday = DateTime.Today.Date.AddDays(-1);
                 var date = yesterday.Date;
                 var year = date.ToString("yyyy");
                 var month = date.ToString("MM");
@@ -52,16 +52,17 @@ namespace LCFinalProject.Controllers
 
                 ////This gets the List of Game URLS for that day.
                 var gameLogic = new GameLogic(_context);
-                List<Game> gameUrls = gameLogic.UpdateYesterdayGames(strJson);
+            //List<Game> gameUrls = gameLogic.UpdateYesterdayGames(strJson, yesterday);
 
-                foreach (Game game in gameUrls)
-                {
-                    //gameLogic.GetBatterData(game);
-                    gameLogic.GetPitcherData(game);
-                }
+            //foreach (Game game in gameUrls)
+            //{
+            //    gameLogic.GetBatterData(game);
+            //    gameLogic.GetPitcherData(game);
+            //}
+            gameLogic.TopGameData(yesterday);
 
-            }
-           
+            // }
+
 
             return Redirect("GetData/Test");
         }

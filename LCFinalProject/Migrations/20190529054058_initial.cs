@@ -17,6 +17,7 @@ namespace LCFinalProject.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AtBats = table.Column<int>(nullable: false),
                     CS = table.Column<int>(nullable: false),
+                    DaysInTop = table.Column<int>(nullable: false),
                     DistanceAvg = table.Column<decimal>(nullable: false),
                     Doubles = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
@@ -35,6 +36,7 @@ namespace LCFinalProject.Migrations
                     LastTenLaunchAvg = table.Column<decimal>(nullable: false),
                     LastTenSpeedAvg = table.Column<decimal>(nullable: false),
                     PlayerID = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: true),
                     RBIs = table.Column<int>(nullable: false),
                     Runs = table.Column<int>(nullable: false),
                     SB = table.Column<int>(nullable: false),
@@ -75,6 +77,7 @@ namespace LCFinalProject.Migrations
                     Hits = table.Column<int>(nullable: false),
                     HomeRuns = table.Column<int>(nullable: false),
                     PlayerID = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: true),
                     RBIs = table.Column<int>(nullable: false),
                     Runs = table.Column<int>(nullable: false),
                     SB = table.Column<int>(nullable: false),
@@ -183,6 +186,22 @@ namespace LCFinalProject.Migrations
                 {
                     table.PrimaryKey("PK_Teams", x => x.ID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TopGames",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Date = table.Column<DateTime>(nullable: false),
+                    PlayerID = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: true),
+                    Score = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TopGames", x => x.ID);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,6 +229,9 @@ namespace LCFinalProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "TopGames");
         }
     }
 }

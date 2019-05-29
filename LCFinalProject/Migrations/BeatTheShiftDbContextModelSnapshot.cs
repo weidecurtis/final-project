@@ -29,6 +29,8 @@ namespace LCFinalProject.Migrations
 
                     b.Property<int>("CS");
 
+                    b.Property<int>("DaysInTop");
+
                     b.Property<decimal>("DistanceAvg");
 
                     b.Property<int>("Doubles");
@@ -64,6 +66,8 @@ namespace LCFinalProject.Migrations
                     b.Property<decimal>("LastTenSpeedAvg");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<string>("Position");
 
                     b.Property<int>("RBIs");
 
@@ -116,6 +120,8 @@ namespace LCFinalProject.Migrations
                     b.Property<int>("HomeRuns");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<string>("Position");
 
                     b.Property<int>("RBIs");
 
@@ -256,6 +262,24 @@ namespace LCFinalProject.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("LCFinalProject.Models.TopGame", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("PlayerID");
+
+                    b.Property<string>("Position");
+
+                    b.Property<int>("Score");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TopGames");
                 });
 #pragma warning restore 612, 618
         }

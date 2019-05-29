@@ -8,6 +8,7 @@ namespace LCFinalProject.Data
         public DbSet<GameStat> GameStats { get; set; }
         public DbSet<Pitcher> Pitchers { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<TopGame> TopGames { get; set; }
 
         public DbSet<PitcherGameStat> PitcherGameStats { get; set; }
         public DbSet<Team> Teams { get; set; }
