@@ -22,36 +22,47 @@ namespace LCFinalProject.Controllers
 
         public IActionResult Index()
         {
-            //List<Pitcher> pitchers = _context.Pitchers.Where(p => p.ProbableStarter == true).ToList();
+            List<Pitcher> pitchers = _context.Pitchers.ToList();
             //var pitcherNight = pitchers.Where(p => p.TeamName == "Braves" || p.TeamName == "Dodgers").ToList();
-            //List<PositionPlayer> catchers = _context.PositionPlayers.Where(p => p.Position == "C" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            List<Batter> catchers = _context.Batters.Where(p => p.Position == "C").ToList();
             //var catcherNight = catchers.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
-            //List<PositionPlayer> firstBasemen = _context.PositionPlayers.Where(p => p.Position == "1B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            List<Batter> firstBasemen = _context.Batters.Where(p => p.Position == "1B").ToList();
             //var firstNight = firstBasemen.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
-            //List<PositionPlayer> secondBasemen = _context.PositionPlayers.Where(p => p.Position == "2B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            List<Batter> secondBasemen = _context.Batters.Where(p => p.Position == "2B").ToList();
             //var secondNight = secondBasemen.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
-            //List<PositionPlayer> shortstops = _context.PositionPlayers.Where(p => p.Position == "SS" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            List<Batter> shortstops = _context.Batters.Where(p => p.Position == "SS").ToList();
             //var shortNight = shortstops.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
-            //List<PositionPlayer> thirdBasemen = _context.PositionPlayers.Where(p => p.Position == "3B" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            List<Batter> thirdBasemen = _context.Batters.Where(p => p.Position == "3B").ToList();
             //var thirdNight = thirdBasemen.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
-            //List<PositionPlayer> outfielders = _context.PositionPlayers.Where(p => p.Position == "OF" && p.Salary > 0 && p.SeasonAb > 50 && p.LastFiveTotalScore > 25 && p.Starting == true).ToList();
+            List<Batter> outfielders = _context.Batters.Where(p => p.Position == "OF").ToList();
             //var outfieldNight = outfielders.Where(p => p.LastFiveDeviance < 10 && p.LastFiveDeviance > -5).ToList();
+
+            foreach (var player in _context.Batters)
+            {
+                if (player.Position == "LF" || player.Position == "RF"|| player.Position == "CF" || player.Position == "DH")
+                {
+                    player.Position = "OF";
+                }
+            }
+            _context.SaveChanges();
+
+            List<TopGame> yesterdayTopFive = _context.TopGames.Where(d => d.Date == DateTime.Now.AddDays(-1).Date).ToList();
+
+       
 
             //List<Team> teams = _context.Teams.ToList();
             //List<ProjectedTeam> projectedTeams = _context.ProjectedTeams.ToList();
 
-           
-
-
             PredictorViewModel predictorViewModel = new PredictorViewModel
             {
-                //Pitchers = pitchers,
-                //Catchers = catcherNight,
-                //FirstBasemen = firstNight,
-                //SecondBasemen = secondNight,
-                //ThirdBasemen = thirdNight,
-                //ShortStops = shortNight,
-                //Outfielders = outfieldNight,
+                Pitchers = pitchers,
+                Catchers = catchers,
+                FirstBasemen = firstBasemen,
+                SecondBasemen = secondBasemen,
+                ThirdBasemen = thirdBasemen,
+                ShortStops = shortstops,
+                Outfielders = outfielders,
+                YesterdayTopFive = yesterdayTopFive
                 //Teams = teams,
                 //ProjectedTeams = projectedTeams
 

@@ -11,8 +11,8 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    [Migration("20190529054058_initial")]
-    partial class initial
+    [Migration("20190530202706_AddedPlayerNameToTopGame")]
+    partial class AddedPlayerNameToTopGame
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -273,6 +273,8 @@ namespace LCFinalProject.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("PlayerID");
+
+                    b.Property<string>("PlayerName");
 
                     b.Property<string>("Position");
 

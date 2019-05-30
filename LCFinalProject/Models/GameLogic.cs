@@ -170,7 +170,7 @@ namespace LCFinalProject.Models
                                         LaunchAngle = hitData.splits[i].stat.play.hitData.launchAngle,
                                         LaunchSpeed = hitData.splits[i].stat.play.hitData.launchSpeed,
                                         Distance = hitData.splits[i].stat.play.hitData.totalDistance,
-                                        Date = DateTime.Now.Date
+                                        Date = game.GameDate
                                     };
 
                                     _context.HitDatas.Add(newHitData);
@@ -193,50 +193,59 @@ namespace LCFinalProject.Models
                     }
                     if (statsCount > 3)
                     {
-                        if (deStatJson.stats[3] != null && deStatJson.stats[0] != null)
+                        var batter = _context.Batters.Where(p => p.PlayerID.ToString() == player).FirstOrDefault();
+                        if (deStatJson.stats[3] != null && deStatJson.stats[0] != null && deStatJson.stats[0].splits[2] != null && batter.Position != "P")
                         {
-                            var batter = _context.Batters.Where(p => p.PlayerID.ToString() == player).FirstOrDefault();
+                            
                             var countingStats = deStatJson.stats[0].splits[2].stat;
                             var hitData = deStatJson.stats[3];
                             var hitDataCount = 0;
+                            if (countingStats.hits != null && countingStats.doubles != null && countingStats.triples != null && countingStats.homeRuns != null 
+                                && countingStats.rbi != null && countingStats.runs != null && countingStats.stolenBases != null && countingStats.caughtStealing != null)
+                            { 
 
-                            GameStat newGameStat = new GameStat()
-                            {
-                                PlayerID = people.id,
-                                Hits = countingStats.hits,
-                                Doubles = countingStats.doubles,
-                                Triples = countingStats.triples,
-                                HomeRuns = countingStats.homeRuns,
-                                Walks = countingStats.baseOnBalls,
-                                RBIs = countingStats.rbi,
-                                Runs = countingStats.runs,
-                                SB = countingStats.stolenBases,
-                                CS = countingStats.caughtStealing,
-                                Position = batter.Position,
-                                Date = game.GameDate
-                            };
+                                GameStat newGameStat = new GameStat()
+                                {
+                                    PlayerID = people.id,
+                                    Hits = countingStats.hits,
+                                    Doubles = countingStats.doubles,
+                                    Triples = countingStats.triples,
+                                    HomeRuns = countingStats.homeRuns,
+                                    Walks = countingStats.baseOnBalls,
+                                    RBIs = countingStats.rbi,
+                                    Runs = countingStats.runs,
+                                    SB = countingStats.stolenBases,
+                                    CS = countingStats.caughtStealing,
+                                    Position = batter.Position,
+                                    Date = game.GameDate,
+                                    Score = (countingStats.hits * 3) + (countingStats.doubles * 2) + (countingStats.triples * 4) + (countingStats.homeRuns * 10)
+                                    + (countingStats.baseOnBalls * 2) + (countingStats.rbi * 2) + (countingStats.runs * 2) + (countingStats.stolenBases * 5)
+                                };
 
-                            int AB = countingStats.atBats;
-                            int Hits = countingStats.hits;
-                            int Doubles = countingStats.doubles;
-                            int Triples = countingStats.triples;
-                            int HR = countingStats.homeRuns;
-                            int BB = countingStats.baseOnBalls;
-                            int RBI = countingStats.rbi;
-                            int runs = countingStats.runs;
-                            int SB = countingStats.stolenBases;
-                            int CS = countingStats.caughtStealing;
+                                int AB = countingStats.atBats;
+                                int Hits = countingStats.hits;
+                                int Doubles = countingStats.doubles;
+                                int Triples = countingStats.triples;
+                                int HR = countingStats.homeRuns;
+                                int BB = countingStats.baseOnBalls;
+                                int RBI = countingStats.rbi;
+                                int runs = countingStats.runs;
+                                int SB = countingStats.stolenBases;
+                                int CS = countingStats.caughtStealing;
 
-                            batter.AtBats += AB;
-                            batter.Hits += Hits;
-                            batter.Doubles += Doubles;
-                            batter.Triples += Triples;
-                            batter.HomeRuns += HR;
-                            batter.Walks += BB;
-                            batter.RBIs += RBI;
-                            batter.Runs += runs;
-                            batter.SB += SB;
-                            batter.CS += CS;
+                                batter.AtBats += AB;
+                                batter.Hits += Hits;
+                                batter.Doubles += Doubles;
+                                batter.Triples += Triples;
+                                batter.HomeRuns += HR;
+                                batter.Walks += BB;
+                                batter.RBIs += RBI;
+                                batter.Runs += runs;
+                                batter.SB += SB;
+                                batter.CS += CS;
+                                _context.Batters.Update(batter);
+                                _context.GameStats.Add(newGameStat);
+                            }
 
                             foreach (var data in hitData.splits)
                             {
@@ -255,15 +264,15 @@ namespace LCFinalProject.Models
                                         LaunchAngle = hitData.splits[i].stat.play.hitData.launchAngle,
                                         LaunchSpeed = hitData.splits[i].stat.play.hitData.launchSpeed,
                                         Distance = hitData.splits[i].stat.play.hitData.totalDistance,
-                                        Date = DateTime.Now.Date
+                                        Date = game.GameDate
                                     };
 
                                     _context.HitDatas.Add(newHitData);
-                                    _context.Batters.Update(batter);
+                                    
                                 }
 
                             }
-                            _context.GameStats.Add(newGameStat);
+                           
                         }
                     }
                 }
@@ -428,6 +437,7 @@ namespace LCFinalProject.Models
 
         public void TopGameData(DateTime dateTime) 
         {
+            
             var batterList = new List<Batter>();
             var gameData = _context.GameStats.Where(d => d.Date == dateTime.Date).OrderByDescending(i => i.Score);
             var catcher = 0;
@@ -436,6 +446,11 @@ namespace LCFinalProject.Models
             var third = 0;
             var shortStop = 0;
             var outfield = 0;
+
+            foreach (var game in _context.TopGames.Where(d => d.Date == dateTime.Date))
+            {
+                _context.TopGames.Remove(game);
+            };
 
             foreach (var game in gameData)
             {
@@ -543,5 +558,85 @@ namespace LCFinalProject.Models
             _context.SaveChanges();
         }
         
+
+        public void UpdateRecentGames()
+        {
+            foreach (var player in _context.Batters)
+            {
+                player.LastFiveAb = 0;
+                player.LastFiveDouble = 0;
+                player.LastFiveHR = 0;
+                player.LastFiveRBI = 0;
+                player.LastFiveRuns = 0;
+                player.LastFiveSB = 0;
+                player.LastFiveSingle = 0;
+                player.LastFiveTriple = 0;
+                player.LastFiveWalk = 0;
+                player.LastTenLaunchAvg = 0;
+                player.LastTenSpeedAvg = 0;
+
+                List<GameStat> gameStats = new List<GameStat>();
+
+                
+                List<GameStat> gameStat = _context.GameStats.Where(d => d.PlayerID == player.PlayerID).Take(5).ToList();
+
+                foreach (var game in gameStat)
+                {
+                    player.LastFiveDouble += game.Doubles;
+                    player.LastFiveHR += game.HomeRuns;
+                    player.LastFiveRBI += game.RBIs;
+                    player.LastFiveRuns += game.Runs;
+                    player.LastFiveSB += game.SB;
+                    player.LastFiveSingle += game.Hits - game.Doubles - game.Triples - game.HomeRuns;
+                    player.LastFiveTriple += game.Triples;
+                    player.LastFiveWalk += game.Walks;
+
+                }
+
+                var launchCount = 0;
+                var speedCount = 0;
+                var distanceCount = 0;
+                decimal totalAngle = 0;
+                decimal totalSpeed = 0;
+                decimal totalDistance = 0;
+                
+                for (int i = -1; i > -10; i--)
+                {
+                    
+                    DateTime gameDate = DateTime.Today.AddDays(i).Date;
+                    List<HitData> hitData = _context.HitDatas.Where(d => d.Date == gameDate && d.PlayerID == player.PlayerID).ToList();
+
+                    foreach (var hit in hitData)
+                    {
+                        launchCount += 1;
+                        speedCount += 1;
+                        distanceCount += 1;
+                        totalAngle += hit.LaunchAngle;
+                        totalSpeed += hit.LaunchSpeed;
+                        totalDistance += hit.Distance;
+                    }
+                }
+
+                if (totalAngle >0 && totalSpeed > 0 && totalDistance > 0 && launchCount > 0 && speedCount > 0 && distanceCount > 0)
+                {
+                    player.LastTenLaunchAvg = totalAngle / launchCount;
+                    player.LastTenSpeedAvg = totalSpeed / speedCount;
+                    player.DistanceAvg = totalDistance / distanceCount;
+                }
+
+            }
+            _context.SaveChanges();
+        }
+
+
+        //public void UpdateGameStats()
+        //{
+        //    foreach (var game in _context.GameStats)
+        //    {
+        //        game.Score = (game.Hits * 3) + (game.Doubles * 2) + (game.Triples * 4) + (game.HomeRuns * 10)
+        //                         + (game.Walks * 2) + (game.RBIs * 2) + (game.Runs * 2) + (game.SB * 5);
+        //    }
+        //    _context.SaveChanges();
+        //}
     }
 }

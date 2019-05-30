@@ -36,22 +36,21 @@ namespace LCFinalProject.Controllers
         [HttpPost]
         public IActionResult Index(GetDataViewModel getDataViewModel)
         {
-           
 
-            //for (int i = 0; i >= -3; i--)
-            //{
-                DateTime yesterday = DateTime.Today.Date.AddDays(-1);
-                var date = yesterday.Date;
-                var year = date.ToString("yyyy");
-                var month = date.ToString("MM");
-                var day = date.ToString("dd");
+            var gameLogic = new GameLogic(_context);
 
-
-                string strJson = "http://statsapi.mlb.com/api/v1/schedule?sportId=1&date=" + month + "/" + day + "/" + year;
+            DateTime yesterday = DateTime.Today.Date.AddDays(-1);
+            var date = yesterday.Date;
+            var year = date.ToString("yyyy");
+            var month = date.ToString("MM");
+            var day = date.ToString("dd");
 
 
-                ////This gets the List of Game URLS for that day.
-                var gameLogic = new GameLogic(_context);
+            string strJson = "http://statsapi.mlb.com/api/v1/schedule?sportId=1&date=" + month + "/" + day + "/" + year;
+            //string strJson = "http://statsapi.mlb.com/api/v1/schedule?sportId=1&date=03/28/2019";
+
+            //This gets the List of Game URLS for that day.
+
             //List<Game> gameUrls = gameLogic.UpdateYesterdayGames(strJson, yesterday);
 
             //foreach (Game game in gameUrls)
@@ -59,11 +58,23 @@ namespace LCFinalProject.Controllers
             //    gameLogic.GetBatterData(game);
             //    gameLogic.GetPitcherData(game);
             //}
-            gameLogic.TopGameData(yesterday);
 
-            // }
+            foreach (var game in _context.TopGames)
+            {
+                var player = _context.Batters.Where(p => p.PlayerID == game.PlayerID).FirstOrDefault(); ;
+
+                game.PlayerName = player.FirstName + " " + player.LastName;
+            }
+            _context.SaveChanges();
+            //gameLogic.TopGameData(yesterday);
+
+            
 
 
+
+
+
+            //gameLogic.UpdateRecentGames();
             return Redirect("GetData/Test");
         }
 

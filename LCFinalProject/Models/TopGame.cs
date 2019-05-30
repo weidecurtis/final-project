@@ -12,6 +12,7 @@ namespace LCFinalProject.Models
         public string Position { get; set; }
         public DateTime Date { get; set; }
         public int PlayerID { get; set; }
+        public string PlayerName { get; set; }
 
     }
 }

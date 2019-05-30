@@ -1,42 +1,18 @@
 ﻿
 @model LCFinalProject.ViewModels.PredictorViewModel
 
-<section class="portfolio" id="projectedTeams">
-    <h1 style="text-align:center"> Projected Teams </h1>
+
+<section class="bg-primary text-white" id="yesterdayTopFive">
+    <h1 style="text-align:center"> Yesterday Top Five </h1>
     <div class="container-fluid">
 
         <div class="row">
             <div class="col-xs-18 col-md-12">
-                <div id="projectedTeam"></div>
+                <div id="yesterday"></div>
             </div>
         </div>
     </div>
 </section>
-
-<section class="bg-primary text-white" id="team">
-    <h1 style="text-align:center"> Team Trends </h1>
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-xs-18 col-md-12">
-                <div id="teams"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="portfolio" id="pitchers">
-    <h1 style="text-align:center">Pitchers</h1>
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-xs-18 col-md-12">
-                <div id="pitcher"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <section class="bg-primary text-white" id="catcher">
     <h1 style="text-align:center"> Catchers </h1>
@@ -116,13 +92,17 @@
         var data = new Array();
 
 
-        @*@foreach (var player in Model.Catchers)
+        @foreach (var player in Model.Catchers)
         {
             var playerName = player.FirstName + " " + player.LastName;
+            var totalSingles = player.Hits - player.Doubles - player.Triples - player.HomeRuns;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", LastFiveProjected: "@player.LastFiveProjected", LastFiveDeviance: "@player.LastFiveDeviance", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
+            var totalBases = (player.LastFiveDouble * 2) + (player.LastFiveTriple * 3) + (player.LastFiveHR * 4) + (player.LastFiveSingle);
+            var seasonTotalBases = (totalSingles) + (player.Doubles * 2) + (player.Triples * 3) + (player.HomeRuns * 4);
 
-        }*@
+            @:data.push({Name: "@playerName", DaysInTop: "@player.DaysInTop", LastTenAngle: "@player.LastTenLaunchAvg", LastTenSpeed: "@player.LastTenSpeedAvg", LastTenDistance: "@player.DistanceAvg", LastFiveTB: "@totalBases", LastFiveHits: "@player.LastFiveSingle", SeasonTB: "@seasonTotalBases", SeasonHits: "@totalSingles", HomeRuns: "@player.HomeRuns"});
+
+        }
 
         return data;
     }
@@ -144,52 +124,40 @@
                 filterable: false,
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
+                title: "Top 5 Days",
+                field: "DaysInTop",
                 encoded: true
             }, {
-                title: "Opponent",
-                field: "Opponent",
+                title: "Launch Angle",
+                field: "LastTenAngle",
                 encoded: true
             }, {
-                title: "Projection",
-                field: "Projection",
+                title: "Hit Speed",
+                field: "LastTenSpeed",
                 encoded: true
             }, {
-                title: "Salary",
-                field: "Salary",
+                title: "Distance Average",
+                field: "LastTenDistance",
                 encoded: true
             }, {
-                title: "Yesterday Score",
-                field: "YesterdayScore",
+                title: "L5 TB",
+                field: "LastFiveTB",
                 encoded: true
             }, {
-                title: "Yesterday Projection",
-                field: "YesterdayProjection",
+                title: "L5 Single",
+                field: "LastFiveHits",
                 encoded: true
             }, {
-                title: "Deviance",
-                field: "YesterdayDeviance",
+                title: "Season TB",
+                field: "SeasonTB",
                 encoded: true
             }, {
-                title: "Last Five Games",
-                field: "LastFiveGames",
+                title: "Season Single",
+                field: "SeasonHits",
                 encoded: true
             }, {
-                title: "Last Five Projected",
-                field: "LastFiveProjected",
-                encoded: true
-            }, {
-                title: "Last Five Deviance",
-                field: "LastFiveDeviance",
-                encoded: true
-            }, {
-                title: "Projected Hits",
-                field: "Hit",
-                encoded: true
-            }, {
-                title: "Projected HR",
-                field: "HomeRun",
+                title: "HR",
+                field: "HomeRuns",
                 encoded: true
             }],
             pageable: {
@@ -209,8 +177,8 @@
                             Name: {
                                 type: "string"
                             },
-                            Team: {
-                                type: "string"
+                            DaysInTop: {
+                                type: "number"
                             },
                             Opponent: {
                                 type: "string"
@@ -221,32 +189,29 @@
                             Salary: {
                                 type: "number"
                             },
-                            YesterdayScore: {
+                            LastTenLaunchAvg: {
+                                type: "decimal"
+                            },
+                            LastTenSpeedAvg: {
+                                type: "decimal"
+                            },
+                            LastTenDistance: {
+                                type: "decimal"
+                            },
+                            LastFiveTB: {
                                 type: "number"
-                            }, 
-                            YesterdayProjection: {
-                                type: "decimal"
                             },
-                            YesterdayDeviance: {
-                                type: "decimal"
-
+                            LastFiveHits: {
+                                type: "number"
                             },
-                            LastFiveGames: {
-                                type: "number",
-                                defaultValue: null
+                            SeasonTB: {
+                                type: "number"
                             },
-                            LastFiveProjected: {
-                                type: "decimal",
+                            SeasonHits: {
+                                type: "number"
                             },
-                            LastFiveDeviance: {
-                                type: "decimal",
-                            },
-                            Hit: {
-                                type: "decimal"
-                            },
-                            HomeRun: {
-                                type: "decimal"
-
+                            HomeRuns: {
+                                type: "number"
                             }
                         }
                     }
@@ -255,18 +220,22 @@
         });
     });
 </script>
-
 <script>
-    function firstbaseData() {
+    function firstBaseData() {
         var data = new Array();
 
 
-        @*@foreach (var player in Model.FirstBasemen)
+        @foreach (var player in Model.FirstBasemen)
         {
             var playerName = player.FirstName + " " + player.LastName;
+            var totalSingles = player.Hits - player.Doubles - player.Triples - player.HomeRuns;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", LastFiveProjected: "@player.LastFiveProjected", LastFiveDeviance: "@player.LastFiveDeviance", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
-        }*@
+            var totalBases = (player.LastFiveDouble * 2) + (player.LastFiveTriple * 3) + (player.LastFiveHR * 4) + (player.LastFiveSingle);
+            var seasonTotalBases = (totalSingles) + (player.Doubles * 2) + (player.Triples * 3) + (player.HomeRuns * 4);
+
+            @:data.push({Name: "@playerName", DaysInTop: "@player.DaysInTop", LastTenAngle: "@player.LastTenLaunchAvg", LastTenSpeed: "@player.LastTenSpeedAvg", LastTenDistance: "@player.DistanceAvg", LastFiveTB: "@totalBases", LastFiveHits: "@player.LastFiveSingle", SeasonTB: "@seasonTotalBases", SeasonHits: "@totalSingles", HomeRuns: "@player.HomeRuns"});
+
+        }
 
         return data;
     }
@@ -288,52 +257,40 @@
                 filterable: false,
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
+                title: "Top 5 Days",
+                field: "DaysInTop",
                 encoded: true
             }, {
-                title: "Opponent",
-                field: "Opponent",
+                title: "Launch Angle",
+                field: "LastTenAngle",
                 encoded: true
             }, {
-                title: "Projection",
-                field: "Projection",
+                title: "Hit Speed",
+                field: "LastTenSpeed",
                 encoded: true
             }, {
-                title: "Salary",
-                field: "Salary",
+                title: "Distance Average",
+                field: "LastTenDistance",
                 encoded: true
             }, {
-                title: "Yesterday Score",
-                field: "YesterdayScore",
+                title: "L5 TB",
+                field: "LastFiveTB",
                 encoded: true
             }, {
-                title: "Yesterday Projection",
-                field: "YesterdayProjection",
+                title: "L5 Single",
+                field: "LastFiveHits",
                 encoded: true
             }, {
-                title: "Deviance",
-                field: "YesterdayDeviance",
+                title: "Season TB",
+                field: "SeasonTB",
                 encoded: true
             }, {
-                title: "Last Five Games",
-                field: "LastFiveGames",
+                title: "Season Single",
+                field: "SeasonHits",
                 encoded: true
             }, {
-                title: "Last Five Projected",
-                field: "LastFiveProjected",
-                encoded: true
-            }, {
-                title: "Last Five Deviance",
-                field: "LastFiveDeviance",
-                encoded: true
-            }, {
-                title: "Projected Hits",
-                field: "Hit",
-                encoded: true
-            }, {
-                title: "Projected HR",
-                field: "HomeRun",
+                title: "HR",
+                field: "HomeRuns",
                 encoded: true
             }],
             pageable: {
@@ -345,7 +302,7 @@
                 noRecords: "No records available."
             },
             dataSource: {
-                data: firstbaseData(),
+                data: firstBaseData(),
                 pageSize: 20,
                 schema: {
                     model: {
@@ -353,8 +310,8 @@
                             Name: {
                                 type: "string"
                             },
-                            Team: {
-                                type: "string"
+                            DaysInTop: {
+                                type: "number"
                             },
                             Opponent: {
                                 type: "string"
@@ -365,32 +322,29 @@
                             Salary: {
                                 type: "number"
                             },
-                            YesterdayScore: {
+                            LastTenLaunchAvg: {
+                                type: "decimal"
+                            },
+                            LastTenSpeedAvg: {
+                                type: "decimal"
+                            },
+                            LastTenDistance: {
+                                type: "decimal"
+                            },
+                            LastFiveTB: {
                                 type: "number"
                             },
-                            YesterdayProjection: {
-                                type: "decimal"
+                            LastFiveHits: {
+                                type: "number"
                             },
-                            YesterdayDeviance: {
-                                type: "decimal"
-
+                            SeasonTB: {
+                                type: "number"
                             },
-                            LastFiveGames: {
-                                type: "number",
-                                defaultValue: null
+                            SeasonHits: {
+                                type: "number"
                             },
-                            LastFiveProjected: {
-                                type: "decimal",
-                            },
-                            LastFiveDeviance: {
-                                type: "decimal",
-                            },
-                            Hit: {
-                                type: "decimal"
-                            },
-                            HomeRun: {
-                                type: "decimal"
-
+                            HomeRuns: {
+                                type: "number"
                             }
                         }
                     }
@@ -399,18 +353,22 @@
         });
     });
 </script>
-
 <script>
-    function secondbaseData() {
+    function secondBaseData() {
         var data = new Array();
 
 
-        @*@foreach (var player in Model.SecondBasemen)
+        @foreach (var player in Model.SecondBasemen)
         {
             var playerName = player.FirstName + " " + player.LastName;
+            var totalSingles = player.Hits - player.Doubles - player.Triples - player.HomeRuns;
 
-          @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", LastFiveProjected: "@player.LastFiveProjected", LastFiveDeviance: "@player.LastFiveDeviance", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
-        }*@
+            var totalBases = (player.LastFiveDouble * 2) + (player.LastFiveTriple * 3) + (player.LastFiveHR * 4) + (player.LastFiveSingle);
+            var seasonTotalBases = (totalSingles) + (player.Doubles * 2) + (player.Triples * 3) + (player.HomeRuns * 4);
+
+            @:data.push({Name: "@playerName", DaysInTop: "@player.DaysInTop", LastTenAngle: "@player.LastTenLaunchAvg", LastTenSpeed: "@player.LastTenSpeedAvg", LastTenDistance: "@player.DistanceAvg", LastFiveTB: "@totalBases", LastFiveHits: "@player.LastFiveSingle", SeasonTB: "@seasonTotalBases", SeasonHits: "@totalSingles", HomeRuns: "@player.HomeRuns"});
+
+        }
 
         return data;
     }
@@ -432,52 +390,40 @@
                 filterable: false,
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
+                title: "Top 5 Days",
+                field: "DaysInTop",
                 encoded: true
             }, {
-                title: "Opponent",
-                field: "Opponent",
+                title: "Launch Angle",
+                field: "LastTenAngle",
                 encoded: true
             }, {
-                title: "Projection",
-                field: "Projection",
+                title: "Hit Speed",
+                field: "LastTenSpeed",
                 encoded: true
             }, {
-                title: "Salary",
-                field: "Salary",
+                title: "Distance Average",
+                field: "LastTenDistance",
                 encoded: true
             }, {
-                title: "Yesterday Score",
-                field: "YesterdayScore",
+                title: "L5 TB",
+                field: "LastFiveTB",
                 encoded: true
             }, {
-                title: "Yesterday Projection",
-                field: "YesterdayProjection",
+                title: "L5 Single",
+                field: "LastFiveHits",
                 encoded: true
             }, {
-                title: "Deviance",
-                field: "YesterdayDeviance",
+                title: "Season TB",
+                field: "SeasonTB",
                 encoded: true
             }, {
-                title: "Last Five Games",
-                field: "LastFiveGames",
+                title: "Season Single",
+                field: "SeasonHits",
                 encoded: true
             }, {
-                title: "Last Five Projected",
-                field: "LastFiveProjected",
-                encoded: true
-            }, {
-                title: "Last Five Deviance",
-                field: "LastFiveDeviance",
-                encoded: true
-            }, {
-                title: "Projected Hits",
-                field: "Hit",
-                encoded: true
-            }, {
-                title: "Projected HR",
-                field: "HomeRun",
+                title: "HR",
+                field: "HomeRuns",
                 encoded: true
             }],
             pageable: {
@@ -489,7 +435,7 @@
                 noRecords: "No records available."
             },
             dataSource: {
-                data: secondbaseData(),
+                data: secondBaseData(),
                 pageSize: 20,
                 schema: {
                     model: {
@@ -497,8 +443,8 @@
                             Name: {
                                 type: "string"
                             },
-                            Team: {
-                                type: "string"
+                            DaysInTop: {
+                                type: "number"
                             },
                             Opponent: {
                                 type: "string"
@@ -509,32 +455,29 @@
                             Salary: {
                                 type: "number"
                             },
-                            YesterdayScore: {
+                            LastTenLaunchAvg: {
+                                type: "decimal"
+                            },
+                            LastTenSpeedAvg: {
+                                type: "decimal"
+                            },
+                            LastTenDistance: {
+                                type: "decimal"
+                            },
+                            LastFiveTB: {
                                 type: "number"
                             },
-                            YesterdayProjection: {
-                                type: "decimal"
+                            LastFiveHits: {
+                                type: "number"
                             },
-                            YesterdayDeviance: {
-                                type: "decimal"
-
+                            SeasonTB: {
+                                type: "number"
                             },
-                            LastFiveGames: {
-                                type: "number",
-                                defaultValue: null
+                            SeasonHits: {
+                                type: "number"
                             },
-                            LastFiveProjected: {
-                                type: "decimal",
-                            },
-                            LastFiveDeviance: {
-                                type: "decimal",
-                            },
-                            Hit: {
-                                type: "decimal"
-                            },
-                            HomeRun: {
-                                type: "decimal"
-
+                            HomeRuns: {
+                                type: "number"
                             }
                         }
                     }
@@ -543,18 +486,22 @@
         });
     });
 </script>
-
 <script>
-    function thirdbaseData() {
+    function thirdBaseData() {
         var data = new Array();
 
 
-        @*@foreach (var player in Model.ThirdBasemen)
+        @foreach (var player in Model.ThirdBasemen)
         {
             var playerName = player.FirstName + " " + player.LastName;
+            var totalSingles = player.Hits - player.Doubles - player.Triples - player.HomeRuns;
 
-            @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", LastFiveProjected: "@player.LastFiveProjected", LastFiveDeviance: "@player.LastFiveDeviance", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
-        }*@
+            var totalBases = (player.LastFiveDouble * 2) + (player.LastFiveTriple * 3) + (player.LastFiveHR * 4) + (player.LastFiveSingle);
+            var seasonTotalBases = (totalSingles) + (player.Doubles * 2) + (player.Triples * 3) + (player.HomeRuns * 4);
+
+            @:data.push({Name: "@playerName", DaysInTop: "@player.DaysInTop", LastTenAngle: "@player.LastTenLaunchAvg", LastTenSpeed: "@player.LastTenSpeedAvg", LastTenDistance: "@player.DistanceAvg", LastFiveTB: "@totalBases", LastFiveHits: "@player.LastFiveSingle", SeasonTB: "@seasonTotalBases", SeasonHits: "@totalSingles", HomeRuns: "@player.HomeRuns"});
+
+        }
 
         return data;
     }
@@ -576,52 +523,40 @@
                 filterable: false,
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
+                title: "Top 5 Days",
+                field: "DaysInTop",
                 encoded: true
             }, {
-                title: "Opponent",
-                field: "Opponent",
+                title: "Launch Angle",
+                field: "LastTenAngle",
                 encoded: true
             }, {
-                title: "Projection",
-                field: "Projection",
+                title: "Hit Speed",
+                field: "LastTenSpeed",
                 encoded: true
             }, {
-                title: "Salary",
-                field: "Salary",
+                title: "Distance Average",
+                field: "LastTenDistance",
                 encoded: true
             }, {
-                title: "Yesterday Score",
-                field: "YesterdayScore",
+                title: "L5 TB",
+                field: "LastFiveTB",
                 encoded: true
             }, {
-                title: "Yesterday Projection",
-                field: "YesterdayProjection",
+                title: "L5 Single",
+                field: "LastFiveHits",
                 encoded: true
             }, {
-                title: "Deviance",
-                field: "YesterdayDeviance",
+                title: "Season TB",
+                field: "SeasonTB",
                 encoded: true
             }, {
-                title: "Last Five Games",
-                field: "LastFiveGames",
+                title: "Season Single",
+                field: "SeasonHits",
                 encoded: true
             }, {
-                title: "Last Five Projected",
-                field: "LastFiveProjected",
-                encoded: true
-            }, {
-                title: "Last Five Deviance",
-                field: "LastFiveDeviance",
-                encoded: true
-            }, {
-                title: "Projected Hits",
-                field: "Hit",
-                encoded: true
-            }, {
-                title: "Projected HR",
-                field: "HomeRun",
+                title: "HR",
+                field: "HomeRuns",
                 encoded: true
             }],
             pageable: {
@@ -633,7 +568,7 @@
                 noRecords: "No records available."
             },
             dataSource: {
-                data: thirdbaseData(),
+                data: thirdBaseData(),
                 pageSize: 20,
                 schema: {
                     model: {
@@ -641,8 +576,8 @@
                             Name: {
                                 type: "string"
                             },
-                            Team: {
-                                type: "string"
+                            DaysInTop: {
+                                type: "number"
                             },
                             Opponent: {
                                 type: "string"
@@ -653,32 +588,29 @@
                             Salary: {
                                 type: "number"
                             },
-                            YesterdayScore: {
+                            LastTenLaunchAvg: {
+                                type: "decimal"
+                            },
+                            LastTenSpeedAvg: {
+                                type: "decimal"
+                            },
+                            LastTenDistance: {
+                                type: "decimal"
+                            },
+                            LastFiveTB: {
                                 type: "number"
                             },
-                            YesterdayProjection: {
-                                type: "decimal"
+                            LastFiveHits: {
+                                type: "number"
                             },
-                            YesterdayDeviance: {
-                                type: "decimal"
-
+                            SeasonTB: {
+                                type: "number"
                             },
-                            LastFiveGames: {
-                                type: "number",
-                                defaultValue: null
+                            SeasonHits: {
+                                type: "number"
                             },
-                            LastFiveProjected: {
-                                type: "decimal",
-                            },
-                            LastFiveDeviance: {
-                                type: "decimal",
-                            },
-                            Hit: {
-                                type: "decimal"
-                            },
-                            HomeRun: {
-                                type: "decimal"
-
+                            HomeRuns: {
+                                type: "number"
                             }
                         }
                     }
@@ -688,16 +620,21 @@
     });
 </script>
 <script>
-    function shortstopData() {
+    function shortStopData() {
         var data = new Array();
 
 
-        @*@foreach (var player in Model.ShortStops)
+        @foreach (var player in Model.ShortStops)
         {
             var playerName = player.FirstName + " " + player.LastName;
+            var totalSingles = player.Hits - player.Doubles - player.Triples - player.HomeRuns;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", LastFiveProjected: "@player.LastFiveProjected", LastFiveDeviance: "@player.LastFiveDeviance", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
-        }*@
+            var totalBases = (player.LastFiveDouble * 2) + (player.LastFiveTriple * 3) + (player.LastFiveHR * 4) + (player.LastFiveSingle);
+            var seasonTotalBases = (totalSingles) + (player.Doubles * 2) + (player.Triples * 3) + (player.HomeRuns * 4);
+
+            @:data.push({Name: "@playerName", DaysInTop: "@player.DaysInTop", LastTenAngle: "@player.LastTenLaunchAvg", LastTenSpeed: "@player.LastTenSpeedAvg", LastTenDistance: "@player.DistanceAvg", LastFiveTB: "@totalBases", LastFiveHits: "@player.LastFiveSingle", SeasonTB: "@seasonTotalBases", SeasonHits: "@totalSingles", HomeRuns: "@player.HomeRuns"});
+
+        }
 
         return data;
     }
@@ -719,52 +656,40 @@
                 filterable: false,
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
+                title: "Top 5 Days",
+                field: "DaysInTop",
                 encoded: true
             }, {
-                title: "Opponent",
-                field: "Opponent",
+                title: "Launch Angle",
+                field: "LastTenAngle",
                 encoded: true
             }, {
-                title: "Projection",
-                field: "Projection",
+                title: "Hit Speed",
+                field: "LastTenSpeed",
                 encoded: true
             }, {
-                title: "Salary",
-                field: "Salary",
+                title: "Distance Average",
+                field: "LastTenDistance",
                 encoded: true
             }, {
-                title: "Yesterday Score",
-                field: "YesterdayScore",
+                title: "L5 TB",
+                field: "LastFiveTB",
                 encoded: true
             }, {
-                title: "Yesterday Projection",
-                field: "YesterdayProjection",
+                title: "L5 Single",
+                field: "LastFiveHits",
                 encoded: true
             }, {
-                title: "Deviance",
-                field: "YesterdayDeviance",
+                title: "Season TB",
+                field: "SeasonTB",
                 encoded: true
             }, {
-                title: "Last Five Games",
-                field: "LastFiveGames",
+                title: "Season Single",
+                field: "SeasonHits",
                 encoded: true
             }, {
-                title: "Last Five Projected",
-                field: "LastFiveProjected",
-                encoded: true
-            }, {
-                title: "Last Five Deviance",
-                field: "LastFiveDeviance",
-                encoded: true
-            }, {
-                title: "Projected Hits",
-                field: "Hit",
-                encoded: true
-            }, {
-                title: "Projected HR",
-                field: "HomeRun",
+                title: "HR",
+                field: "HomeRuns",
                 encoded: true
             }],
             pageable: {
@@ -776,7 +701,7 @@
                 noRecords: "No records available."
             },
             dataSource: {
-                data: shortstopData(),
+                data: shortStopData(),
                 pageSize: 20,
                 schema: {
                     model: {
@@ -784,8 +709,8 @@
                             Name: {
                                 type: "string"
                             },
-                            Team: {
-                                type: "string"
+                            DaysInTop: {
+                                type: "number"
                             },
                             Opponent: {
                                 type: "string"
@@ -796,32 +721,29 @@
                             Salary: {
                                 type: "number"
                             },
-                            YesterdayScore: {
+                            LastTenLaunchAvg: {
+                                type: "decimal"
+                            },
+                            LastTenSpeedAvg: {
+                                type: "decimal"
+                            },
+                            LastTenDistance: {
+                                type: "decimal"
+                            },
+                            LastFiveTB: {
                                 type: "number"
                             },
-                            YesterdayProjection: {
-                                type: "decimal"
+                            LastFiveHits: {
+                                type: "number"
                             },
-                            YesterdayDeviance: {
-                                type: "decimal"
-
+                            SeasonTB: {
+                                type: "number"
                             },
-                            LastFiveGames: {
-                                type: "number",
-                                defaultValue: null
+                            SeasonHits: {
+                                type: "number"
                             },
-                            LastFiveProjected: {
-                                type: "decimal",
-                            },
-                            LastFiveDeviance: {
-                                type: "decimal",
-                            },
-                            Hit: {
-                                type: "decimal"
-                            },
-                            HomeRun: {
-                                type: "decimal"
-
+                            HomeRuns: {
+                                type: "number"
                             }
                         }
                     }
@@ -831,16 +753,21 @@
     });
 </script>
 <script>
-    function outfielderData() {
+    function outFieldData() {
         var data = new Array();
 
 
-        @*@foreach (var player in Model.Outfielders)
+        @foreach (var player in Model.Outfielders)
         {
             var playerName = player.FirstName + " " + player.LastName;
+            var totalSingles = player.Hits - player.Doubles - player.Triples - player.HomeRuns;
 
-              @:data.push({ Name: "@playerName", Team: "@player.TeamName", Opponent: "@player.OpponentThrowingHand  @player.OpponentStarter", Projection: "@player.Projection", Salary: "@player.Salary", YesterdayScore: "@player.YesterdayTotalScore", YesterdayProjection: "@player.YesterdayProjected", YesterdayDeviance: "@player.YesterdayDeviance", LastFiveGames: "@player.LastFiveTotalScore", LastFiveProjected: "@player.LastFiveProjected", LastFiveDeviance: "@player.LastFiveDeviance", HomeRun: "@player.ProjectedHR", Hit: "@player.ProjectedHit"});
-        }*@
+            var totalBases = (player.LastFiveDouble * 2) + (player.LastFiveTriple * 3) + (player.LastFiveHR * 4) + (player.LastFiveSingle);
+            var seasonTotalBases = (totalSingles) + (player.Doubles * 2) + (player.Triples * 3) + (player.HomeRuns * 4);
+
+            @:data.push({Name: "@playerName", DaysInTop: "@player.DaysInTop", LastTenAngle: "@player.LastTenLaunchAvg", LastTenSpeed: "@player.LastTenSpeedAvg", LastTenDistance: "@player.DistanceAvg", LastFiveTB: "@totalBases", LastFiveHits: "@player.LastFiveSingle", SeasonTB: "@seasonTotalBases", SeasonHits: "@totalSingles", HomeRuns: "@player.HomeRuns"});
+
+        }
 
         return data;
     }
@@ -862,52 +789,40 @@
                 filterable: false,
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
+                title: "Top 5 Days",
+                field: "DaysInTop",
                 encoded: true
             }, {
-                title: "Opponent",
-                field: "Opponent",
+                title: "Launch Angle",
+                field: "LastTenAngle",
                 encoded: true
             }, {
-                title: "Projection",
-                field: "Projection",
+                title: "Hit Speed",
+                field: "LastTenSpeed",
                 encoded: true
             }, {
-                title: "Salary",
-                field: "Salary",
+                title: "Distance Average",
+                field: "LastTenDistance",
                 encoded: true
             }, {
-                title: "Yesterday Score",
-                field: "YesterdayScore",
+                title: "L5 TB",
+                field: "LastFiveTB",
                 encoded: true
             }, {
-                title: "Yesterday Projection",
-                field: "YesterdayProjection",
+                title: "L5 Single",
+                field: "LastFiveHits",
                 encoded: true
             }, {
-                title: "Deviance",
-                field: "YesterdayDeviance",
+                title: "Season TB",
+                field: "SeasonTB",
                 encoded: true
             }, {
-                title: "Last Five Games",
-                field: "LastFiveGames",
+                title: "Season Single",
+                field: "SeasonHits",
                 encoded: true
             }, {
-                title: "Last Five Projected",
-                field: "LastFiveProjected",
-                encoded: true
-            }, {
-                title: "Last Five Deviance",
-                field: "LastFiveDeviance",
-                encoded: true
-            }, {
-                title: "Projected Hits",
-                field: "Hit",
-                encoded: true
-            }, {
-                title: "Projected HR",
-                field: "HomeRun",
+                title: "HR",
+                field: "HomeRuns",
                 encoded: true
             }],
             pageable: {
@@ -919,7 +834,7 @@
                 noRecords: "No records available."
             },
             dataSource: {
-                data: outfielderData(),
+                data: outFieldData(),
                 pageSize: 20,
                 schema: {
                     model: {
@@ -927,8 +842,8 @@
                             Name: {
                                 type: "string"
                             },
-                            Team: {
-                                type: "string"
+                            DaysInTop: {
+                                type: "number"
                             },
                             Opponent: {
                                 type: "string"
@@ -939,32 +854,29 @@
                             Salary: {
                                 type: "number"
                             },
-                            YesterdayScore: {
+                            LastTenLaunchAvg: {
+                                type: "decimal"
+                            },
+                            LastTenSpeedAvg: {
+                                type: "decimal"
+                            },
+                            LastTenDistance: {
+                                type: "decimal"
+                            },
+                            LastFiveTB: {
                                 type: "number"
                             },
-                            YesterdayProjection: {
-                                type: "decimal"
+                            LastFiveHits: {
+                                type: "number"
                             },
-                            YesterdayDeviance: {
-                                type: "decimal"
-
+                            SeasonTB: {
+                                type: "number"
                             },
-                            LastFiveGames: {
-                                type: "number",
-                                defaultValue: null
+                            SeasonHits: {
+                                type: "number"
                             },
-                            LastFiveProjected: {
-                                type: "decimal",
-                            },
-                            LastFiveDeviance: {
-                                type: "decimal",
-                            },
-                            Hit: {
-                                type: "decimal"
-                            },
-                            HomeRun: {
-                                type: "decimal"
-
+                            HomeRuns: {
+                                type: "number"
                             }
                         }
                     }
@@ -973,18 +885,26 @@
         });
     });
 </script>
+
+
+
+
+
+
+
+
 <script>
-    function pitcherData() {
+    function YesterdayData() {
         var data = new Array();
 
 
-        @*@foreach (var player in Model.Pitchers)
+        @foreach (var game in Model.YesterdayTopFive)
         {
-            var playerName = player.FirstName + " " + player.LastName;
 
-             @:data.push({ Name: "@playerName", Team: "@player.TeamName", Matchup: "@player.MatchUp", Projection: "@player.Projection", Salary: "@player.Salary", LastGame: "@player.LastStartScore", LastProjected: "@player.LastStartProjected", LastDeviance: "@player.LastStartDeviance", LastThreeGames: "@player.LastThreeTotalScore", LastThreeSO: "@player.LastThreeStrikeouts", LastThreeHRA: "@player.LastThreeHRA", LastThreeRuns: "@player.LastThreeERA", LastThreeIP: "@player.LastThreeInningsPitched",  StrikeOuts: "@player.ProjectedStrikeout", Hits: "@player.ProjectedHit",  Walks: "@player.ProjectedWalk", Homeruns: "@player.ProjectedHRA", Runs: "@player.ProjectedRA" });
 
-        }*@
+             @:data.push({ Name: "@game.PlayerName",  LastGame: "@game.Score", Position: "@game.Position"});
+
+        }
 
         return data;
     }
@@ -999,74 +919,18 @@
         $("#menu").kendoMenu();
         $(".textButton").kendoButton();
 
-        $("#pitcher").kendoGrid({
+        $("#yesterday").kendoGrid({
             columns: [{
                 title: "Name",
                 field: "Name",
                 encoded: true
             }, {
-                title: "Team",
-                field: "Team",
-                encoded: true
-            }, {
-                title: "Matchup",
-                field: "Matchup",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "Projection",
-                encoded: true
-            }, {
-                title: "Salary",
-                field: "Salary",
-                encoded: true
-            }, {
-                title: "Last Start",
+                title: "Score",
                 field: "LastGame",
                 encoded: true
             }, {
-                title: "Last Projection",
-                field: "LastProjection",
-                encoded: true
-            }, {
-                title: "Last Deviance",
-                field: "LastDeviance",
-                encoded: true
-            }, {
-                title: "Last Three Games",
-                field: "LastThreeGames",
-                encoded: true
-            }, {
-                title: "Last Three SO",
-                field: "LastThreeSO",
-                encoded: true
-            }, {
-                title: "Last Three HRA",
-                field: "LastThreeHRA",
-                encoded: true
-            }, {
-                title: "Last Three IP",
-                field: "LastThreeIP",
-                encoded: true
-            }, {
-                title: "Last Three Runs",
-                field: "LastThreeRuns",
-                encoded: true
-            }, {
-                title: "StrikeOuts",
-                field: "StrikeOuts",
-                encoded: true
-            }, {
-                title: "Hits",
-                field: "Hits",
-                encoded: true
-            }, {
-                title: "HR",
-                field: "Homeruns",
-                encoded: true
-            }, {
-                title: "Runs",
-                field: "Runs",
+                title: "Position",
+                field: "Position",
                 encoded: true
             }],
             pageable: {
@@ -1078,64 +942,19 @@
                 noRecords: "No records available."
             },
             dataSource: {
-                data: pitcherData(),
-                pageSize: 20,
+                data: YesterdayData(),
+                pageSize: 25,
                 schema: {
                     model: {
                         fields: {
                             Name: {
                                 type: "string"
                             },
-                            Team: {
+                            Score: {
+                                type: "number"
+                            },
+                            Position: {
                                 type: "string"
-                            },
-                            Matchup: {
-                                type: "string"
-                            },
-                            Projection: {
-                                type: "number"
-                            }, 
-                            Salary: {
-                                type: "number"
-                            },
-                            LastGame: {
-                                type: "decimal"
-                            },
-                            LastProjection: {
-                                type: "decimal"
-                            },
-                            LastDeviance: {
-                                type: "decimal"
-                            },
-                            LastThreeGames: {
-                                type: "decimal"
-                            },
-                            LastThreeSO: {
-                                type: "number"
-                            },
-                            LastThreeHRA: {
-                                type: "number"
-                            },
-                            LastThreeRuns: {
-                                type: "number"
-                            },
-                            LastThreeIP: {
-                                type: "decimal"
-                            },
-                            StrikeOuts: {
-                                type: "decimal"
-                            },
-                            Hits: {
-                                type: "decimal"
-                            },
-                            Walks: {
-                                type: "decimal"
-                            },
-                            Homeruns: {
-                                type: "decimal"
-                            },
-                            Runs: {
-                                type: "decimal"
                             }
                         }
                     }
@@ -1265,7 +1084,7 @@
                             },
                             PointsAllowed: {
                                 type: "number"
-                            }, 
+                            },
                             PointsPPU: {
                                 type: "decimal"
                             }
@@ -1277,206 +1096,3 @@
     });
 </script>
 
-<script>
-    function projectedTeamData() {
-        var data = new Array();
-
-
-        @*@foreach (var team in Model.ProjectedTeams)
-        {
-
-             @:data.push({ Pitcher1: "@team.PitcherOne" + " " + "$@team.PitcherOneSalary", Pitcher1Projection: "@team.PitcherOneProjection", Pitcher2: "@team.PitcherTwo" + " " + "$@team.PitcherTwoSalary", Pitcher2Projection: "@team.PitcherTwoProjection", Catcher: "@team.Catcher" + " " + "$@team.CatcherSalary", CatcherProjection: "@team.CatcherProjection", Firstbase: "@team.FirstBase" + " " + "$@team.FirstBaseSalary", FirstbaseProjection: "@team.FirstBaseProjection", Secondbase: "@team.SecondBase" + " " + "$@team.SecondBaseSalary", SecondbaseProjection: "@team.SecondBaseProjection", Thirdbase: "@team.ThirdBase" + " " + "$@team.ThirdBaseSalary", ThirdbaseProjection: "@team.ThirdBaseProjection", Shortstop: "@team.Shortstop" + " " + "$@team.ShortstopSalary", ShortstopProjection: "@team.ShortstopProjection", Outfielder1: "@team.OutfieldOne" + " " + "$@team.OutfieldOneSalary", Outfielder1Projection: "@team.OutfieldOneProjection", Outfielder2: "@team.OutfieldTwo" + " " + "$@team.OutfieldTwoSalary", Outfielder2Projection: "@team.OutfieldTwoProjection", Outfielder3: "@team.OutfieldThree" + " " + "$@team.OutfieldThreeSalary", Outfielder3Projection: "@team.OutfieldThreeProjection", TotalProjection: "@team.TeamProjection", TotalCost: "$@team.TotalCost"  });
-
-        }*@
-
-        return data;
-    }
-
-    $(function () {
-        $("#responsive-panel").kendoResponsivePanel({
-            breakpoint: 768,
-            autoClose: false,
-            orientation: "top"
-        });
-
-        $("#menu").kendoMenu();
-        $(".textButton").kendoButton();
-
-        $("#projectedTeam").kendoGrid({
-            columns: [{
-                title: "P #1",
-                field: "Pitcher1",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "Pitcher1Projection",
-                encoded: true
-            }, {
-                title: "P #2",
-                field: "Pitcher2",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "Pitcher2Projection",
-                encoded: true
-            }, {
-                title: "C",
-                field: "Catcher",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "CatcherProjection",
-                encoded: true
-            }, {
-                title: "1B",
-                field: "Firstbase",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "FirstbaseProjection",
-                encoded: true
-            }, {
-                title: "2B",
-                field: "Secondbase",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "SecondbaseProjection",
-                encoded: true
-            }, {
-                title: "3B",
-                field: "Thirdbase",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "ThirdbaseProjection",
-                encoded: true
-            }, {
-                title: "SS",
-                field: "Shortstop",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "ShortstopProjection",
-                encoded: true
-            }, {
-                title: "OF #1",
-                field: "Outfielder1",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "Outfielder1Projection",
-                encoded: true
-            }, {
-                title: "OF #2",
-                field: "Outfielder2",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "Outfielder2Projection",
-                encoded: true
-            }, {
-                title: "OF #3",
-                field: "Outfielder3",
-                encoded: true
-            }, {
-                title: "Projection",
-                field: "Outfielder3Projection",
-                encoded: true
-            }, {
-                title: "Total Projection",
-                field: "TotalProjection",
-                encoded: true
-            }, {
-                title: "Total Cost",
-                field: "TotalCost",
-                encoded: true
-            }],
-            pageable: {
-                buttonCount: 10
-            },
-            sortable: true,
-            filterable: true,
-            messages: {
-                noRecords: "No records available."
-            },
-            dataSource: {
-                data: projectedTeamData(),
-                pageSize: 30,
-                schema: {
-                    model: {
-                        fields: {
-                            Pitcher1: {
-                                type: "string"
-                            },
-                            Pitcher1Projection: {
-                                type: "decimal"
-                            },
-                            Pitcher2: {
-                                type: "string"
-                            },
-                            Pitcher2Projection: {
-                                type: "decimal"
-                            },
-                            Catcher: {
-                                type: "string"
-                            },
-                            CatcherProjection: {
-                                type: "decimal"
-                            },
-                            Firstbase: {
-                                type: "string"
-                            },
-                            FirstbaseProjection: {
-                                type: "decimal"
-                            },
-                            Secondbase: {
-                                type: "string"
-                            },
-                            SecondbaseProjection: {
-                                type: "decimal"
-                            },
-                            Thirdbase: {
-                                type: "string"
-                            },
-                            ThirdbaseProjection: {
-                                type: "decimal"
-                            },
-                            Shortstop: {
-                                type: "string"
-                            },
-                            ShortstopProjection: {
-                                type: "decimal"
-                            },
-                            Outfielder1: {
-                                type: "string"
-                            },
-                            Outfielder1Projection: {
-                                type: "decimal"
-                            },
-                            Outfielder2: {
-                                type: "string"
-                            },
-                            Outfielder2Projection: {
-                                type: "decimal"
-                            },
-                            Outfielder3: {
-                                type: "string"
-                            },
-                            Outfielder3Projection: {
-                                type: "decimal"
-                            },
-                            TotalProjection: {
-                                type: "decimal"
-                            },
-                            TotalCost: {
-                                type: "number"
-
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    });
-</script>

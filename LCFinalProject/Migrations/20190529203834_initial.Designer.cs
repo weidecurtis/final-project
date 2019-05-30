@@ -11,9 +11,10 @@ using System;
 namespace LCFinalProject.Migrations
 {
     [DbContext(typeof(BeatTheShiftDbContext))]
-    partial class BeatTheShiftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190529203834_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,8 +273,6 @@ namespace LCFinalProject.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("PlayerID");
-
-                    b.Property<string>("PlayerName");
 
                     b.Property<string>("Position");
 

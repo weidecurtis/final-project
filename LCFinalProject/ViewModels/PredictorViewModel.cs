@@ -9,13 +9,16 @@ namespace LCFinalProject.ViewModels
 {
     public class PredictorViewModel
     {
-        //public IList<PositionPlayer> Catchers { get; set; }
-        //public IList<Pitcher> Pitchers { get; set; }
-        //public IList<PositionPlayer> FirstBasemen { get; set; }
-        //public IList<PositionPlayer> SecondBasemen { get; set; }
-        //public IList<PositionPlayer> ShortStops { get; set; }
-        //public IList<PositionPlayer> ThirdBasemen { get; set; }
-        //public IList<PositionPlayer> Outfielders { get; set; }
+        public IList<Batter> Catchers { get; set; }
+        public IList<Pitcher> Pitchers { get; set; }
+        public IList<Batter> FirstBasemen { get; set; }
+        public IList<Batter> SecondBasemen { get; set; }
+        public IList<Batter> ShortStops { get; set; }
+        public IList<Batter> ThirdBasemen { get; set; }
+        public IList<Batter> Outfielders { get; set; }
+
+        public IList<TopGame> YesterdayTopFive { get; set; }
+
         //public IList<Team> Teams { get; set; }
         //public IList<ProjectedTeam> ProjectedTeams { get; set; }
 
